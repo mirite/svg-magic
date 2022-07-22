@@ -1,4 +1,4 @@
-import { CSSContents, CSSTypes } from '../types';
+import { CSSContents, CSSTypes } from 'types';
 import CSSParser, { Stylesheet } from 'css';
 
 export function assertIsRule(

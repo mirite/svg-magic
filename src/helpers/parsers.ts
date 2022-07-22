@@ -1,4 +1,4 @@
-import { IPath, ISVGRule, SVGSubElement } from '../types';
+import { IPath, ISVGRule, SVGSubElement } from 'types';
 import { parseCSS } from './css';
 
 export function findSVGClasses(

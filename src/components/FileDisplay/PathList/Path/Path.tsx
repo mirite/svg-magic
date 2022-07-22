@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import styles from './Path.module.css';
-import { IPath } from '../../../../types';
 import PathList from '../PathList';
+import styles from './Path.module.css';
+import { IPath } from 'types';
 
 interface IProps extends IPath {}
 

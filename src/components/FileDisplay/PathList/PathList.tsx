@@ -1,6 +1,6 @@
 import React from 'react';
 import Path from './Path/Path';
-import { IPath } from '../../../types';
+import { IPath } from 'types';
 
 function PathList(props: { items: IPath[] }) {
 	return (

@@ -1,8 +1,8 @@
 import React from 'react';
-import { ISVGRule } from '../../../types';
 import SelectorList from './SelectorList/SelectorList';
 import DeclarationList from './DeclarationList/DeclarationList';
-import { assertIsRule } from '../../../helpers/css';
+import { assertIsRule } from 'helpers/css';
+import { ISVGRule } from 'types';
 
 interface IProps extends ISVGRule {}
 

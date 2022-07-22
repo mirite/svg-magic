@@ -1,8 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
-import styles from '../SVGRule.module.css';
-import { CSSTypes } from '../../../../types';
-import { setTagContent } from '../../../../helpers/dom';
-import { stylesheetToText } from '../../../../helpers/css';
+import { CSSTypes } from 'types';
+import { setTagContent } from 'helpers/dom';
+import { stylesheetToText } from 'helpers/css';
 
 interface IProps {
 	rule: CSSTypes.Rule;
@@ -39,7 +38,7 @@ function DeclarationList(props: IProps) {
 	const declaration = (dec: CSSTypes.Declaration, i: number) => {
 		const isOn = !toggledOff.find((d) => d === dec);
 		return (
-			<li key={i} className={styles.rule}>
+			<li key={i}>
 				<label>
 					<input
 						type="checkbox"

@@ -1,10 +1,9 @@
 import React, { Component, createRef } from 'react';
-import styles from './FileDisplay.module.css';
-import { IPath, ISVGRule } from '../../types';
-
 import SVGClass from './SVGRule/SVGRule';
-import { findSVGChildren, findSVGClasses } from '../../helpers/parsers';
 import PathList from './PathList/PathList';
+import { findSVGChildren, findSVGClasses } from 'helpers/parsers';
+import styles from './FileDisplay.module.css';
+import { IPath, ISVGRule } from 'types';
 
 interface IProps {
 	contents: string;
@@ -53,7 +52,7 @@ class FileDisplay extends Component<IProps, IState> {
 					ref={this.svgContainer}
 					dangerouslySetInnerHTML={{ __html: contents }}
 				></div>
-				<textarea>{contents}</textarea>
+				<textarea value={contents}></textarea>
 				<div>
 					<h2>Elements</h2>
 					<PathList items={paths} />
