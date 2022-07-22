@@ -1,7 +1,6 @@
 import React from 'react';
 import Path from './Path/Path';
-import {ChangeOptions, IPath, SVGSubElement} from 'types';
-import {useDrop} from 'react-dnd';
+import {ChangeOptions, IPath} from 'types';
 
 interface IProps {
 	node: IPath,
@@ -10,22 +9,9 @@ interface IProps {
 
 function PathList(props: IProps) {
 	const {children, elem} = props.node;
-	const [, drop] = useDrop(() => ({
-		accept: 'element',
-		drop(_item: { elem: SVGSubElement }) {
-			const options: ChangeOptions = {
-				type: "move",
-				options: {
-					element: _item.elem,
-					target: elem
-				}
-			}
-			props.onChange(options);
-		},
-	}));
 
 	return (
-		<ul ref={drop}>
+		<ul>
 			{children.map((path, i) => (
 				<Path key={i} {...path} onChange={(e) => props.onChange(e)}/>
 			))}

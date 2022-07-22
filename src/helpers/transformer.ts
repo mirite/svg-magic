@@ -38,6 +38,6 @@ export function performChange(
 			break;
 	}
 	const html = shadowContainer.innerHTML;
-	//shadowContainer.innerHTML = '';
+	shadowContainer.innerHTML = '';
 	return html;
 }

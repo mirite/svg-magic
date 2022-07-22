@@ -43,10 +43,11 @@ export function findSVGChildren(
 ): IPath[] {
 	const processChild = (child: SVGSubElement, index: number): IPath => {
 		const elementIndex = parentIndex ? parentIndex + index : index;
+		const name = `${child.nodeName} ${child.id ?? ""} ${child.classList.value ?? ""}`;
 		return {
 			elem: child,
-			name: `${child.nodeName} ${elementIndex}`,
-			children: findSVGChildren(child, `${elementIndex}-`),
+			name,
+			children: findSVGChildren(child, ``),
 		};
 	};
 
