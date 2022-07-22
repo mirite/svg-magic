@@ -1,4 +1,4 @@
-import CSSParser from 'css';
+import * as CSSTypes from 'css';
 
 export type SVGSubElement =
 	| SVGPathElement
@@ -14,8 +14,10 @@ export interface IPath {
 	children: IPath[];
 }
 
-export type CSSContents = CSSParser.Rule | CSSParser.AtRule | CSSParser.Comment;
+export type CSSContents = CSSTypes.Rule | CSSTypes.AtRule | CSSTypes.Comment;
 
 export interface ISVGRule {
 	rule: CSSContents;
 }
+
+export { CSSTypes };

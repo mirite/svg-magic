@@ -1,22 +1,18 @@
 import { IPath, ISVGRule, SVGSubElement } from '../types';
-import CSSParser from 'css';
+import { parseCSS } from './css';
 
 export function findSVGClasses(
 	parent: SVGElement | SVGSubElement,
 	classes?: ISVGRule[]
 ) {
 	const findRules = (styleElem: HTMLStyleElement): ISVGRule[] => {
-		try {
-			const stylesheet = CSSParser.parse(styleElem.innerHTML);
-			return (
-				stylesheet.stylesheet?.rules.map((rule) => {
-					return { rule };
-				}) || []
-			);
-		} catch (e) {
-			console.error(e);
-			return [];
-		}
+		const stylesheet = parseCSS(styleElem.innerHTML);
+
+		return (
+			stylesheet?.stylesheet?.rules.map((rule) => {
+				return { rule };
+			}) || []
+		);
 	};
 
 	const processChild = (child: SVGSubElement) => {
