@@ -1,0 +1,16 @@
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.container code {
+    overflow: auto;
+    max-height: 500px;
+    border: 1px solid black;
+    padding: 1rem;
+}
+
+.container div {
+    max-height: 500px;
+}
