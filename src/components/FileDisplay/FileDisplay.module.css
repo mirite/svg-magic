@@ -15,3 +15,13 @@
     max-height: 50vh;
     overflow: auto;
 }
+
+@media (min-width: 1080px) {
+    .container {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+    .container div {
+        max-height: 100vh;
+    }
+
+}

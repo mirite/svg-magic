@@ -30,19 +30,24 @@ function ElementsPane(props: IProps) {
 		setSelected(old);
 	}
 
+	const handleChangeOption = (e: ChangeOptions) => {
+		props.onChange(e);
+		setSelected([]);
+	};
+
 	return (
 		<div>
 			<h2>Elements</h2>
 			<DndProvider backend={HTML5Backend}>
 				<PathList
 					node={rootNode}
-					onChange={(e: ChangeOptions) => props.onChange(e)}
-					onCheck={(e: ChangeEvent<HTMLInputElement>, p:IPath) => updateSelected(e, p)}
+					onChange={(e: ChangeOptions) => handleChangeOption(e)}
+					onCheck={(e: ChangeEvent<HTMLInputElement>, p: IPath) => updateSelected(e, p)}
 					selected={selected}
 				/>
 			</DndProvider>
-			<AssignClass selected={selected} onChange={(e: ChangeOptions) => props.onChange(e)}/>
-			<AddGroup onChange={(e: ChangeOptions) => props.onChange(e)}/>
+			<AssignClass selected={selected} onChange={(e: ChangeOptions) => handleChangeOption(e)}/>
+			<AddGroup onChange={(e: ChangeOptions) => handleChangeOption(e)} selected={selected}/>
 		</div>
 	);
 }

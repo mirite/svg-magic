@@ -27,6 +27,7 @@ export interface IGroupOptions {
 	type: 'group';
 	options: {
 		className?: string;
+		selectedItems?: IPath[];
 	};
 }
 
