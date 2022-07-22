@@ -1,5 +1,5 @@
 import React from 'react';
-import {SVGSubElement} from "../types";
+import { SVGSubElement } from '../types';
 
 export function setTagContent(
 	ref: React.MutableRefObject<HTMLElement | null>,
@@ -10,17 +10,22 @@ export function setTagContent(
 	}
 }
 
-export function isEquivalentElement(a: HTMLElement | SVGElement, b: HTMLElement | SVGElement): boolean {
+export function isEquivalentElement(
+	a: HTMLElement | SVGElement,
+	b: HTMLElement | SVGElement
+): boolean {
 	const clean = (toClean: HTMLElement | SVGElement) => {
 		return toClean.outerHTML.trim();
-	}
+	};
 	return clean(a) === clean(b);
 }
 
-export function findShadowEquivalent(realElementToFind: SVGSubElement, shadowElement: SVGSubElement): SVGSubElement | null {
-
+export function findShadowEquivalent(
+	realElementToFind: SVGSubElement,
+	shadowElement: SVGSubElement
+): SVGSubElement | null {
 	if (isEquivalentElement(realElementToFind, shadowElement)) {
-		return shadowElement
+		return shadowElement;
 	}
 	const children = Array.from(shadowElement.children) as SVGSubElement[];
 

@@ -37,17 +37,15 @@ export function findSVGClasses(
 	return localClasses;
 }
 
-export function findSVGChildren(
-	parent: SVGElement | SVGSubElement,
-	parentIndex?: string
-): IPath[] {
-	const processChild = (child: SVGSubElement, index: number): IPath => {
-		const elementIndex = parentIndex ? parentIndex + index : index;
-		const name = `${child.nodeName} ${child.id ?? ""} ${child.classList.value ?? ""}`;
+export function findSVGChildren(parent: SVGElement | SVGSubElement): IPath[] {
+	const processChild = (child: SVGSubElement): IPath => {
+		const name = `${child.nodeName} ${child.id ?? ''} ${
+			child.classList.value ?? ''
+		}`;
 		return {
 			elem: child,
 			name,
-			children: findSVGChildren(child, ``),
+			children: findSVGChildren(child),
 		};
 	};
 
