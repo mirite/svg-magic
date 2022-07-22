@@ -1,9 +1,11 @@
-import React, {Component, createRef} from 'react';
-import SVGClass from './SVGRule/SVGRule';
-import PathList from './PathList/PathList';
-import {findSVGChildren, findSVGClasses} from 'helpers/parsers';
+import React, { Component, createRef } from 'react';
+import { findSVGChildren, findSVGClasses } from 'helpers/parsers';
 import styles from './FileDisplay.module.css';
-import {IPath, ISVGRule} from 'types';
+import { IPath, ISVGRule } from 'types';
+import ElementsPane from './ElementPane/ElementsPane';
+import ClassesPane from './ClassesPane/ClassesPane';
+import PreviewPane from './PreviewPane/PreviewPane';
+import EditorPane from './EditorPane/EditorPane';
 
 interface IProps {
 	contents: string;
@@ -21,7 +23,7 @@ class FileDisplay extends Component<IProps, IState> {
 		const paths: IPath[] = [];
 		const classes: ISVGRule[] = [];
 		const workingSVG = props.contents;
-		this.state = {paths, classes, workingSVG};
+		this.state = { paths, classes, workingSVG };
 	}
 
 	private svgContainer = createRef<HTMLDivElement>();
@@ -30,10 +32,13 @@ class FileDisplay extends Component<IProps, IState> {
 		this.evaluateSVG();
 	}
 
-	componentDidUpdate(prevProps: Readonly<IProps>, prevState: Readonly<IState>) {
+	componentDidUpdate(
+		prevProps: Readonly<IProps>,
+		prevState: Readonly<IState>
+	) {
 		if (this.props !== prevProps) {
 			const workingSVG = this.props.contents;
-			this.setState({workingSVG});
+			this.setState({ workingSVG });
 		}
 		if (this.state.workingSVG !== prevState.workingSVG) {
 			this.evaluateSVG();
@@ -47,37 +52,30 @@ class FileDisplay extends Component<IProps, IState> {
 		if (!svgElem) return;
 		const paths: IPath[] = findSVGChildren(svgElem);
 		const classes: ISVGRule[] = findSVGClasses(svgElem);
-		this.setState({paths, classes});
+		this.setState({ paths, classes });
 	}
 
 	render() {
-		const {paths, classes, workingSVG} = this.state;
+		const { paths, classes, workingSVG } = this.state;
 		return (
 			<div className={styles.container}>
-				<div
-					ref={this.svgContainer}
-					dangerouslySetInnerHTML={{__html: workingSVG}}
-				></div>
-				<textarea value={workingSVG} onChange={(e) => this.updateSVG(e)}></textarea>
-				<div>
-					<h2>Elements</h2>
-					<PathList items={paths}/>
-				</div>
-				<div>
-					<h2>Classes</h2>
-					<ul>
-						{classes.map((c, i) => (
-							<SVGClass key={i} {...c} />
-						))}
-					</ul>
-				</div>
+				<PreviewPane
+					containerRef={this.svgContainer}
+					svgHTML={workingSVG}
+				/>
+				<EditorPane
+					svgHTML={workingSVG}
+					onChange={(e) => this.updateSVG(e)}
+				/>
+				<ElementsPane paths={paths} />
+				<ClassesPane classes={classes} />
 			</div>
 		);
 	}
 
-	private updateSVG(e: React.ChangeEvent<HTMLTextAreaElement>) {
-		const workingSVG = e.currentTarget.value;
-		this.setState({workingSVG});
+	private updateSVG(e: string) {
+		const workingSVG = e;
+		this.setState({ workingSVG });
 	}
 }
 
