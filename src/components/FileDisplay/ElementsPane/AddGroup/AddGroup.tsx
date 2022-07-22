@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { IGroupOptions } from 'types';
+import styles from './AddGroup.module.css';
 
 interface IProps {
 	onChange: (changeOptions: IGroupOptions) => void;
@@ -15,16 +16,17 @@ function AddGroup(props: IProps) {
 	};
 
 	return (
-		<div>
+		<div className={styles.group}>
+			Add Group
 			<label>
-				Class:{' '}
+				Class:
 				<input
 					type="text"
 					value={className}
 					onChange={(e) => setClassName(e.currentTarget.value)}
 				/>
 			</label>
-			<button onClick={() => props.onChange(options)}>Add Group</button>
+			<button onClick={() => props.onChange(options)}>Add</button>
 		</div>
 	);
 }
