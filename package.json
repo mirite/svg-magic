@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "eslint ./src/**/*.ts --fix && eslint ./src/**/*.tsx --fix"
   },
   "dependencies": {
     "css": "^3.0.0",
@@ -15,11 +16,15 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.18.9",
     "@types/css": "^0.0.33",
     "@types/lodash": "^4.14.182",
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",
     "@vitejs/plugin-react": "^2.0.0",
+    "@wordpress/eslint-plugin": "^12.7.0",
+    "eslint": "^8.20.0",
+    "prettier": "^2.7.1",
     "prop-types": "^15.8.1",
     "typescript": "^4.6.4",
     "vite": "^3.0.0"

@@ -1,14 +1,18 @@
-import {IPath, ISVGRule, SVGSubElement} from "../types";
-import CSSParser from "css";
+import { IPath, ISVGRule, SVGSubElement } from '../types';
+import CSSParser from 'css';
 
-export function findSVGClasses(parent: SVGElement | SVGSubElement, classes?: ISVGRule[]) {
-
+export function findSVGClasses(
+	parent: SVGElement | SVGSubElement,
+	classes?: ISVGRule[]
+) {
 	const findRules = (styleElem: HTMLStyleElement): ISVGRule[] => {
 		try {
 			const stylesheet = CSSParser.parse(styleElem.innerHTML);
-			return stylesheet.stylesheet?.rules.map(rule => {
-				return {rule}
-			}) || [];
+			return (
+				stylesheet.stylesheet?.rules.map((rule) => {
+					return { rule };
+				}) || []
+			);
 		} catch (e) {
 			console.error(e);
 			return [];
@@ -16,11 +20,15 @@ export function findSVGClasses(parent: SVGElement | SVGSubElement, classes?: ISV
 	};
 
 	const processChild = (child: SVGSubElement) => {
-		if ("defs" !== child.nodeName) return;
+		if ('defs' !== child.nodeName) {
+			return;
+		}
 
-		const styleElem = child.querySelector("style") as HTMLStyleElement | null;
-		if (styleElem && "style" === styleElem.nodeName) {
-			localClasses.push(...findRules(styleElem))
+		const styleElem = child.querySelector(
+			'style'
+		) as HTMLStyleElement | null;
+		if (styleElem && 'style' === styleElem.nodeName) {
+			localClasses.push(...findRules(styleElem));
 		}
 
 		if (child.children.length) {
@@ -33,14 +41,19 @@ export function findSVGClasses(parent: SVGElement | SVGSubElement, classes?: ISV
 	return localClasses;
 }
 
-export function findSVGChildren(parent: SVGElement | SVGSubElement, paths?: IPath[]) {
-	const localPaths = paths ?? [];
+export function findSVGChildren(
+	parent: SVGElement | SVGSubElement,
+	parentIndex?: string
+): IPath[] {
+	const processChild = (child: SVGSubElement, index: number) => {
+		const elementIndex = parentIndex ? parentIndex + index : index;
+		return {
+			elem: child,
+			name: `${child.nodeName} ${elementIndex}`,
+			children: findSVGChildren(child, `${elementIndex}-`),
+		};
+	};
+
 	const children = Array.from(parent.children) as SVGSubElement[];
-	children.forEach((child, i) => {
-		localPaths.push({elem: child, name: `${child.nodeName} ${i}`});
-		if (child.children.length) {
-			findSVGChildren(child, localPaths);
-		}
-	});
-	return localPaths;
+	return children.map(processChild);
 }

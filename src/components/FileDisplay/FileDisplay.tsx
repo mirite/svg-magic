@@ -1,10 +1,10 @@
 import React, {Component, createRef} from 'react';
 import styles from "./FileDisplay.module.css";
 import {IPath, ISVGRule} from "../../types";
-import Path from "./Path/Path";
 
-import SVGClass from "./SVGClass/SVGRule";
+import SVGClass from "./SVGRule/SVGRule";
 import {findSVGChildren, findSVGClasses} from "../../helpers/parsers";
+import PathList from "./PathList/PathList";
 
 interface IProps {
 	contents: string;
@@ -55,7 +55,7 @@ class FileDisplay extends Component<IProps, IState> {
 				<textarea>{contents}</textarea>
 				<div>
 					<h2>Elements</h2>
-					<ul>{paths.map((path, i) => <Path key={i} {...path}/>)}</ul>
+					<PathList items={paths}/>
 				</div>
 				<div>
 					<h2>Classes</h2>

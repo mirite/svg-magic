@@ -1,7 +1,7 @@
-import CSSParser from "css";
+import CSSParser from 'css';
 
 export type SVGSubElement =
-	SVGPathElement
+	| SVGPathElement
 	| SVGCircleElement
 	| SVGPolygonElement
 	| SVGLineElement
@@ -10,7 +10,8 @@ export type SVGSubElement =
 
 export interface IPath {
 	name: string;
-	elem: SVGSubElement
+	elem: SVGSubElement;
+	children: IPath[];
 }
 
 export type CSSContents = CSSParser.Rule | CSSParser.AtRule | CSSParser.Comment;

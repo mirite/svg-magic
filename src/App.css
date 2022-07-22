@@ -18,15 +18,3 @@ svg {
 svg .active {
   stroke: red;
 }
-
-
-li {
-  text-align: left;
-  max-width: fit-content;
-  padding: 1rem;
-}
-
-ul {
-  display: flex;
-  flex-wrap: wrap;
-}

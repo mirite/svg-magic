@@ -4,7 +4,7 @@
     gap: 1rem;
 }
 
-.container code {
+.container textarea {
     overflow: auto;
     max-height: 500px;
     border: 1px solid black;
@@ -12,5 +12,6 @@
 }
 
 .container div {
-    max-height: 500px;
+    max-height: 50vh;
+    overflow: auto;
 }
