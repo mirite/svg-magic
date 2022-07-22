@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import PathList from './PathList/PathList';
-import { ChangeOptions, IPath } from 'types';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
+import {ChangeOptions, IPath} from 'types';
+import {DndProvider} from 'react-dnd';
+import {HTML5Backend} from 'react-dnd-html5-backend';
 import AddGroup from './AddGroup/AddGroup';
+import AssignClass from "./AssignClass/AssignClass";
 
 interface IProps {
 	svgRoot: SVGElement | undefined | null;
@@ -12,13 +13,22 @@ interface IProps {
 }
 
 function ElementsPane(props: IProps) {
-	const { svgRoot, paths } = props;
+	const {svgRoot, paths} = props;
 
 	if (!svgRoot) {
 		return <div>SVG Root Element Not Found</div>;
 	}
 
-	const rootNode: IPath = { name: 'root', elem: svgRoot, children: paths };
+	const rootNode: IPath = {name: 'root', elem: svgRoot, children: paths};
+	const [selected, setSelected] = useState<IPath[]>([]);
+
+	function updateSelected(e: React.ChangeEvent<HTMLInputElement>, clickedPath: IPath) {
+		const old = [...selected].filter(path => path.elem !== clickedPath.elem);
+		if (e.currentTarget.checked) {
+			old.push(clickedPath)
+		}
+		setSelected(old);
+	}
 
 	return (
 		<div>
@@ -27,9 +37,12 @@ function ElementsPane(props: IProps) {
 				<PathList
 					node={rootNode}
 					onChange={(e: ChangeOptions) => props.onChange(e)}
+					onCheck={(e: ChangeEvent<HTMLInputElement>, p:IPath) => updateSelected(e, p)}
+					selected={selected}
 				/>
 			</DndProvider>
-			<AddGroup onChange={(e: ChangeOptions) => props.onChange(e)} />
+			<AssignClass selected={selected} onChange={(e: ChangeOptions) => props.onChange(e)}/>
+			<AddGroup onChange={(e: ChangeOptions) => props.onChange(e)}/>
 		</div>
 	);
 }

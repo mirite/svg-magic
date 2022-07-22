@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { IGroupOptions } from 'types';
-import styles from './AddGroup.module.css';
 
 interface IProps {
 	onChange: (changeOptions: IGroupOptions) => void;
@@ -16,7 +15,7 @@ function AddGroup(props: IProps) {
 	};
 
 	return (
-		<div className={styles.group}>
+		<div className="group">
 			Add Group
 			<label>
 				Class:

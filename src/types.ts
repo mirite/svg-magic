@@ -21,7 +21,7 @@ export interface ISVGRule {
 	rule: CSSContents;
 }
 
-export type ChangeOptions = IGroupOptions | IMoveOptions;
+export type ChangeOptions = IGroupOptions | IMoveOptions | IAssignClassOptions;
 
 export interface IGroupOptions {
 	type: 'group';
@@ -36,6 +36,14 @@ export interface IMoveOptions {
 		element: SVGSubElement;
 		target: SVGSubElement;
 	};
+}
+
+export interface IAssignClassOptions {
+	type: 'assign';
+	options: {
+		className: string;
+		selectedItems: IPath[];
+	}
 }
 
 export { CSSTypes };
