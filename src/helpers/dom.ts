@@ -1,4 +1,5 @@
 import React from 'react';
+import {SVGSubElement} from "../types";
 
 export function setTagContent(
 	ref: React.MutableRefObject<HTMLElement | null>,
@@ -7,4 +8,28 @@ export function setTagContent(
 	if (ref?.current) {
 		ref.current.innerHTML = content;
 	}
+}
+
+export function isEquivalentElement(a: HTMLElement | SVGElement, b: HTMLElement | SVGElement): boolean {
+	const clean = (toClean: HTMLElement | SVGElement) => {
+		return toClean.outerHTML.trim();
+	}
+	return clean(a) === clean(b);
+}
+
+export function findShadowEquivalent(realElementToFind: SVGSubElement, shadowElement: SVGSubElement): SVGSubElement | null {
+
+	if (isEquivalentElement(realElementToFind, shadowElement)) {
+		return shadowElement
+	}
+	const children = Array.from(shadowElement.children) as SVGSubElement[];
+
+	for (const child of children) {
+		const match = findShadowEquivalent(realElementToFind, child);
+		if (match) {
+			return match;
+		}
+	}
+
+	return null;
 }

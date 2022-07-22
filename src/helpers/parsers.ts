@@ -41,7 +41,7 @@ export function findSVGChildren(
 	parent: SVGElement | SVGSubElement,
 	parentIndex?: string
 ): IPath[] {
-	const processChild = (child: SVGSubElement, index: number) => {
+	const processChild = (child: SVGSubElement, index: number): IPath => {
 		const elementIndex = parentIndex ? parentIndex + index : index;
 		return {
 			elem: child,

@@ -1,11 +1,12 @@
-import React, { Component, createRef } from 'react';
-import { findSVGChildren, findSVGClasses } from 'helpers/parsers';
+import React, {Component, createRef} from 'react';
+import {findSVGChildren, findSVGClasses} from 'helpers/parsers';
 import styles from './FileDisplay.module.css';
-import { IPath, ISVGRule } from 'types';
-import ElementsPane from './ElementPane/ElementsPane';
+import {ChangeOptions, IPath, ISVGRule} from 'types';
+import ElementsPane from './ElementsPane/ElementsPane';
 import ClassesPane from './ClassesPane/ClassesPane';
 import PreviewPane from './PreviewPane/PreviewPane';
 import EditorPane from './EditorPane/EditorPane';
+import {performChange} from '../../helpers/transformer';
 
 interface IProps {
 	contents: string;
@@ -23,10 +24,11 @@ class FileDisplay extends Component<IProps, IState> {
 		const paths: IPath[] = [];
 		const classes: ISVGRule[] = [];
 		const workingSVG = props.contents;
-		this.state = { paths, classes, workingSVG };
+		this.state = {paths, classes, workingSVG};
 	}
 
 	private svgContainer = createRef<HTMLDivElement>();
+	private shadowContainer = createRef<HTMLDivElement>();
 
 	componentDidMount() {
 		this.evaluateSVG();
@@ -38,7 +40,7 @@ class FileDisplay extends Component<IProps, IState> {
 	) {
 		if (this.props !== prevProps) {
 			const workingSVG = this.props.contents;
-			this.setState({ workingSVG });
+			this.setState({workingSVG});
 		}
 		if (this.state.workingSVG !== prevState.workingSVG) {
 			this.evaluateSVG();
@@ -52,11 +54,12 @@ class FileDisplay extends Component<IProps, IState> {
 		if (!svgElem) return;
 		const paths: IPath[] = findSVGChildren(svgElem);
 		const classes: ISVGRule[] = findSVGClasses(svgElem);
-		this.setState({ paths, classes });
+		this.setState({paths, classes});
 	}
 
 	render() {
-		const { paths, classes, workingSVG } = this.state;
+		const {paths, classes, workingSVG} = this.state;
+		const svgElem = this.svgContainer.current?.querySelector("svg");
 		return (
 			<div className={styles.container}>
 				<PreviewPane
@@ -67,15 +70,29 @@ class FileDisplay extends Component<IProps, IState> {
 					svgHTML={workingSVG}
 					onChange={(e) => this.updateSVG(e)}
 				/>
-				<ElementsPane paths={paths} />
-				<ClassesPane classes={classes} />
+				<ElementsPane
+					paths={paths}
+					onChange={(e) => this.performChange(e)}
+					svgRoot={svgElem}
+				/>
+				<ClassesPane classes={classes}/>
+				<div
+					style={{display: 'none'}}
+					ref={this.shadowContainer}
+				></div>
 			</div>
 		);
 	}
 
 	private updateSVG(e: string) {
 		const workingSVG = e;
-		this.setState({ workingSVG });
+		this.setState({workingSVG});
+	}
+
+	private performChange(e: ChangeOptions) {
+		this.updateSVG(
+			performChange(this.shadowContainer, e, this.state.workingSVG)
+		);
 	}
 }
 

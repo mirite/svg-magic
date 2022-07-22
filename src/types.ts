@@ -1,6 +1,7 @@
 import * as CSSTypes from 'css';
 
 export type SVGSubElement =
+	SVGElement
 	| SVGPathElement
 	| SVGCircleElement
 	| SVGPolygonElement
@@ -20,4 +21,21 @@ export interface ISVGRule {
 	rule: CSSContents;
 }
 
-export { CSSTypes };
+export type ChangeOptions = IGroupOptions | IMoveOptions;
+
+export interface IGroupOptions {
+	type: 'group';
+	options: {
+		className?: string
+	}
+}
+
+export interface IMoveOptions {
+	type: 'move';
+	options: {
+		element: SVGSubElement;
+		target: SVGSubElement;
+	}
+}
+
+export {CSSTypes};

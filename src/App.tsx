@@ -12,8 +12,11 @@ function App() {
 
 	return (
 		<div className="App">
-			<FileSelector onSelect={(e: string) => handleSelect(e)} />
-			{file && <FileDisplay contents={file} />}
+			{file ? (
+				<FileDisplay contents={file} />
+			) : (
+				<FileSelector onSelect={(e: string) => handleSelect(e)} />
+			)}
 		</div>
 	);
 }
