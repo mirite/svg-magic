@@ -21,7 +21,7 @@ export interface ISVGRule {
 	rule: CSSContents;
 }
 
-export type ChangeOptions = IGroupOptions | IMoveOptions | IAssignClassOptions | IStripIDOptions | IStripDataOptions;
+export type ChangeOptions = IGroupOptions | IMoveOptions | IAssignClassOptions | IStripIDOptions | IStripDataOptions | IClassOptions;
 
 export interface IGroupOptions {
 	type: 'group';
@@ -48,11 +48,19 @@ export interface IAssignClassOptions {
 }
 
 export interface IStripIDOptions {
-	type:'strip'
+	type: 'strip'
 }
 
 export interface IStripDataOptions {
-	type:'stripData'
+	type: 'stripData'
 }
 
-export { CSSTypes };
+export interface IClassOptions {
+	type: 'renameClass' | 'removeClass';
+	options: {
+		existingClassName: string;
+		newClassName?: string;
+	}
+}
+
+export {CSSTypes};

@@ -1,7 +1,7 @@
 import { IPath, ISVGRule, SVGSubElement } from 'types';
 import { parseCSS } from './css';
 
-export function findSVGClasses(
+export function findSVGRules(
 	parent: SVGElement | SVGSubElement,
 	classes?: ISVGRule[]
 ) {
@@ -28,7 +28,7 @@ export function findSVGClasses(
 		}
 
 		if (child.children.length) {
-			findSVGClasses(child, localClasses);
+			findSVGRules(child, localClasses);
 		}
 	};
 	const localClasses = classes ?? [];
@@ -51,4 +51,15 @@ export function findSVGChildren(parent: SVGElement | SVGSubElement): IPath[] {
 
 	const children = Array.from(parent.children) as SVGSubElement[];
 	return children.map(processChild);
+}
+
+export function findClasses(element: Element, existing?:Set<string>): string[] {
+	const localExistingRef = existing ?? new Set<string>();
+	for(const c of element.classList) {
+		localExistingRef.add(c);
+	}
+	for(const child of element.children) {
+		findClasses(child, localExistingRef);
+	}
+	return Array.from(localExistingRef);
 }

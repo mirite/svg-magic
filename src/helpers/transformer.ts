@@ -2,12 +2,14 @@ import React from 'react';
 import {
 	ChangeOptions,
 	IAssignClassOptions,
+	IClassOptions,
 	IGroupOptions,
 	IMoveOptions,
 	IStripDataOptions,
 	IStripIDOptions,
 } from 'types';
 import {findShadowEquivalent} from './dom';
+import {removeCSSClass, renameCSSClass} from "./css";
 
 function addGroup(shadowContainer: SVGElement, change: IGroupOptions) {
 	const {className, selectedItems} = change.options;
@@ -61,11 +63,37 @@ function stripDataFromSVG(svgElem: SVGSVGElement) {
 	traverseTree(svgElem, func);
 }
 
-function traverseTree(elem: Element, func: (e: Element) => unknown) {
+export function traverseTree(elem: Element, func: (e: Element) => unknown) {
 	func(elem);
 	for (const child of elem.children) {
 		traverseTree(child, func);
 	}
+}
+
+function removeClass(svgElem: SVGSVGElement, change: IClassOptions) {
+	const func = (elem: Element) => {
+		elem.classList.remove(change.options.existingClassName);
+	}
+	traverseTree(svgElem, func);
+	setShadowCSS(svgElem, removeCSSClass, change.options.existingClassName);
+}
+
+function renameClass(svgElem: SVGSVGElement, change: IClassOptions) {
+	const func = (elem: Element) => {
+		if (elem.classList.contains(change.options.existingClassName)) {
+			elem.classList.remove(change.options.existingClassName);
+			elem.classList.add(change.options.newClassName ?? "");
+		}
+
+	}
+	traverseTree(svgElem, func);
+	setShadowCSS(svgElem, renameCSSClass, change.options.existingClassName, change.options.newClassName);
+}
+
+function setShadowCSS(svgElem: Element, func: (text: string,  ...args:any[]) => string, ...args:unknown[]) {
+	const style = svgElem.querySelector("style");
+	if (!style) return;
+	style.innerHTML = func(style.innerHTML, ...args);
 }
 
 export function performChange(
@@ -94,6 +122,13 @@ export function performChange(
 			break;
 		case "stripData":
 			stripDataFromSVG(svgElem)
+			break
+		case "removeClass":
+			removeClass(svgElem, change)
+			break
+		case "renameClass":
+			renameClass(svgElem, change)
+			break
 	}
 	const html = shadowContainer.innerHTML;
 	shadowContainer.innerHTML = '';

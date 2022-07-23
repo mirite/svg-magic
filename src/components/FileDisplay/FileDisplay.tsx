@@ -1,5 +1,5 @@
 import React, {Component, createRef} from 'react';
-import {findSVGChildren, findSVGClasses} from 'helpers/parsers';
+import {findClasses, findSVGChildren, findSVGRules} from 'helpers/parsers';
 import styles from './FileDisplay.module.css';
 import {ChangeOptions, IPath, ISVGRule} from 'types';
 import ElementsPane from './ElementsPane/ElementsPane';
@@ -15,16 +15,18 @@ interface IProps {
 interface IState {
 	workingSVG: string;
 	paths: IPath[];
-	classes: ISVGRule[];
+	rules: ISVGRule[];
+	classes: string[]
 }
 
 class FileDisplay extends Component<IProps, IState> {
 	public constructor(props: IProps) {
 		super(props);
 		const paths: IPath[] = [];
-		const classes: ISVGRule[] = [];
+		const rules: ISVGRule[] = [];
+		const classes: string[] = [];
 		const workingSVG = props.contents;
-		this.state = {paths, classes, workingSVG};
+		this.state = {paths, rules, classes, workingSVG};
 	}
 
 	private svgContainer = createRef<HTMLDivElement>();
@@ -53,12 +55,13 @@ class FileDisplay extends Component<IProps, IState> {
 		const svgElem = svgContainer.firstChild as SVGElement;
 		if (!svgElem) return;
 		const paths: IPath[] = findSVGChildren(svgElem);
-		const classes: ISVGRule[] = findSVGClasses(svgElem);
-		this.setState({paths, classes});
+		const rules: ISVGRule[] = findSVGRules(svgElem);
+		const classes = findClasses(svgElem);
+		this.setState({paths, rules, classes});
 	}
 
 	render() {
-		const {paths, classes, workingSVG} = this.state;
+		const {paths, rules, workingSVG, classes} = this.state;
 		const svgElem = this.svgContainer.current?.querySelector('svg');
 		return (
 			<div className={styles.fileDisplay}>
@@ -83,7 +86,7 @@ class FileDisplay extends Component<IProps, IState> {
 						onChange={(e) => this.performChange(e)}
 						svgRoot={svgElem}
 					/>
-					<RulesPane classes={classes}/>
+					<RulesPane rules={rules} onChange={(e) => this.performChange(e)} classes={classes}/>
 					<div
 						style={{display: 'none'}}
 						ref={this.shadowContainer}
