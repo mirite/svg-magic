@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import styles from '../SVGRule.module.css';
 import CSSParser, { Rule } from 'css';
-import { setTagContent } from '../../../../../../helpers/dom';
+import { setTagContent } from 'helpers/dom';
 
 interface IProps {
 	selectors: string[];
@@ -39,12 +39,12 @@ function SelectorList(props: IProps) {
 		return (
 			<li key={i} className={styles.rule}>
 				<label>
+					{s}
 					<input
 						type="checkbox"
 						onChange={(e) => handleSelectorToggle(e, s)}
 						checked={current === s}
 					/>
-					{s}
 				</label>
 			</li>
 		);

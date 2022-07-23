@@ -8,7 +8,7 @@ interface IProps extends ISVGRule {}
 
 function SVGRule(props: IProps) {
 	const { rule } = props;
-	if (rule.type !== 'rule') return '';
+	if (rule.type !== 'rule') return <span>Provided Value Was Not a Rule</span>;
 	assertIsRule(rule); //There has to be a better way of doing this.
 	return (
 		<li>
