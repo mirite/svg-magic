@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import styles from './PreviewPane.module.css';
-import { ChangeOptions, IPoint } from 'types';
 import Overlay from './Overlay/Overlay';
+import { ChangeOptions, IPoint } from 'types';
+import styles from './PreviewPane.module.css';
 
 interface IProps {
-	containerRef: React.RefObject<HTMLDivElement>;
+	containerRef: React.RefObject<HTMLDivElement | null>;
 	svgHTML: string;
 	points: IPoint[];
 	onChange: (changeOptions: ChangeOptions) => void;

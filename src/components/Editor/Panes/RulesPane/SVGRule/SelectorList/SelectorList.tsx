@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import styles from '../SVGRule.module.css';
 import CSSParser, { Rule } from 'css';
-import { setTagContent } from '../../../../../helpers/dom';
+import { setTagContent } from '../../../../../../helpers/dom';
 
 interface IProps {
 	selectors: string[];

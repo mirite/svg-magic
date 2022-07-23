@@ -29,3 +29,7 @@
 .dark .preview {
     background-color: black;
 }
+
+.light .preview {
+    background-color: white;
+}

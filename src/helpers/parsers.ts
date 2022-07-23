@@ -1,6 +1,6 @@
 import { IPath, IPoint, ISVGRule, SVGSubElement } from 'types';
 import { parseCSS } from './css';
-import { IEditorState } from '../components/FileDisplay/FileDisplay';
+import { IEditorState } from '../components/Editor/Editor';
 
 export function findSVGRules(
 	parent: SVGElement | SVGSubElement,

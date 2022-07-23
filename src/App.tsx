@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import FileSelector from './components/FileSelector/FileSelector';
-import FileDisplay from './components/FileDisplay/FileDisplay';
+import Editor from './components/Editor/Editor';
 import './App.css';
 
 function App() {
@@ -13,7 +13,7 @@ function App() {
 	return (
 		<div className="App">
 			{file ? (
-				<FileDisplay contents={file} onClose={() => setFile('')} />
+				<Editor contents={file} onClose={() => setFile('')} />
 			) : (
 				<FileSelector onSelect={(e: string) => handleSelect(e)} />
 			)}
