@@ -1,6 +1,6 @@
-import React, {ChangeEvent} from 'react';
+import React, { ChangeEvent } from 'react';
 import Path from './Path/Path';
-import {ChangeOptions, IPath} from 'types';
+import { ChangeOptions, IPath } from 'types';
 
 interface IProps {
 	node: IPath;
@@ -10,7 +10,7 @@ interface IProps {
 }
 
 function PathList(props: IProps) {
-	const {children} = props.node;
+	const { children } = props.node;
 
 	return (
 		<ul>
@@ -19,7 +19,9 @@ function PathList(props: IProps) {
 					key={i}
 					onChange={(e) => props.onChange(e)}
 					selected={props.selected}
-					onCheck={(e: ChangeEvent<HTMLInputElement>, p:IPath) => props.onCheck(e, p)}
+					onCheck={(e: ChangeEvent<HTMLInputElement>, p: IPath) =>
+						props.onCheck(e, p)
+					}
 					{...path}
 				/>
 			))}

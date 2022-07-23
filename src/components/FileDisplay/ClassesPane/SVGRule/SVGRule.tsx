@@ -12,13 +12,7 @@ function SVGRule(props: IProps) {
 	assertIsRule(rule); //There has to be a better way of doing this.
 	return (
 		<li>
-			<div
-				style={{
-					border: '1px solid black',
-					margin: '1rem',
-					padding: '1rem',
-				}}
-			>
+			<div className="group">
 				<h3>Selectors:</h3>
 				<SelectorList selectors={rule.selectors || []} />
 				<h3>Declarations:</h3>

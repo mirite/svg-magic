@@ -1,10 +1,10 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import PathList from './PathList/PathList';
-import {ChangeOptions, IPath} from 'types';
-import {DndProvider} from 'react-dnd';
-import {HTML5Backend} from 'react-dnd-html5-backend';
+import { ChangeOptions, IPath } from 'types';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 import AddGroup from './AddGroup/AddGroup';
-import AssignClass from "./AssignClass/AssignClass";
+import AssignClass from './AssignClass/AssignClass';
 
 interface IProps {
 	svgRoot: SVGElement | undefined | null;
@@ -13,19 +13,23 @@ interface IProps {
 }
 
 function ElementsPane(props: IProps) {
-	const {svgRoot, paths} = props;
+	const { svgRoot, paths } = props;
 
+	const [selected, setSelected] = useState<IPath[]>([]);
 	if (!svgRoot) {
 		return <div>SVG Root Element Not Found</div>;
 	}
+	const rootNode: IPath = { name: 'root', elem: svgRoot, children: paths };
 
-	const rootNode: IPath = {name: 'root', elem: svgRoot, children: paths};
-	const [selected, setSelected] = useState<IPath[]>([]);
-
-	function updateSelected(e: React.ChangeEvent<HTMLInputElement>, clickedPath: IPath) {
-		const old = [...selected].filter(path => path.elem !== clickedPath.elem);
+	function updateSelected(
+		e: React.ChangeEvent<HTMLInputElement>,
+		clickedPath: IPath
+	) {
+		const old = [...selected].filter(
+			(path) => path.elem !== clickedPath.elem
+		);
 		if (e.currentTarget.checked) {
-			old.push(clickedPath)
+			old.push(clickedPath);
 		}
 		setSelected(old);
 	}
@@ -38,16 +42,27 @@ function ElementsPane(props: IProps) {
 	return (
 		<div>
 			<h2>Elements</h2>
-			<DndProvider backend={HTML5Backend}>
-				<PathList
-					node={rootNode}
-					onChange={(e: ChangeOptions) => handleChangeOption(e)}
-					onCheck={(e: ChangeEvent<HTMLInputElement>, p: IPath) => updateSelected(e, p)}
-					selected={selected}
-				/>
-			</DndProvider>
-			<AssignClass selected={selected} onChange={(e: ChangeOptions) => handleChangeOption(e)}/>
-			<AddGroup onChange={(e: ChangeOptions) => handleChangeOption(e)} selected={selected}/>
+			<div className="group">
+				<h3>Tree:</h3>
+				<DndProvider backend={HTML5Backend}>
+					<PathList
+						node={rootNode}
+						onChange={(e: ChangeOptions) => handleChangeOption(e)}
+						onCheck={(e: ChangeEvent<HTMLInputElement>, p: IPath) =>
+							updateSelected(e, p)
+						}
+						selected={selected}
+					/>
+				</DndProvider>
+			</div>
+			<AssignClass
+				selected={selected}
+				onChange={(e: ChangeOptions) => handleChangeOption(e)}
+			/>
+			<AddGroup
+				onChange={(e: ChangeOptions) => handleChangeOption(e)}
+				selected={selected}
+			/>
 		</div>
 	);
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import {SVGSubElement} from '../types';
+import { SVGSubElement } from '../types';
 
 export function setTagContent(
 	ref: React.MutableRefObject<HTMLElement | null>,
@@ -15,7 +15,7 @@ export function isEquivalentElement(
 	b: HTMLElement | SVGElement
 ): boolean {
 	const clean = (toClean: HTMLElement | SVGElement) => {
-		return toClean.outerHTML.trim().replace(/ active"/g,'"');
+		return toClean.outerHTML.trim().replace(/ active"/g, '"');
 	};
 	return clean(a) === clean(b);
 }

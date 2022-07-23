@@ -1,14 +1,22 @@
 import React from 'react';
-import {ChangeOptions, IAssignClassOptions, IGroupOptions, IMoveOptions} from 'types';
-import {findShadowEquivalent} from './dom';
+import {
+	ChangeOptions,
+	IAssignClassOptions,
+	IGroupOptions,
+	IMoveOptions,
+} from 'types';
+import { findShadowEquivalent } from './dom';
 
 function addGroup(shadowContainer: SVGElement, change: IGroupOptions) {
-	const {className, selectedItems} = change.options;
+	const { className, selectedItems } = change.options;
 	const newGroup = document.createElement('g');
 	newGroup.className = className || '';
 	if (selectedItems) {
 		for (const path of selectedItems) {
-			const elementEquiv = findShadowEquivalent(path.elem, shadowContainer);
+			const elementEquiv = findShadowEquivalent(
+				path.elem,
+				shadowContainer
+			);
 			if (elementEquiv) {
 				newGroup.append(elementEquiv);
 			}
@@ -18,7 +26,7 @@ function addGroup(shadowContainer: SVGElement, change: IGroupOptions) {
 }
 
 function moveElement(shadowContainer: SVGElement, change: IMoveOptions) {
-	const {target, element} = change.options;
+	const { target, element } = change.options;
 	const targetEquiv = findShadowEquivalent(target, shadowContainer);
 	const elementEquiv = findShadowEquivalent(element, shadowContainer);
 	if (targetEquiv && elementEquiv) {
@@ -53,7 +61,7 @@ export function performChange(
 		case 'move':
 			moveElement(svgElem, change);
 			break;
-		case "assign":
+		case 'assign':
 			assignClass(svgElem, change);
 			break;
 	}

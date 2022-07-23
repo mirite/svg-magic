@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {IGroupOptions, IPath} from 'types';
+import React, { useEffect, useState } from 'react';
+import { IGroupOptions, IPath } from 'types';
 
 interface IProps {
 	onChange: (changeOptions: IGroupOptions) => void;
@@ -17,16 +17,15 @@ function AddGroup(props: IProps) {
 		};
 	};
 
-	const {selected, onChange} = props;
+	const { selected, onChange } = props;
 	const [className, setClassName] = useState('');
-	const [options, setOptions] = useState<IGroupOptions>(createOptions())
+	const [options, setOptions] = useState<IGroupOptions>(createOptions());
 
-
-	useEffect(()=>setOptions(createOptions()),[props.selected, className])
+	useEffect(() => setOptions(createOptions()), [props.selected, className]);
 
 	return (
 		<div className="group">
-			Add Group
+			<h3>Add Group:</h3>
 			<label>
 				Class:
 				<input

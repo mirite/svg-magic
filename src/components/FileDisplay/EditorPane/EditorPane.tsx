@@ -8,10 +8,18 @@ interface IProps {
 function EditorPane(props: IProps) {
 	const { svgHTML, onChange } = props;
 	return (
-		<textarea
-			value={svgHTML}
-			onChange={(e) => onChange(e.currentTarget.value)}
-		></textarea>
+		<div>
+			<h2>Raw</h2>
+			<label>
+				Markup:
+				<br />
+				<textarea
+					value={svgHTML}
+					onChange={(e) => onChange(e.currentTarget.value)}
+					rows={svgHTML.split('\n').length}
+				></textarea>
+			</label>
+		</div>
 	);
 }
 

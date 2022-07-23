@@ -44,7 +44,7 @@ export interface IAssignClassOptions {
 	options: {
 		className: string;
 		selectedItems: IPath[];
-	}
+	};
 }
 
 export { CSSTypes };

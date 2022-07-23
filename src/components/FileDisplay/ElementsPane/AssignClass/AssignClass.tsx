@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {IAssignClassOptions, IPath} from "types";
+import React, { useState } from 'react';
+import { IAssignClassOptions, IPath } from 'types';
 
 interface IProps {
 	selected: IPath[];
@@ -9,15 +9,15 @@ interface IProps {
 function AssignClass(props: IProps) {
 	const [className, setClassName] = useState('');
 	const options: IAssignClassOptions = {
-		type: "assign",
+		type: 'assign',
 		options: {
 			className,
-			selectedItems: props.selected
-		}
-	}
+			selectedItems: props.selected,
+		},
+	};
 	return (
 		<div className="group">
-			Assign Class
+			<h3>Assign Class:</h3>
 			<label>
 				Class:
 				<input
