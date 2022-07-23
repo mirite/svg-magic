@@ -99,6 +99,7 @@ class FileDisplay extends Component<IProps, IState> {
 						paths={paths}
 						onChange={(e) => this.performChange(e)}
 						svgRoot={svgElem}
+						classes={classes}
 					/>
 					<RulesPane
 						rules={rules}

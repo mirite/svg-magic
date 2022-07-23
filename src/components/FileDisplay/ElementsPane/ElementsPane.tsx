@@ -10,10 +10,11 @@ interface IProps {
 	svgRoot: SVGElement | undefined | null;
 	paths: IPath[];
 	onChange: (changeOptions: ChangeOptions) => void;
+	classes: string[];
 }
 
 function ElementsPane(props: IProps) {
-	const { svgRoot, paths } = props;
+	const { svgRoot, paths, classes } = props;
 
 	const [selected, setSelected] = useState<IPath[]>([]);
 	if (!svgRoot) {
@@ -58,6 +59,7 @@ function ElementsPane(props: IProps) {
 			<AssignClass
 				selected={selected}
 				onChange={(e: ChangeOptions) => handleChangeOption(e)}
+				classes={classes}
 			/>
 			<AddGroup
 				onChange={(e: ChangeOptions) => handleChangeOption(e)}

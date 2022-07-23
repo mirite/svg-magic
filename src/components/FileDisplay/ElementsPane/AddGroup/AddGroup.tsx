@@ -23,8 +23,14 @@ function AddGroup(props: IProps) {
 
 	useEffect(() => setOptions(createOptions()), [props.selected, className]);
 
+	function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+		e.preventDefault();
+		onChange(options);
+		setClassName("");
+	}
+
 	return (
-		<div className="group">
+		<form className="group" onSubmit={(e)=>handleSubmit(e)}>
 			<h3>Add Group:</h3>
 			<label>
 				Class:
@@ -34,8 +40,8 @@ function AddGroup(props: IProps) {
 					onChange={(e) => setClassName(e.currentTarget.value)}
 				/>
 			</label>
-			<button onClick={() => onChange(options)}>Add</button>
-		</div>
+			<button>Add</button>
+		</form>
 	);
 }
 
