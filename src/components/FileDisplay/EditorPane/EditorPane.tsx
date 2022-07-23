@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from "./EditorPane.module.css";
 
 interface IProps {
 	svgHTML: string;
@@ -6,19 +7,17 @@ interface IProps {
 }
 
 function EditorPane(props: IProps) {
-	const { svgHTML, onChange } = props;
+	const {svgHTML, onChange} = props;
 	return (
-		<div>
+		<div className={styles.editorPane}>
 			<h2>Raw</h2>
-			<label>
-				Markup:
-				<br />
-				<textarea
-					value={svgHTML}
-					onChange={(e) => onChange(e.currentTarget.value)}
-					rows={svgHTML.split('\n').length}
-				></textarea>
-			</label>
+			<label>Markup:</label>
+			<textarea
+				value={svgHTML}
+				className={styles.editor}
+				onChange={(e) => onChange(e.currentTarget.value)}
+				rows={svgHTML.split('\n').length}
+			></textarea>
 		</div>
 	);
 }
