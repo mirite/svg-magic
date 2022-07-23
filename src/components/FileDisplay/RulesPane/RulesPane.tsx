@@ -1,16 +1,17 @@
 import React from 'react';
 import SVGClass from './SVGRule/SVGRule';
 import { ISVGRule } from 'types';
+import styles from "./RulesPane.module.css";
 
 interface IProps {
 	classes: ISVGRule[];
 }
 
-function ClassesPane(props: IProps) {
+function RulesPane(props: IProps) {
 	return (
 		<div>
-			<h2>Classes</h2>
-			<ul>
+			<h2>Rules</h2>
+			<ul className={styles.ruleList}>
 				{props.classes.map((c, i) => (
 					<SVGClass key={i} {...c} />
 				))}
@@ -19,4 +20,4 @@ function ClassesPane(props: IProps) {
 	);
 }
 
-export default ClassesPane;
+export default RulesPane;

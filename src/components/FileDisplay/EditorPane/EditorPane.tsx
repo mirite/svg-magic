@@ -11,7 +11,6 @@ function EditorPane(props: IProps) {
 	return (
 		<div className={styles.editorPane}>
 			<h2>Raw</h2>
-			<label>Markup:</label>
 			<textarea
 				value={svgHTML}
 				className={styles.editor}
