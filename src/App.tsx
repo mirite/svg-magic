@@ -13,7 +13,7 @@ function App() {
 	return (
 		<div className="App">
 			{file ? (
-				<FileDisplay contents={file} />
+				<FileDisplay contents={file} onClose={()=>setFile("")} />
 			) : (
 				<FileSelector onSelect={(e: string) => handleSelect(e)} />
 			)}
