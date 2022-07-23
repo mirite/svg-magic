@@ -1,12 +1,17 @@
-import React, {Component, createRef} from 'react';
-import {findClasses, findSVGChildren, findSVGPoints, findSVGRules} from 'helpers/parsers';
+import React, { Component, createRef } from 'react';
+import {
+	findClasses,
+	findSVGChildren,
+	findSVGPoints,
+	findSVGRules,
+} from 'helpers/parsers';
 import styles from './FileDisplay.module.css';
-import {ChangeOptions, IPath, IPoint, ISVGRule} from 'types';
+import { ChangeOptions, IPath, IPoint, ISVGRule } from 'types';
 import ElementsPane from './ElementsPane/ElementsPane';
 import RulesPane from './RulesPane/RulesPane';
 import PreviewPane from './PreviewPane/PreviewPane';
 import EditorPane from './EditorPane/EditorPane';
-import {performChange, stripData, stripIDs} from '../../helpers/transformer';
+import { performChange, stripData, stripIDs } from '../../helpers/transformer';
 
 interface IProps {
 	contents: string;
@@ -28,7 +33,7 @@ class FileDisplay extends Component<IProps, IState> {
 		const classes: string[] = [];
 		const points: IPoint[] = [];
 		const workingSVG = props.contents;
-		this.state = {paths, rules, classes, workingSVG, points};
+		this.state = { paths, rules, classes, workingSVG, points };
 	}
 
 	private svgContainer = createRef<HTMLDivElement>();
@@ -44,7 +49,7 @@ class FileDisplay extends Component<IProps, IState> {
 	) {
 		if (this.props !== prevProps) {
 			const workingSVG = this.props.contents;
-			this.setState({workingSVG});
+			this.setState({ workingSVG });
 		}
 		if (this.state.workingSVG !== prevState.workingSVG) {
 			this.evaluateSVG();
@@ -60,19 +65,23 @@ class FileDisplay extends Component<IProps, IState> {
 		const rules: ISVGRule[] = findSVGRules(svgElem);
 		const points: IPoint[] = findSVGPoints(svgElem);
 		const classes = findClasses(svgElem);
-		this.setState({paths, rules, classes, points});
+		this.setState({ paths, rules, classes, points });
 	}
 
 	render() {
-		const {paths, rules, workingSVG, classes, points} = this.state;
+		const { paths, rules, workingSVG, classes, points } = this.state;
 		const svgElem = this.svgContainer.current?.querySelector('svg');
 		return (
 			<div className={styles.fileDisplay}>
 				<header className={styles.header}>
 					<h1>SVG Magic</h1>
 					<div className={styles.actions}>
-						<button onClick={()=>this.performChange(stripIDs)}>Strip IDs</button>
-						<button onClick={()=>this.performChange(stripData)}>Strip Data</button>
+						<button onClick={() => this.performChange(stripIDs)}>
+							Strip IDs
+						</button>
+						<button onClick={() => this.performChange(stripData)}>
+							Strip Data
+						</button>
 					</div>
 				</header>
 				<div className={styles.container}>
@@ -91,9 +100,13 @@ class FileDisplay extends Component<IProps, IState> {
 						onChange={(e) => this.performChange(e)}
 						svgRoot={svgElem}
 					/>
-					<RulesPane rules={rules} onChange={(e) => this.performChange(e)} classes={classes}/>
+					<RulesPane
+						rules={rules}
+						onChange={(e) => this.performChange(e)}
+						classes={classes}
+					/>
 					<div
-						style={{display: 'none'}}
+						style={{ display: 'none' }}
 						ref={this.shadowContainer}
 					></div>
 				</div>
@@ -103,7 +116,7 @@ class FileDisplay extends Component<IProps, IState> {
 
 	private updateSVG(e: string) {
 		const workingSVG = e;
-		this.setState({workingSVG});
+		this.setState({ workingSVG });
 	}
 
 	private performChange(e: ChangeOptions) {
@@ -111,7 +124,6 @@ class FileDisplay extends Component<IProps, IState> {
 			performChange(this.shadowContainer, e, this.state.workingSVG)
 		);
 	}
-
 }
 
 export default FileDisplay;

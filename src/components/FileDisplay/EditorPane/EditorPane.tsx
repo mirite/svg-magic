@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from "./EditorPane.module.css";
+import styles from './EditorPane.module.css';
 
 interface IProps {
 	svgHTML: string;
@@ -7,7 +7,7 @@ interface IProps {
 }
 
 function EditorPane(props: IProps) {
-	const {svgHTML, onChange} = props;
+	const { svgHTML, onChange } = props;
 	return (
 		<div className={styles.editorPane}>
 			<h2>Raw</h2>

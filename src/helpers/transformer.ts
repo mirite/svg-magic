@@ -9,11 +9,11 @@ import {
 	IStripDataOptions,
 	IStripIDOptions,
 } from 'types';
-import {findShadowEquivalent} from './dom';
-import {removeCSSClass, renameCSSClass} from "./css";
+import { findShadowEquivalent } from './dom';
+import { removeCSSClass, renameCSSClass } from './css';
 
 function addGroup(shadowContainer: SVGElement, change: IGroupOptions) {
-	const {className, selectedItems} = change.options;
+	const { className, selectedItems } = change.options;
 	const newGroup = document.createElement('g');
 	newGroup.className = className || '';
 	if (selectedItems) {
@@ -31,7 +31,7 @@ function addGroup(shadowContainer: SVGElement, change: IGroupOptions) {
 }
 
 function moveElement(shadowContainer: SVGElement, change: IMoveOptions) {
-	const {target, element} = change.options;
+	const { target, element } = change.options;
 	const targetEquiv = findShadowEquivalent(target, shadowContainer);
 	const elementEquiv = findShadowEquivalent(element, shadowContainer);
 	if (targetEquiv && elementEquiv) {
@@ -50,17 +50,19 @@ function assignClass(svgElem: SVGSVGElement, change: IAssignClassOptions) {
 
 function stripIDFromSVG(svgElem: Element) {
 	const func = (elem: Element) => {
-		elem.removeAttribute("id");
-	}
+		elem.removeAttribute('id');
+	};
 	traverseTree(svgElem, func);
 }
 
 function stripDataFromSVG(svgElem: SVGSVGElement) {
 	const func = (elem: Element) => {
-		for (const [key, value] of Object.entries((elem as HTMLElement)?.dataset)) {
-			elem.removeAttribute("data-" + key);
+		for (const [key, value] of Object.entries(
+			(elem as HTMLElement)?.dataset
+		)) {
+			elem.removeAttribute('data-' + key);
 		}
-	}
+	};
 	traverseTree(svgElem, func);
 }
 
@@ -74,7 +76,7 @@ export function traverseTree(elem: Element, func: (e: Element) => unknown) {
 function removeClass(svgElem: SVGSVGElement, change: IClassOptions) {
 	const func = (elem: Element) => {
 		elem.classList.remove(change.options.existingClassName);
-	}
+	};
 	traverseTree(svgElem, func);
 	setShadowCSS(svgElem, removeCSSClass, change.options.existingClassName);
 }
@@ -83,38 +85,54 @@ function renameClass(svgElem: SVGSVGElement, change: IClassOptions) {
 	const func = (elem: Element) => {
 		if (elem.classList.contains(change.options.existingClassName)) {
 			elem.classList.remove(change.options.existingClassName);
-			elem.classList.add(change.options.newClassName ?? "");
+			elem.classList.add(change.options.newClassName ?? '');
 		}
-
-	}
+	};
 	traverseTree(svgElem, func);
-	setShadowCSS(svgElem, renameCSSClass, change.options.existingClassName, change.options.newClassName);
+	setShadowCSS(
+		svgElem,
+		renameCSSClass,
+		change.options.existingClassName,
+		change.options.newClassName
+	);
 }
 
-function setShadowCSS(svgElem: Element, func: (text: string, ...args: any[]) => string, ...args: unknown[]) {
-	const style = svgElem.querySelector("style");
+function setShadowCSS(
+	svgElem: Element,
+	func: (text: string, ...args: any[]) => string,
+	...argsToPassOn: unknown[]
+) {
+	const style = svgElem.querySelector('style');
 	if (!style) return;
-	style.innerHTML = func(style.innerHTML, ...args);
+	style.innerHTML = func(style.innerHTML, ...argsToPassOn);
 }
 
 function movePoint(svgElem: SVGSVGElement, change: IMovePointOptions) {
-	const {element: lightWorldElem, pointToMove, newLocation} = change.options;
+	const {
+		element: lightWorldElem,
+		pointToMove,
+		newLocation,
+	} = change.options;
 	const element = findShadowEquivalent(lightWorldElem, svgElem);
 	if (!element) {
 		return;
 	}
 	for (const c of element.getAttributeNames()) {
-		if (c.startsWith("x")) {
+		if (c.startsWith('x')) {
 			const portion = c.substring(1);
-			const x = Number.parseFloat(element.getAttribute("x" + portion) || "0");
-			const y = Number.parseFloat(element.getAttribute("y" + portion) || "0");
-			if ((pointToMove.x === x) && pointToMove.y === y) {
-				element.setAttribute("x" + portion, String(newLocation.x));
-				element.setAttribute("y" + portion, String(newLocation.y));
+			const x = Number.parseFloat(
+				element.getAttribute('x' + portion) || '0'
+			);
+			const y = Number.parseFloat(
+				element.getAttribute('y' + portion) || '0'
+			);
+			if (pointToMove.x === x && pointToMove.y === y) {
+				element.setAttribute('x' + portion, String(newLocation.x));
+				element.setAttribute('y' + portion, String(newLocation.y));
 				return;
 			}
-		} else if (c === "points") {
-			const pointsList = element.getAttribute("points") || "";
+		} else if (c === 'points') {
+			const pointsList = element.getAttribute('points') || '';
 			const values = pointsList.split(/[, ]+/g);
 			for (let i = 0; i < values.length; i += 2) {
 				const x = Number.parseFloat(values[i]);
@@ -122,14 +140,13 @@ function movePoint(svgElem: SVGSVGElement, change: IMovePointOptions) {
 				if (pointToMove.x === x && pointToMove.y === y) {
 					values[i] = String(newLocation.x);
 					values[i + 1] = String(newLocation.y);
-					const newList = values.join(" ");
-					element.setAttribute("points", newList)
+					const newList = values.join(' ');
+					element.setAttribute('points', newList);
 					return;
 				}
 			}
 		}
 	}
-	console.log(change);
 }
 
 export function performChange(
@@ -154,20 +171,20 @@ export function performChange(
 			assignClass(svgElem, change);
 			break;
 		case 'strip':
-			stripIDFromSVG(svgElem)
+			stripIDFromSVG(svgElem);
 			break;
-		case "stripData":
-			stripDataFromSVG(svgElem)
-			break
-		case "removeClass":
-			removeClass(svgElem, change)
-			break
-		case "renameClass":
-			renameClass(svgElem, change)
-			break
-		case "movePoint":
-			movePoint(svgElem, change)
-			break
+		case 'stripData':
+			stripDataFromSVG(svgElem);
+			break;
+		case 'removeClass':
+			removeClass(svgElem, change);
+			break;
+		case 'renameClass':
+			renameClass(svgElem, change);
+			break;
+		case 'movePoint':
+			movePoint(svgElem, change);
+			break;
 	}
 	const html = shadowContainer.innerHTML;
 	shadowContainer.innerHTML = '';
@@ -175,9 +192,9 @@ export function performChange(
 }
 
 export const stripIDs: IStripIDOptions = {
-	type: "strip"
-}
+	type: 'strip',
+};
 
 export const stripData: IStripDataOptions = {
-	type: "stripData"
-}
+	type: 'stripData',
+};

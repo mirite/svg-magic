@@ -22,12 +22,13 @@ export interface ISVGRule {
 }
 
 export type ChangeOptions =
-	IGroupOptions
+	| IGroupOptions
 	| IMoveOptions
 	| IAssignClassOptions
 	| IStripIDOptions
 	| IStripDataOptions
-	| IClassOptions | IMovePointOptions;
+	| IClassOptions
+	| IMovePointOptions;
 
 export interface IGroupOptions {
 	type: 'group';
@@ -54,11 +55,11 @@ export interface IAssignClassOptions {
 }
 
 export interface IStripIDOptions {
-	type: 'strip'
+	type: 'strip';
 }
 
 export interface IStripDataOptions {
-	type: 'stripData'
+	type: 'stripData';
 }
 
 export interface IClassOptions {
@@ -66,16 +67,16 @@ export interface IClassOptions {
 	options: {
 		existingClassName: string;
 		newClassName?: string;
-	}
+	};
 }
 
 export interface IMovePointOptions {
 	type: 'movePoint';
 	options: {
 		element: SVGSubElement;
-		pointToMove: { x: number, y: number };
-		newLocation: { x: number, y: number };
-	}
+		pointToMove: { x: number; y: number };
+		newLocation: { x: number; y: number };
+	};
 }
 
 export interface IPoint {
@@ -84,4 +85,4 @@ export interface IPoint {
 	owner: Element;
 }
 
-export {CSSTypes};
+export { CSSTypes };

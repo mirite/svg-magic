@@ -1,6 +1,6 @@
 import React from 'react';
-import {IClassOptions} from "types";
-import Class from "./Class/Class";
+import { IClassOptions } from 'types';
+import Class from './Class/Class';
 
 interface IProps {
 	classes: string[];
@@ -12,9 +12,13 @@ function ClassList(props: IProps) {
 		<div>
 			<h2>Classes</h2>
 			<ul>
-				{props.classes.map((c, i) =>
-					<Class name={c} onChange={(e) => props.onChange(e)}/>
-				)}
+				{props.classes.map((c, i) => (
+					<Class
+						key={i}
+						name={c}
+						onChange={(e) => props.onChange(e)}
+					/>
+				))}
 			</ul>
 		</div>
 	);

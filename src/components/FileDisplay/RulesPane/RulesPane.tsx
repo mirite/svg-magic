@@ -1,8 +1,8 @@
 import React from 'react';
 import SVGClass from './SVGRule/SVGRule';
-import {ChangeOptions, ISVGRule} from 'types';
-import styles from "./RulesPane.module.css";
-import ClassList from "./SVGRule/ClassList/ClassList";
+import { ChangeOptions, ISVGRule } from 'types';
+import styles from './RulesPane.module.css';
+import ClassList from './SVGRule/ClassList/ClassList';
 
 interface IProps {
 	classes: string[];
@@ -13,7 +13,10 @@ interface IProps {
 function RulesPane(props: IProps) {
 	return (
 		<div>
-			<ClassList classes={props.classes} onChange={(e)=>props.onChange(e)} />
+			<ClassList
+				classes={props.classes}
+				onChange={(e) => props.onChange(e)}
+			/>
 			<h2>Rules</h2>
 			<ul className={styles.ruleList}>
 				{props.rules.map((c, i) => (

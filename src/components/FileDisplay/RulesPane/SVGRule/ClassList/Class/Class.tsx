@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
-import styles from "./Class.module.css";
-import {IClassOptions} from "types";
+import React, { useState } from 'react';
+import styles from './Class.module.css';
+import { IClassOptions } from 'types';
 
 interface IProps {
 	name: string;
@@ -18,40 +18,49 @@ function Class(props: IProps) {
 
 	function confirmRename() {
 		const options: IClassOptions = {
-			type: "renameClass",
+			type: 'renameClass',
 			options: {
 				existingClassName: props.name,
 				newClassName: newName,
-			}
-		}
+			},
+		};
 		props.onChange(options);
 		setRenaming(false);
 	}
 
 	function deleteClass() {
 		const options: IClassOptions = {
-			type: "removeClass",
+			type: 'removeClass',
 			options: {
 				existingClassName: props.name,
-			}
-		}
+			},
+		};
 		props.onChange(options);
 	}
 
 	return (
 		<li className={styles.className}>
-			<span>{renaming ? <input type="text" value={newName}
-									 onChange={(e) => setNewName(e.currentTarget.value)}/> : props.name}</span>
-			{
-				renaming ?
-					<button onClick={() => confirmRename()}>Confirm</button> :
-					<button onClick={() => setRenaming(true)}>Rename</button>
-			}
-			{
-				renaming ?
-					<button onClick={() => cancelRename()}>Cancel</button> :
-					<button onClick={() => deleteClass()}>Delete</button>
-			}
+			<span>
+				{renaming ? (
+					<input
+						type="text"
+						value={newName}
+						onChange={(e) => setNewName(e.currentTarget.value)}
+					/>
+				) : (
+					props.name
+				)}
+			</span>
+			{renaming ? (
+				<button onClick={() => confirmRename()}>Confirm</button>
+			) : (
+				<button onClick={() => setRenaming(true)}>Rename</button>
+			)}
+			{renaming ? (
+				<button onClick={() => cancelRename()}>Cancel</button>
+			) : (
+				<button onClick={() => deleteClass()}>Delete</button>
+			)}
 		</li>
 	);
 }
