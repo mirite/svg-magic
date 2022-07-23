@@ -2,7 +2,7 @@ import { IPath, IPoint, ISVGRule, SVGSubElement } from 'types';
 import { parseCSS } from './css';
 import { IEditorState } from '../components/Editor/Editor';
 
-export function findSVGRules(
+function findSVGRules(
 	parent: SVGElement | SVGSubElement,
 	classes?: ISVGRule[]
 ) {
@@ -47,7 +47,7 @@ function foldClassList(d: DOMTokenList): string | null {
 	);
 }
 
-export function findSVGChildren(parent: SVGElement | SVGSubElement): IPath[] {
+function findSVGChildren(parent: SVGElement | SVGSubElement): IPath[] {
 	const processChild = (child: SVGSubElement): IPath => {
 		const name = `${child.nodeName}${child.id ? '#' + child.id : ''}${
 			foldClassList(child.classList) ?? ''
@@ -63,10 +63,7 @@ export function findSVGChildren(parent: SVGElement | SVGSubElement): IPath[] {
 	return children.map(processChild);
 }
 
-export function findClasses(
-	element: Element,
-	existing?: Set<string>
-): string[] {
+function findClasses(element: Element, existing?: Set<string>): string[] {
 	const localExistingRef = existing ?? new Set<string>();
 	for (const c of element.classList) {
 		localExistingRef.add(c);
@@ -77,7 +74,7 @@ export function findClasses(
 	return Array.from(localExistingRef);
 }
 
-export function findSVGPoints(
+function findSVGPoints(
 	element: SVGSubElement,
 	existing?: Set<IPoint>
 ): IPoint[] {

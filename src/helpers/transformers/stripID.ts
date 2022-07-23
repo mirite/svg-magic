@@ -1,4 +1,5 @@
-import { traverseTree } from '../transformer';
+import { traverseTree } from 'helpers/dom';
+import { IStripIDOptions } from 'types';
 
 export function stripIDFromSVG(svgElem: Element) {
 	const func = (elem: Element) => {
@@ -6,3 +7,7 @@ export function stripIDFromSVG(svgElem: Element) {
 	};
 	traverseTree(svgElem, func);
 }
+
+export const stripIDs: IStripIDOptions = {
+	type: 'strip',
+};

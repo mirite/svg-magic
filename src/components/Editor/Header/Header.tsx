@@ -1,7 +1,8 @@
 import React from 'react';
 import styles from './Header.module.css';
-import { stripData, stripIDs } from 'helpers/transformer';
+
 import { ChangeOptions } from 'types';
+import { stripData, stripIDs } from 'helpers/transformers';
 
 interface IProps {
 	workingSVG: string;

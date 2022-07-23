@@ -38,3 +38,10 @@ export function findShadowEquivalent(
 
 	return null;
 }
+
+export function traverseTree(elem: Element, func: (e: Element) => unknown) {
+	func(elem);
+	for (const child of elem.children) {
+		traverseTree(child, func);
+	}
+}

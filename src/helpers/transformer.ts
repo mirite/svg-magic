@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChangeOptions, IStripDataOptions, IStripIDOptions } from 'types';
+import { ChangeOptions } from 'types';
 import {
 	addGroup,
 	assignClass,
@@ -10,13 +10,6 @@ import {
 	stripDataFromSVG,
 	stripIDFromSVG,
 } from './transformers';
-
-export function traverseTree(elem: Element, func: (e: Element) => unknown) {
-	func(elem);
-	for (const child of elem.children) {
-		traverseTree(child, func);
-	}
-}
 
 export function performChange(
 	containerRef: React.RefObject<HTMLDivElement>,
@@ -59,11 +52,3 @@ export function performChange(
 	shadowContainer.innerHTML = '';
 	return html;
 }
-
-export const stripIDs: IStripIDOptions = {
-	type: 'strip',
-};
-
-export const stripData: IStripDataOptions = {
-	type: 'stripData',
-};

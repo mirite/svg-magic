@@ -1,19 +1,15 @@
 import { IClassOptions } from 'types';
-import { renameCSSClass, setShadowCSS } from '../css';
-import { traverseTree } from '../transformer';
+import { renameCSSClass, setShadowCSS } from 'helpers/css';
+import { traverseTree } from 'helpers/dom';
 
 export function renameClass(svgElem: SVGSVGElement, change: IClassOptions) {
+	const { existingClassName, newClassName } = change.options;
 	const func = (elem: Element) => {
-		if (elem.classList.contains(change.options.existingClassName)) {
-			elem.classList.remove(change.options.existingClassName);
-			elem.classList.add(change.options.newClassName ?? '');
+		if (elem.classList.contains(existingClassName)) {
+			elem.classList.remove(existingClassName);
+			elem.classList.add(newClassName ?? '');
 		}
 	};
 	traverseTree(svgElem, func);
-	setShadowCSS(
-		svgElem,
-		renameCSSClass,
-		change.options.existingClassName,
-		change.options.newClassName
-	);
+	setShadowCSS(svgElem, renameCSSClass, existingClassName, newClassName);
 }
