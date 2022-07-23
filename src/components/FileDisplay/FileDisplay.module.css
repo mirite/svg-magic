@@ -15,6 +15,12 @@
     left: 0;
     right: 0;
 }
+
+.actions {
+    display: flex;
+    gap: 1rem;
+}
+
 .container {
     flex: 1;
     display: grid;

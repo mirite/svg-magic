@@ -6,7 +6,7 @@ import ElementsPane from './ElementsPane/ElementsPane';
 import RulesPane from './RulesPane/RulesPane';
 import PreviewPane from './PreviewPane/PreviewPane';
 import EditorPane from './EditorPane/EditorPane';
-import {performChange} from '../../helpers/transformer';
+import {performChange, stripData, stripIDs} from '../../helpers/transformer';
 
 interface IProps {
 	contents: string;
@@ -64,8 +64,9 @@ class FileDisplay extends Component<IProps, IState> {
 			<div className={styles.fileDisplay}>
 				<header className={styles.header}>
 					<h1>SVG Magic</h1>
-					<div>
-						<button>Strip IDs</button>
+					<div className={styles.actions}>
+						<button onClick={()=>this.performChange(stripIDs)}>Strip IDs</button>
+						<button onClick={()=>this.performChange(stripData)}>Strip Data</button>
 					</div>
 				</header>
 				<div className={styles.container}>

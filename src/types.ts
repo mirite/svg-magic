@@ -21,7 +21,7 @@ export interface ISVGRule {
 	rule: CSSContents;
 }
 
-export type ChangeOptions = IGroupOptions | IMoveOptions | IAssignClassOptions;
+export type ChangeOptions = IGroupOptions | IMoveOptions | IAssignClassOptions | IStripIDOptions | IStripDataOptions;
 
 export interface IGroupOptions {
 	type: 'group';
@@ -45,6 +45,14 @@ export interface IAssignClassOptions {
 		className: string;
 		selectedItems: IPath[];
 	};
+}
+
+export interface IStripIDOptions {
+	type:'strip'
+}
+
+export interface IStripDataOptions {
+	type:'stripData'
 }
 
 export { CSSTypes };
