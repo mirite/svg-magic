@@ -5,6 +5,7 @@ import {
 	IClassOptions,
 	IGroupOptions,
 	IMoveOptions,
+	IMovePointOptions,
 	IStripDataOptions,
 	IStripIDOptions,
 } from 'types';
@@ -90,10 +91,45 @@ function renameClass(svgElem: SVGSVGElement, change: IClassOptions) {
 	setShadowCSS(svgElem, renameCSSClass, change.options.existingClassName, change.options.newClassName);
 }
 
-function setShadowCSS(svgElem: Element, func: (text: string,  ...args:any[]) => string, ...args:unknown[]) {
+function setShadowCSS(svgElem: Element, func: (text: string, ...args: any[]) => string, ...args: unknown[]) {
 	const style = svgElem.querySelector("style");
 	if (!style) return;
 	style.innerHTML = func(style.innerHTML, ...args);
+}
+
+function movePoint(svgElem: SVGSVGElement, change: IMovePointOptions) {
+	const {element: lightWorldElem, pointToMove, newLocation} = change.options;
+	const element = findShadowEquivalent(lightWorldElem, svgElem);
+	if (!element) {
+		return;
+	}
+	for (const c of element.getAttributeNames()) {
+		if (c.startsWith("x")) {
+			const portion = c.substring(1);
+			const x = Number.parseFloat(element.getAttribute("x" + portion) || "0");
+			const y = Number.parseFloat(element.getAttribute("y" + portion) || "0");
+			if ((pointToMove.x === x) && pointToMove.y === y) {
+				element.setAttribute("x" + portion, String(newLocation.x));
+				element.setAttribute("y" + portion, String(newLocation.y));
+				return;
+			}
+		} else if (c === "points") {
+			const pointsList = element.getAttribute("points") || "";
+			const values = pointsList.split(/[, ]+/g);
+			for (let i = 0; i < values.length; i += 2) {
+				const x = Number.parseFloat(values[i]);
+				const y = Number.parseFloat(values[i + 1]);
+				if (pointToMove.x === x && pointToMove.y === y) {
+					values[i] = String(newLocation.x);
+					values[i + 1] = String(newLocation.y);
+					const newList = values.join(" ");
+					element.setAttribute("points", newList)
+					return;
+				}
+			}
+		}
+	}
+	console.log(change);
 }
 
 export function performChange(
@@ -128,6 +164,9 @@ export function performChange(
 			break
 		case "renameClass":
 			renameClass(svgElem, change)
+			break
+		case "movePoint":
+			movePoint(svgElem, change)
 			break
 	}
 	const html = shadowContainer.innerHTML;

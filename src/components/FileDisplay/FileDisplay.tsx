@@ -1,7 +1,7 @@
 import React, {Component, createRef} from 'react';
-import {findClasses, findSVGChildren, findSVGRules} from 'helpers/parsers';
+import {findClasses, findSVGChildren, findSVGPoints, findSVGRules} from 'helpers/parsers';
 import styles from './FileDisplay.module.css';
-import {ChangeOptions, IPath, ISVGRule} from 'types';
+import {ChangeOptions, IPath, IPoint, ISVGRule} from 'types';
 import ElementsPane from './ElementsPane/ElementsPane';
 import RulesPane from './RulesPane/RulesPane';
 import PreviewPane from './PreviewPane/PreviewPane';
@@ -16,7 +16,8 @@ interface IState {
 	workingSVG: string;
 	paths: IPath[];
 	rules: ISVGRule[];
-	classes: string[]
+	classes: string[];
+	points: IPoint[];
 }
 
 class FileDisplay extends Component<IProps, IState> {
@@ -25,8 +26,9 @@ class FileDisplay extends Component<IProps, IState> {
 		const paths: IPath[] = [];
 		const rules: ISVGRule[] = [];
 		const classes: string[] = [];
+		const points: IPoint[] = [];
 		const workingSVG = props.contents;
-		this.state = {paths, rules, classes, workingSVG};
+		this.state = {paths, rules, classes, workingSVG, points};
 	}
 
 	private svgContainer = createRef<HTMLDivElement>();
@@ -56,12 +58,13 @@ class FileDisplay extends Component<IProps, IState> {
 		if (!svgElem) return;
 		const paths: IPath[] = findSVGChildren(svgElem);
 		const rules: ISVGRule[] = findSVGRules(svgElem);
+		const points: IPoint[] = findSVGPoints(svgElem);
 		const classes = findClasses(svgElem);
-		this.setState({paths, rules, classes});
+		this.setState({paths, rules, classes, points});
 	}
 
 	render() {
-		const {paths, rules, workingSVG, classes} = this.state;
+		const {paths, rules, workingSVG, classes, points} = this.state;
 		const svgElem = this.svgContainer.current?.querySelector('svg');
 		return (
 			<div className={styles.fileDisplay}>
@@ -76,6 +79,8 @@ class FileDisplay extends Component<IProps, IState> {
 					<PreviewPane
 						containerRef={this.svgContainer}
 						svgHTML={workingSVG}
+						points={points}
+						onChange={(e) => this.performChange(e)}
 					/>
 					<EditorPane
 						svgHTML={workingSVG}
@@ -106,6 +111,7 @@ class FileDisplay extends Component<IProps, IState> {
 			performChange(this.shadowContainer, e, this.state.workingSVG)
 		);
 	}
+
 }
 
 export default FileDisplay;
