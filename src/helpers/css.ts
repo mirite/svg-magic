@@ -64,3 +64,13 @@ export function renameCSSClass(
 	}
 	return stylesheetToText(css);
 }
+
+export function setShadowCSS(
+	svgElem: Element,
+	func: (text: string, ...args: any[]) => string,
+	...argsToPassOn: unknown[]
+) {
+	const style = svgElem.querySelector('style');
+	if (!style) return;
+	style.innerHTML = func(style.innerHTML, ...argsToPassOn);
+}
