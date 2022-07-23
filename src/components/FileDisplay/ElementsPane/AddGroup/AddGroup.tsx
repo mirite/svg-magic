@@ -26,11 +26,11 @@ function AddGroup(props: IProps) {
 	function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
 		onChange(options);
-		setClassName("");
+		setClassName('');
 	}
 
 	return (
-		<form className="group" onSubmit={(e)=>handleSubmit(e)}>
+		<form className="group" onSubmit={(e) => handleSubmit(e)}>
 			<h3>Add Group:</h3>
 			<label>
 				Class:

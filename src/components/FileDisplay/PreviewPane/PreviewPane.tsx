@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './PreviewPane.module.css';
-import {ChangeOptions, IPoint} from 'types';
-import Overlay from "./Overlay/Overlay";
+import { ChangeOptions, IPoint } from 'types';
+import Overlay from './Overlay/Overlay';
 
 interface IProps {
 	containerRef: React.RefObject<HTMLDivElement>;
@@ -11,11 +11,10 @@ interface IProps {
 }
 
 function PreviewPane(props: IProps) {
-	const {containerRef, svgHTML, points, onChange} = props;
+	const { containerRef, svgHTML, points, onChange } = props;
 	const [base64, setBase64] = useState('');
 	const [isDark, setIsDark] = useState(false);
 	const [showOverlay, setShowOverlay] = useState(true);
-
 
 	useEffect(() => {
 		setBase64(window.btoa(svgHTML));
@@ -43,7 +42,9 @@ function PreviewPane(props: IProps) {
 					<input
 						type="checkbox"
 						checked={showOverlay}
-						onChange={(e) => setShowOverlay(e.currentTarget.checked)}
+						onChange={(e) =>
+							setShowOverlay(e.currentTarget.checked)
+						}
 					/>
 				</label>
 			</div>
@@ -52,10 +53,17 @@ function PreviewPane(props: IProps) {
 				<div
 					className={styles.preview}
 					ref={containerRef}
-					dangerouslySetInnerHTML={{__html: svgHTML}}
+					dangerouslySetInnerHTML={{ __html: svgHTML }}
 				></div>
-				{showOverlay ? <Overlay points={points} onChange={(e) => onChange(e)}
-						  svg={containerRef.current?.querySelector("svg")}/> : ""}
+				{showOverlay ? (
+					<Overlay
+						points={points}
+						onChange={(e) => onChange(e)}
+						svg={containerRef.current?.querySelector('svg')}
+					/>
+				) : (
+					''
+				)}
 			</div>
 			<h3>&lt;img&gt;</h3>
 			<div className={styles.preview}>

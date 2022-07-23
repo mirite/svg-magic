@@ -1,6 +1,6 @@
 import { IPath, IPoint, ISVGRule, SVGSubElement } from 'types';
 import { parseCSS } from './css';
-import {IEditorState} from "../components/FileDisplay/FileDisplay";
+import { IEditorState } from '../components/FileDisplay/FileDisplay';
 
 export function findSVGRules(
 	parent: SVGElement | SVGSubElement,
@@ -110,7 +110,9 @@ export function findSVGPoints(
 	return Array.from(localExistingRef);
 }
 
-export function evaluateSVG(svgContainer: HTMLDivElement | null):IEditorState | null {
+export function evaluateSVG(
+	svgContainer: HTMLDivElement | null
+): IEditorState | null {
 	if (!svgContainer) return null;
 	const svgElem = svgContainer.firstChild as SVGElement;
 	if (!svgElem) return null;
@@ -118,5 +120,5 @@ export function evaluateSVG(svgContainer: HTMLDivElement | null):IEditorState | 
 	const rules: ISVGRule[] = findSVGRules(svgElem);
 	const points: IPoint[] = findSVGPoints(svgElem);
 	const classes = findClasses(svgElem);
-	return {paths, rules, classes, points};
+	return { paths, rules, classes, points };
 }

@@ -1,6 +1,6 @@
-import React, {useEffect, useRef} from 'react';
-import {drawOverlay, onMouseDown} from "helpers/overlay";
-import {ChangeOptions, IPoint} from "types";
+import React, { useEffect, useRef } from 'react';
+import { drawOverlay, onMouseDown } from 'helpers/overlay';
+import { ChangeOptions, IPoint } from 'types';
 
 interface IProps {
 	points: IPoint[];
@@ -9,7 +9,7 @@ interface IProps {
 }
 
 function Overlay(props: IProps) {
-	const {points, onChange, svg} = props;
+	const { points, onChange, svg } = props;
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 
 	useEffect(() => {
@@ -24,7 +24,15 @@ function Overlay(props: IProps) {
 	return (
 		<canvas
 			ref={canvasRef}
-			onMouseDown={(e) => onMouseDown(e, canvasRef.current!, points, (e) => onChange(e), svg)}
+			onMouseDown={(e) =>
+				onMouseDown(
+					e,
+					canvasRef.current!,
+					points,
+					(changeOptions) => onChange(changeOptions),
+					svg
+				)
+			}
 		></canvas>
 	);
 }

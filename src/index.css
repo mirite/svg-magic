@@ -119,3 +119,11 @@ svg .active {
     padding: 1rem;
     margin-bottom: 1rem;
 }
+
+.destructive {
+    background-color: red;
+}
+
+.positive {
+    background-color: green;
+}

@@ -1,12 +1,12 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {evaluateSVG,} from 'helpers/parsers';
+import React, { useEffect, useRef, useState } from 'react';
+import { evaluateSVG } from 'helpers/parsers';
 import styles from './FileDisplay.module.css';
-import {ChangeOptions, IPath, IPoint, ISVGRule} from 'types';
+import { ChangeOptions, IPath, IPoint, ISVGRule } from 'types';
 import ElementsPane from './ElementsPane/ElementsPane';
 import RulesPane from './RulesPane/RulesPane';
 import PreviewPane from './PreviewPane/PreviewPane';
 import EditorPane from './EditorPane/EditorPane';
-import {performChange, stripData, stripIDs} from 'helpers/transformer';
+import { performChange, stripData, stripIDs } from 'helpers/transformer';
 
 interface IProps {
 	contents: string;
@@ -24,8 +24,8 @@ const defaultState: IEditorState = {
 	paths: [],
 	rules: [],
 	classes: [],
-	points: []
-}
+	points: [],
+};
 
 function FileDisplay(props: IProps) {
 	const [state, setState] = useState<IEditorState>(defaultState);
@@ -39,21 +39,36 @@ function FileDisplay(props: IProps) {
 	};
 
 	useEffect(() => {
-			setWorkingSVG(props.contents);
-		},
-		[props]);
+		setWorkingSVG(props.contents);
+	}, [props]);
 
 	useEffect(() => {
 		if (!svgContainer) return;
 		const newState = evaluateSVG(svgContainer.current);
 		if (newState) {
-			setState(newState)
+			setState(newState);
 		}
-	}, [workingSVG])
+	}, [workingSVG]);
 
-
-	const {paths, rules, classes, points} = state;
+	const { paths, rules, classes, points } = state;
 	const svgElem = svgContainer.current?.querySelector('svg');
+
+	function saveFile() {
+		const element = document.createElement('a');
+		element.setAttribute(
+			'href',
+			'data:text/plain;charset=utf-8,' + encodeURIComponent(workingSVG)
+		);
+		element.setAttribute('download', 'magic.svg');
+
+		element.style.display = 'none';
+		document.body.appendChild(element);
+
+		element.click();
+
+		document.body.removeChild(element);
+	}
+
 	return (
 		<div className={styles.fileDisplay}>
 			<header className={styles.header}>
@@ -65,7 +80,15 @@ function FileDisplay(props: IProps) {
 					<button onClick={() => handleChange(stripData)}>
 						Strip Data
 					</button>
-					<button onClick={() => props.onClose()}>Close</button>
+					<button className="positive" onClick={() => saveFile()}>
+						Save
+					</button>
+					<button
+						className="destructive"
+						onClick={() => props.onClose()}
+					>
+						Close
+					</button>
 				</div>
 			</header>
 			<div className={styles.container}>
@@ -90,14 +113,10 @@ function FileDisplay(props: IProps) {
 					onChange={(e) => handleChange(e)}
 					classes={classes}
 				/>
-				<div
-					style={{display: 'none'}}
-					ref={shadowContainer}
-				></div>
+				<div style={{ display: 'none' }} ref={shadowContainer}></div>
 			</div>
 		</div>
 	);
 }
-
 
 export default FileDisplay;

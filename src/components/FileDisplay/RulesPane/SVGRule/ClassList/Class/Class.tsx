@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './Class.module.css';
 import { IClassOptions } from 'types';
 
@@ -38,7 +38,7 @@ function Class(props: IProps) {
 		props.onChange(options);
 	}
 
-	useEffect(()=>setNewName(props.name),[props])
+	useEffect(() => setNewName(props.name), [props]);
 
 	return (
 		<li className={styles.className}>
