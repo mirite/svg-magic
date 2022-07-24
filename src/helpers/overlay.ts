@@ -3,28 +3,44 @@ import React from 'react';
 
 const markerSize = 8;
 
+const createMarkerRect = (
+	x: number,
+	xScale: number,
+	y: number,
+	yScale: number
+) => {
+	const tolerance = getTolerance();
+	return [
+		x * xScale - tolerance,
+		y * yScale - tolerance,
+		markerSize,
+		markerSize,
+	] as const;
+};
+
 export function drawOverlay(
 	points: IPoint[],
 	canvas: HTMLCanvasElement,
 	svg: SVGElement
 ) {
-	canvas.width = svg.clientWidth;
-	canvas.height = svg.clientHeight;
+	function setCanvasSize() {
+		canvas.width = svg.clientWidth;
+		canvas.height = svg.clientHeight;
+	}
+
+	function clearCanvas(ctx: CanvasRenderingContext2D) {
+		ctx.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
+	}
+
+	setCanvasSize();
 	const context = canvas.getContext('2d');
 	if (!context) return;
-	context.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
-	context.fillStyle = 'blue';
 	const { xAxis: xScale, yAxis: yScale } = getScale(canvas, svg);
+	clearCanvas(context);
+	context.fillStyle = 'blue';
 	for (const point of points) {
 		const { x, y } = point;
-		const tolerance = markerSize / 2;
-		const rect = [
-			x * xScale - tolerance,
-			y * yScale - tolerance,
-			markerSize,
-			markerSize,
-		] as const;
-		context.fillRect(...rect);
+		context.fillRect(...createMarkerRect(x, xScale, y, yScale));
 	}
 }
 
@@ -35,12 +51,16 @@ function getCursorPosition(canvas: HTMLCanvasElement, event: React.MouseEvent) {
 	return { x, y };
 }
 
+function getTolerance() {
+	return markerSize / 2;
+}
+
 export function findPoint(
 	mouseDownX: number,
 	mouseDownY: number,
 	points: IPoint[]
 ): IPoint | null {
-	const tolerance = markerSize / 2;
+	const tolerance = getTolerance();
 	for (const point of points) {
 		const { x, y } = point;
 		if (mouseDownX > x - tolerance && mouseDownX < x + tolerance) {
@@ -57,10 +77,10 @@ function getScale(
 	svg: SVGElement
 ): { xAxis: number; yAxis: number } {
 	const viewBox = svg.getAttribute('viewBox') || '0 0 100 100';
-	const dimensions = viewBox.split(' ').map(Number.parseFloat);
+	const [x1, y1, x2, y2] = viewBox.split(' ').map(Number.parseFloat);
 	const { clientWidth: actualWidth, clientHeight: actualHeight } = svg;
-	const xAxis = actualWidth / (dimensions[2] - dimensions[0]);
-	const yAxis = actualHeight / (dimensions[3] - dimensions[1]);
+	const xAxis = actualWidth / (x2 - x1);
+	const yAxis = actualHeight / (y2 - y1);
 	return { xAxis, yAxis };
 }
 
@@ -74,6 +94,21 @@ function scaleCursor(
 	return { scaledX: x / xScale, scaledY: y / yScale };
 }
 
+function createMovePointOptions(
+	point: IPoint,
+	scaledX: number,
+	scaledY: number
+): IMovePointOptions {
+	return {
+		type: 'movePoint',
+		options: {
+			element: point.owner as SVGSubElement,
+			pointToMove: { x: point.x, y: point.y },
+			newLocation: { x: scaledX, y: scaledY },
+		},
+	};
+}
+
 function onMouseUp(
 	e: React.MouseEvent,
 	point: IPoint,
@@ -83,14 +118,7 @@ function onMouseUp(
 ) {
 	const { x, y } = getCursorPosition(canvas, e);
 	const { scaledX, scaledY } = scaleCursor(x, y, canvas, svg);
-	const options: IMovePointOptions = {
-		type: 'movePoint',
-		options: {
-			element: point.owner as SVGSubElement,
-			pointToMove: { x: point.x, y: point.y },
-			newLocation: { x: scaledX, y: scaledY },
-		},
-	};
+	const options = createMovePointOptions(point, scaledX, scaledY);
 	callback(options);
 	point.owner.classList.remove('active');
 }
@@ -105,19 +133,18 @@ export function onMouseDown(
 	const { x, y } = getCursorPosition(canvas, e);
 	const { scaledX, scaledY } = scaleCursor(x, y, canvas, svg);
 	const match = findPoint(scaledX, scaledY, points);
-	if (match) {
-		match.owner.classList.add('active');
-		e.currentTarget.addEventListener(
-			'mouseup',
-			(mouseUpE) =>
-				onMouseUp(
-					mouseUpE as unknown as React.MouseEvent,
-					match,
-					canvas,
-					onChange,
-					svg
-				),
-			{ once: true }
-		);
-	}
+	if (!match) return;
+	match.owner.classList.add('active');
+	e.currentTarget.addEventListener(
+		'mouseup',
+		(mouseUpE) =>
+			onMouseUp(
+				mouseUpE as unknown as React.MouseEvent,
+				match,
+				canvas,
+				onChange,
+				svg
+			),
+		{ once: true }
+	);
 }
