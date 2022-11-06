@@ -22,10 +22,6 @@ function PreviewPane(props: IProps) {
 
 	const { current: ref } = containerRef;
 
-	if (!containerRef || !ref) {
-		return <></>;
-	}
-
 	return (
 		<div
 			className={
@@ -65,7 +61,7 @@ function PreviewPane(props: IProps) {
 					<Overlay
 						points={points}
 						onChange={(e) => onChange(e)}
-						svg={ref.querySelector('svg')}
+						svg={ref?.querySelector('svg')}
 					/>
 				) : (
 					''
