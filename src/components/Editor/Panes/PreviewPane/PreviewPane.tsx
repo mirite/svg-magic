@@ -4,7 +4,7 @@ import { ChangeOptions, IPoint } from 'types';
 import styles from './PreviewPane.module.css';
 
 interface IProps {
-	containerRef: React.RefObject<HTMLDivElement> | null;
+	containerRef: React.RefObject<HTMLDivElement | null>;
 	svgHTML: string;
 	points: IPoint[];
 	onChange: (changeOptions: ChangeOptions) => void;
@@ -19,6 +19,10 @@ function PreviewPane(props: IProps) {
 	useEffect(() => {
 		setBase64(window.btoa(svgHTML));
 	}, [svgHTML]);
+
+	if (!containerRef.current) {
+		return <></>;
+	}
 
 	return (
 		<div
