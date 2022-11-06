@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { RefObject, useEffect, useState } from 'react';
 import Overlay from './Overlay/Overlay';
 import { ChangeOptions, IPoint } from 'types';
 import styles from './PreviewPane.module.css';
 
 interface IProps {
-	containerRef: React.RefObject<HTMLDivElement | null>;
+	containerRef: RefObject<HTMLDivElement | null>;
 	svgHTML: string;
 	points: IPoint[];
 	onChange: (changeOptions: ChangeOptions) => void;
@@ -20,7 +20,9 @@ function PreviewPane(props: IProps) {
 		setBase64(window.btoa(svgHTML));
 	}, [svgHTML]);
 
-	if (!containerRef.current) {
+	const { current: ref } = containerRef;
+
+	if (!containerRef || !ref) {
 		return <></>;
 	}
 
@@ -56,14 +58,14 @@ function PreviewPane(props: IProps) {
 			<div className={styles.livePreview}>
 				<div
 					className={styles.preview}
-					ref={containerRef}
+					ref={containerRef as RefObject<HTMLDivElement>}
 					dangerouslySetInnerHTML={{ __html: svgHTML }}
 				></div>
 				{showOverlay ? (
 					<Overlay
 						points={points}
 						onChange={(e) => onChange(e)}
-						svg={containerRef?.current?.querySelector('svg')}
+						svg={ref.querySelector('svg')}
 					/>
 				) : (
 					''
