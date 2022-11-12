@@ -19,7 +19,6 @@ function Class(props: IProps) {
 
 	function confirmRename() {
 		const options: IClassOptions = {
-			type: 'renameClass',
 			options: {
 				existingClassName: props.name,
 				newClassName: newName,
@@ -31,7 +30,6 @@ function Class(props: IProps) {
 
 	function deleteClass() {
 		const options: IClassOptions = {
-			type: 'removeClass',
 			options: {
 				existingClassName: props.name,
 			},

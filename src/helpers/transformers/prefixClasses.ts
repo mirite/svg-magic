@@ -15,7 +15,6 @@ export function prefixClasses(
 	for (const existingClassName of classes) {
 		const newClassName = prefix + '-' + existingClassName;
 		renameClass(svgElem, {
-			type: 'renameClass',
 			options: {
 				existingClassName,
 				newClassName,

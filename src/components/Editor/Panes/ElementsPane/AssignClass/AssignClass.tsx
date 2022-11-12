@@ -13,7 +13,6 @@ function AssignClass(props: IProps) {
 	const [useExisting, setUseExisting] = useState(true);
 	const [className, setClassName] = useState('');
 	const options: IAssignClassOptions = {
-		type: 'assign',
 		options: {
 			className,
 			selectedItems,

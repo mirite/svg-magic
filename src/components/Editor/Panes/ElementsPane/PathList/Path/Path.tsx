@@ -40,7 +40,6 @@ function Path(props: IProps) {
 				if (elementBeingDropped === currentElement) return;
 
 				const options: IMoveOptions = {
-					type: 'move',
 					options: {
 						element: elementBeingDropped,
 						target: currentElement,

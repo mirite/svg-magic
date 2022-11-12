@@ -166,7 +166,6 @@ function createMovePointOptions(
 ): IMovePointOptions {
 	const { x, y, owner } = point;
 	return {
-		type: 'movePoint',
 		options: {
 			element: owner as SVGSubElement,
 			pointToMove: { x, y },

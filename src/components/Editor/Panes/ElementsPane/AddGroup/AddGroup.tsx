@@ -10,7 +10,6 @@ interface IProps {
 function AddGroup(props: IProps) {
 	const createOptions = (): IGroupOptions => {
 		return {
-			type: 'group',
 			options: {
 				className,
 				selectedItems: selected,

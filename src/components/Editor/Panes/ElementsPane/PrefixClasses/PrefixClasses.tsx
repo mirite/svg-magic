@@ -11,7 +11,6 @@ const PrefixClasses = (props: IProps) => {
 	const [prefix, setPrefix] = useState('');
 
 	const options: IPrefixClassOptions = {
-		type: 'prefixClasses',
 		options: {
 			prefix,
 		},
