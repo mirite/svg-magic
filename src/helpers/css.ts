@@ -49,12 +49,10 @@ export function renameCSSClass(
 	const css = parseCSS(text);
 	if (!css?.stylesheet) return '';
 
+	const pattern = new RegExp(`(\.)${oldClassName}([. ,\\n{]|$)`, 'ig');
+
 	function processRule(rule: Rule) {
 		rule.selectors = rule.selectors?.map((s) => {
-			const pattern = new RegExp(
-				`(\.)${oldClassName}([. ,\\n{]|$)`,
-				'ig'
-			);
 			return s.replace(pattern, '$1' + newClassName + '$2');
 		});
 	}
