@@ -8,6 +8,7 @@ import styles from './Editor.module.css';
 
 interface IProps {
 	contents: string;
+	fileName: string;
 	onClose: () => void;
 }
 
@@ -26,8 +27,9 @@ const defaultState: IEditorState = {
 };
 
 function Editor(props: IProps) {
+	const { fileName, contents, onClose } = props;
 	const [state, setState] = useState<IEditorState>(defaultState);
-	const [workingSVG, setWorkingSVG] = useState<string>(props.contents);
+	const [workingSVG, setWorkingSVG] = useState<string>(contents);
 
 	const svgContainer = useRef<HTMLDivElement>(null);
 	const shadowContainer = useRef<HTMLDivElement>(null);
@@ -37,7 +39,7 @@ function Editor(props: IProps) {
 	};
 
 	useEffect(() => {
-		setWorkingSVG(props.contents);
+		setWorkingSVG(contents);
 	}, [props]);
 
 	useEffect(() => {
@@ -52,7 +54,8 @@ function Editor(props: IProps) {
 		<div className={styles.fileDisplay}>
 			<Header
 				workingSVG={workingSVG}
-				onClose={() => props.onClose()}
+				fileName={fileName}
+				onClose={() => onClose()}
 				onChange={(e) => handleChange(e)}
 			/>
 			<Panes

@@ -93,4 +93,9 @@ export interface IPoint {
 	owner: Element;
 }
 
+export interface IFile {
+	title: string;
+	contents: string;
+}
+
 export { CSSTypes };
