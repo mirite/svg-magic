@@ -37,6 +37,9 @@ class FileSelector extends Component<IProps, IState> {
 				>
 					View On GitHub
 				</a>
+				<p>
+					<em>Version {__APP_VERSION__}</em>
+				</p>
 			</div>
 		);
 	}
