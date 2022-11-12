@@ -38,11 +38,7 @@ function checkPolyPoint(
 }
 
 export function movePoint(svgElem: SVGSVGElement, change: IMovePointOptions) {
-	const {
-		element: lightWorldElem,
-		pointToMove,
-		newLocation,
-	} = change.options;
+	const { element: lightWorldElem, pointToMove, newLocation } = change;
 	const element = findShadowEquivalent(lightWorldElem, svgElem);
 	if (!element) {
 		return;

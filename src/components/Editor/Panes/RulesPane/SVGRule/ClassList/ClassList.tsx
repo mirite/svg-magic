@@ -1,10 +1,10 @@
 import React from 'react';
-import { IClassOptions } from 'types';
+import { ChangeOperation, IChangeOptions, IClassOptions } from 'types';
 import Class from './Class/Class';
 
 interface IProps {
 	classes: string[];
-	onChange: (changeOptions: IClassOptions) => void;
+	onChange: (changeOptions: ChangeOperation<IClassOptions>) => void;
 }
 
 function ClassList(props: IProps) {

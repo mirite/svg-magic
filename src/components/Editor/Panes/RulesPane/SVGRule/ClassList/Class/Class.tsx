@@ -1,44 +1,40 @@
 import React, { useEffect, useState } from 'react';
 import styles from './Class.module.css';
-import { IClassOptions } from 'types';
+import { ChangeOperation, IClassOptions } from 'types';
+import { removeClass, renameClass } from 'helpers/transformers';
 
 interface IProps {
 	name: string;
-	onChange: (changeOptions: IClassOptions) => void;
+	onChange: (changeOptions: ChangeOperation<IClassOptions>) => void;
 }
 
 function Class(props: IProps) {
+	const { name, onChange } = props;
 	const [renaming, setRenaming] = useState(false);
-	const [newName, setNewName] = useState(props.name);
+	const [newName, setNewName] = useState(name);
 
 	function cancelRename() {
-		setNewName(props.name);
+		setNewName(name);
 		setRenaming(false);
 	}
 
 	function confirmRename() {
 		const options: IClassOptions = {
-			type: 'renameClass',
-			options: {
-				existingClassName: props.name,
-				newClassName: newName,
-			},
+			existingClassName: name,
+			newClassName: newName,
 		};
-		props.onChange(options);
+		onChange({ func: renameClass, ...options });
 		setRenaming(false);
 	}
 
 	function deleteClass() {
 		const options: IClassOptions = {
-			type: 'removeClass',
-			options: {
-				existingClassName: props.name,
-			},
+			existingClassName: name,
 		};
-		props.onChange(options);
+		onChange({ func: removeClass, ...options });
 	}
 
-	useEffect(() => setNewName(props.name), [props]);
+	useEffect(() => setNewName(name), [props]);
 
 	return (
 		<li className={styles.className}>
@@ -50,7 +46,7 @@ function Class(props: IProps) {
 						onChange={(e) => setNewName(e.currentTarget.value)}
 					/>
 				) : (
-					props.name
+					name
 				)}
 			</span>
 			{renaming ? (

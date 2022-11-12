@@ -21,76 +21,59 @@ export interface ISVGRule {
 	rule: CSSContents;
 }
 
-export type ChangeOptions =
-	| IGroupOptions
-	| IMoveOptions
-	| IAssignClassOptions
-	| IStripIDOptions
-	| IStripDataOptions
-	| IClassOptions
-	| IMovePointOptions
-	| IPrefixClassOptions;
-
-export interface IGroupOptions {
-	type: 'group';
-	options: {
-		className?: string;
-		selectedItems?: IPath[];
-	};
+export interface IChangeOptions {
+	[key: string]: any;
 }
 
-export interface IMoveOptions {
-	type: 'move';
-	options: {
-		element: SVGSubElement;
-		target: SVGSubElement;
-	};
+export type ChangeOperation<T extends IChangeOptions> = {
+	func: ChangeFunction<T>;
+};
+
+export type ChangeFunction<T> = (elem: SVGSVGElement, options: T) => void;
+
+export interface IGroupOptions extends IChangeOptions {
+	className?: string;
+	selectedItems?: IPath[];
 }
 
-export interface IAssignClassOptions {
-	type: 'assign';
-	options: {
-		className: string;
-		selectedItems: IPath[];
-	};
+export interface IMoveOptions extends IChangeOptions {
+	element: SVGSubElement;
+	target: SVGSubElement;
 }
 
-export interface IStripIDOptions {
-	type: 'strip';
+export interface IAssignClassOptions extends IChangeOptions {
+	className: string;
+	selectedItems: IPath[];
 }
 
-export interface IStripDataOptions {
-	type: 'stripData';
+export interface IStripIDOptions extends IChangeOptions {}
+
+export interface IStripDataOptions extends IChangeOptions {}
+
+export interface IPrefixClassOptions extends IChangeOptions {
+	prefix?: string;
 }
 
-export interface IPrefixClassOptions {
-	type: 'prefixClasses';
-	options?: {
-		prefix?: string;
-	};
+export interface IClassOptions extends IChangeOptions {
+	existingClassName: string;
+	newClassName?: string;
 }
 
-export interface IClassOptions {
-	type: 'renameClass' | 'removeClass';
-	options: {
-		existingClassName: string;
-		newClassName?: string;
-	};
-}
-
-export interface IMovePointOptions {
-	type: 'movePoint';
-	options: {
-		element: SVGSubElement;
-		pointToMove: { x: number; y: number };
-		newLocation: { x: number; y: number };
-	};
+export interface IMovePointOptions extends IChangeOptions {
+	element: SVGSubElement;
+	pointToMove: { x: number; y: number };
+	newLocation: { x: number; y: number };
 }
 
 export interface IPoint {
 	x: number;
 	y: number;
 	owner: Element;
+}
+
+export interface IFile {
+	title: string;
+	contents: string;
 }
 
 export { CSSTypes };

@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 
 import styles from './FileSelector.module.css';
+import { IFile } from 'types';
 
 interface IProps {
-	onSelect: (fileContent: string) => void;
+	onSelect: (file: IFile) => void;
 }
 
 interface IState {
-	fileContents: string;
+	file: IFile;
 }
 
 class FileSelector extends Component<IProps, IState> {
@@ -36,24 +37,29 @@ class FileSelector extends Component<IProps, IState> {
 				>
 					View On GitHub
 				</a>
+				<p>
+					<em>Version {__APP_VERSION__}</em>
+				</p>
 			</div>
 		);
 	}
 
 	private handleSubmit(e: React.FormEvent) {
 		e.preventDefault();
-		const { fileContents } = this.state;
-		if (fileContents) {
-			this.props.onSelect(fileContents);
+		const { file } = this.state;
+		if (file) {
+			this.props.onSelect(file);
 		}
 	}
 
 	private async handleChange(e: React.ChangeEvent<HTMLInputElement>) {
 		const { files } = e.target;
-		const file = files?.item(0);
-		const fileContents = await file?.text();
-		if (fileContents) {
-			this.setState({ fileContents });
+		const rawFileFromInput = files?.item(0);
+		const contents = await rawFileFromInput?.text();
+		const title = rawFileFromInput?.name;
+		if (title && contents) {
+			const file = { contents, title };
+			this.setState({ file });
 		}
 	}
 }

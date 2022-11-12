@@ -1,42 +1,37 @@
 import React from 'react';
 import styles from './Header.module.css';
 
-import { ChangeOptions } from 'types';
+import { ChangeOperation } from 'types';
 import { prefixClasses, stripData, stripIDs } from 'helpers/transformers';
+import { saveFile } from 'helpers/fileSaving';
 
 interface IProps {
 	workingSVG: string;
+	fileName: string;
 	onClose: () => void;
-	onChange: (changeOptions: ChangeOptions) => void;
+	onChange: (changeOptions: ChangeOperation<any>) => void;
 }
 
 function Header(props: IProps) {
-	const { workingSVG, onChange, onClose } = props;
-	const saveFile = () => {
-		const element = document.createElement('a');
-		element.setAttribute(
-			'href',
-			'data:text/plain;charset=utf-8,' + encodeURIComponent(workingSVG)
-		);
-		element.setAttribute('download', 'magic.svg');
+	const { workingSVG, onChange, onClose, fileName } = props;
 
-		element.style.display = 'none';
-		document.body.appendChild(element);
-
-		element.click();
-
-		document.body.removeChild(element);
-	};
 	return (
 		<header className={styles.header}>
 			<h1>SVG Magic</h1>
 			<div className={styles.actions}>
-				<button onClick={() => onChange(prefixClasses)}>
+				<button onClick={() => onChange({ func: prefixClasses })}>
 					Prefix Classes
 				</button>
-				<button onClick={() => onChange(stripIDs)}>Strip IDs</button>
-				<button onClick={() => onChange(stripData)}>Strip Data</button>
-				<button className="positive" onClick={() => saveFile()}>
+				<button onClick={() => onChange({ func: stripIDs })}>
+					Strip IDs
+				</button>
+				<button onClick={() => onChange({ func: stripData })}>
+					Strip Data
+				</button>
+				<button
+					className="positive"
+					onClick={() => saveFile(workingSVG, fileName)}
+				>
 					Save
 				</button>
 				<button className="destructive" onClick={() => onClose()}>

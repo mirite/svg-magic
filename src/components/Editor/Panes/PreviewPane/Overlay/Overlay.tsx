@@ -1,10 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 import { drawOverlay, onMouseDown } from 'helpers/overlay';
-import { ChangeOptions, IPoint } from 'types';
+import { ChangeOperation, IPoint } from 'types';
 
 interface IProps {
 	points: IPoint[];
-	onChange: (changeOptions: ChangeOptions) => void;
+	onChange: (changeOptions: ChangeOperation<any>) => void;
 	svg: SVGElement | null | undefined;
 }
 
