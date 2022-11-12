@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from './Class.module.css';
 import { ChangeOperation, IClassOptions } from 'types';
-import { renameClass } from '../../../../../../../helpers/transformers';
+import { removeClass, renameClass } from 'helpers/transformers';
 
 interface IProps {
 	name: string;
@@ -34,7 +34,7 @@ function Class(props: IProps) {
 				existingClassName: props.name,
 			},
 		};
-		props.onChange({ func: deleteClass, options });
+		props.onChange({ func: removeClass, options });
 	}
 
 	useEffect(() => setNewName(props.name), [props]);
