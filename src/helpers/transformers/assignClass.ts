@@ -5,10 +5,10 @@ export function assignClass(
 	svgElem: SVGSVGElement,
 	change: IAssignClassOptions
 ) {
-	for (const path of change.options.selectedItems) {
+	for (const path of change.selectedItems) {
 		const shadow = findShadowEquivalent(path.elem, svgElem);
 		if (shadow) {
-			shadow.classList.add(change.options.className);
+			shadow.classList.add(change.className);
 		}
 	}
 }

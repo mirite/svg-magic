@@ -27,7 +27,7 @@ function AddGroup(props: IProps) {
 		e.preventDefault();
 		onChange({
 			func: addGroup,
-			options,
+			...options,
 		});
 		setClassName('');
 	}

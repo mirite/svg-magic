@@ -13,17 +13,15 @@ function AssignClass(props: IProps) {
 	const [useExisting, setUseExisting] = useState(true);
 	const [className, setClassName] = useState('');
 	const options: IAssignClassOptions = {
-		options: {
-			className,
-			selectedItems,
-		},
+		className,
+		selectedItems,
 	};
 
 	const handleSubmit = (e: FormEvent) => {
 		e.preventDefault();
 		onChange({
 			func: assignClass,
-			options,
+			...options,
 		});
 		setUseExisting(true);
 		setClassName('');

@@ -40,14 +40,12 @@ function Path(props: IProps) {
 				if (elementBeingDropped === currentElement) return;
 
 				const options: IMoveOptions = {
-					options: {
-						element: elementBeingDropped,
-						target: currentElement,
-					},
+					element: elementBeingDropped,
+					target: currentElement,
 				};
 				props.onChange({
 					func: moveElement,
-					options,
+					...options,
 				});
 			},
 		}),

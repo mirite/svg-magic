@@ -22,37 +22,28 @@ export interface ISVGRule {
 }
 
 export interface IChangeOptions {
-	options?: {
-		[key: string]: any;
-	};
+	[key: string]: any;
 }
 
 export type ChangeOperation<T extends IChangeOptions> = {
 	func: ChangeFunction<T>;
-	options?: T;
 };
 
 export type ChangeFunction<T> = (elem: SVGSVGElement, options: T) => void;
 
 export interface IGroupOptions extends IChangeOptions {
-	options: {
-		className?: string;
-		selectedItems?: IPath[];
-	};
+	className?: string;
+	selectedItems?: IPath[];
 }
 
 export interface IMoveOptions extends IChangeOptions {
-	options: {
-		element: SVGSubElement;
-		target: SVGSubElement;
-	};
+	element: SVGSubElement;
+	target: SVGSubElement;
 }
 
 export interface IAssignClassOptions extends IChangeOptions {
-	options: {
-		className: string;
-		selectedItems: IPath[];
-	};
+	className: string;
+	selectedItems: IPath[];
 }
 
 export interface IStripIDOptions extends IChangeOptions {}
@@ -60,24 +51,18 @@ export interface IStripIDOptions extends IChangeOptions {}
 export interface IStripDataOptions extends IChangeOptions {}
 
 export interface IPrefixClassOptions extends IChangeOptions {
-	options?: {
-		prefix?: string;
-	};
+	prefix?: string;
 }
 
 export interface IClassOptions extends IChangeOptions {
-	options: {
-		existingClassName: string;
-		newClassName?: string;
-	};
+	existingClassName: string;
+	newClassName?: string;
 }
 
 export interface IMovePointOptions extends IChangeOptions {
-	options: {
-		element: SVGSubElement;
-		pointToMove: { x: number; y: number };
-		newLocation: { x: number; y: number };
-	};
+	element: SVGSubElement;
+	pointToMove: { x: number; y: number };
+	newLocation: { x: number; y: number };
 }
 
 export interface IPoint {

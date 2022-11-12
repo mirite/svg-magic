@@ -2,7 +2,7 @@ import { IGroupOptions } from '../../types';
 import { findShadowEquivalent } from '../dom';
 
 export function addGroup(shadowContainer: SVGElement, change: IGroupOptions) {
-	const { className, selectedItems } = change.options;
+	const { className, selectedItems } = change;
 	const newGroup = document.createElement('g');
 	newGroup.className = className || '';
 	if (selectedItems) {

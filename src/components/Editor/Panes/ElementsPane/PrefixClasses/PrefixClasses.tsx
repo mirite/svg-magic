@@ -11,16 +11,14 @@ const PrefixClasses = (props: IProps) => {
 	const [prefix, setPrefix] = useState('');
 
 	const options: IPrefixClassOptions = {
-		options: {
-			prefix,
-		},
+		prefix,
 	};
 
 	const handleSubmit = (e: FormEvent) => {
 		e.preventDefault();
 		const operation: ChangeOperation<IPrefixClassOptions> = {
 			func: prefixClasses,
-			options,
+			...options,
 		};
 		onChange(operation);
 		setPrefix('');

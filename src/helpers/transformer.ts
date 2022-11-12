@@ -11,7 +11,8 @@ export function performChange<T extends IChangeOptions>(
 	shadowContainer.innerHTML = currentSVG;
 	const svgElem = shadowContainer.querySelector('svg');
 	if (!svgElem) return currentSVG;
-	change.func(svgElem, change.options as T);
+	const options = { ...change } as unknown as T;
+	change.func(svgElem, options);
 	const html = shadowContainer.innerHTML;
 	shadowContainer.innerHTML = '';
 	return html;

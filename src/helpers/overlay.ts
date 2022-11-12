@@ -166,11 +166,9 @@ function createMovePointOptions(
 ): IMovePointOptions {
 	const { x, y, owner } = point;
 	return {
-		options: {
-			element: owner as SVGSubElement,
-			pointToMove: { x, y },
-			newLocation: { x: newX, y: newY },
-		},
+		element: owner as SVGSubElement,
+		pointToMove: { x, y },
+		newLocation: { x: newX, y: newY },
 	};
 }
 
@@ -184,7 +182,7 @@ function onMouseUp(
 	const { x, y } = getCursorPosition(canvas, e);
 	const { scaledX, scaledY } = scaleCursor(x, y, svg);
 	const options = createMovePointOptions(point, scaledX, scaledY);
-	callback({ func: movePoint, options });
+	callback({ func: movePoint, ...options });
 	point.owner.classList.remove('active');
 }
 

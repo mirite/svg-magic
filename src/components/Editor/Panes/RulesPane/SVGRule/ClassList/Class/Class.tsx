@@ -20,22 +20,18 @@ function Class(props: IProps) {
 
 	function confirmRename() {
 		const options: IClassOptions = {
-			options: {
-				existingClassName: name,
-				newClassName: newName,
-			},
+			existingClassName: name,
+			newClassName: newName,
 		};
-		onChange({ func: renameClass, options });
+		onChange({ func: renameClass, ...options });
 		setRenaming(false);
 	}
 
 	function deleteClass() {
 		const options: IClassOptions = {
-			options: {
-				existingClassName: name,
-			},
+			existingClassName: name,
 		};
-		onChange({ func: removeClass, options });
+		onChange({ func: removeClass, ...options });
 	}
 
 	useEffect(() => setNewName(name), [props]);

@@ -11,14 +11,12 @@ export function prefixClasses(
 	options?: IPrefixClassOptions
 ) {
 	const classes = findClasses(svgElem);
-	const prefix = options?.options?.prefix ?? createPrefix();
+	const prefix = options?.prefix ?? createPrefix();
 	for (const existingClassName of classes) {
 		const newClassName = prefix + '-' + existingClassName;
 		renameClass(svgElem, {
-			options: {
-				existingClassName,
-				newClassName,
-			},
+			existingClassName,
+			newClassName,
 		});
 	}
 }
