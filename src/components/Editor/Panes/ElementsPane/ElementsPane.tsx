@@ -5,6 +5,7 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import AddGroup from './AddGroup/AddGroup';
 import AssignClass from './AssignClass/AssignClass';
+import PrefixClasses from './PrefixClasses/PrefixClasses';
 
 interface IProps {
 	svgRoot: SVGElement | undefined | null;
@@ -64,6 +65,9 @@ function ElementsPane(props: IProps) {
 			<AddGroup
 				onChange={(e: ChangeOptions) => handleChangeOption(e)}
 				selected={selected}
+			/>
+			<PrefixClasses
+				onChange={(e: ChangeOptions) => handleChangeOption(e)}
 			/>
 		</div>
 	);
