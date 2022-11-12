@@ -1,13 +1,13 @@
 import React, { RefObject, useEffect, useState } from 'react';
 import Overlay from './Overlay/Overlay';
-import { ChangeOptions, IPoint } from 'types';
+import { ChangeOperation, IPoint } from 'types';
 import styles from './PreviewPane.module.css';
 
 interface IProps {
 	containerRef: RefObject<HTMLDivElement | null>;
 	svgHTML: string;
 	points: IPoint[];
-	onChange: (changeOptions: ChangeOptions) => void;
+	onChange: (changeOptions: ChangeOperation<any>) => void;
 }
 
 function PreviewPane(props: IProps) {

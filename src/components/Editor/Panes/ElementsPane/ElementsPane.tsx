@@ -1,6 +1,13 @@
 import React, { ChangeEvent, useState } from 'react';
 import PathList from './PathList/PathList';
-import { ChangeOptions, IPath } from 'types';
+import {
+	ChangeOperation,
+	IAssignClassOptions,
+	IGroupOptions,
+	IMoveOptions,
+	IPath,
+	IPrefixClassOptions,
+} from 'types';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import AddGroup from './AddGroup/AddGroup';
@@ -10,7 +17,7 @@ import PrefixClasses from './PrefixClasses/PrefixClasses';
 interface IProps {
 	svgRoot: SVGElement | undefined | null;
 	paths: IPath[];
-	onChange: (changeOptions: ChangeOptions) => void;
+	onChange: (changeOptions: ChangeOperation<any>) => void;
 	classes: string[];
 }
 
@@ -36,7 +43,7 @@ function ElementsPane(props: IProps) {
 		setSelected(old);
 	}
 
-	const handleChangeOption = (e: ChangeOptions) => {
+	const handleChangeOption = (e: ChangeOperation<any>) => {
 		props.onChange(e);
 		setSelected([]);
 	};
@@ -49,7 +56,9 @@ function ElementsPane(props: IProps) {
 				<DndProvider backend={HTML5Backend}>
 					<PathList
 						node={rootNode}
-						onChange={(e: ChangeOptions) => handleChangeOption(e)}
+						onChange={(e: ChangeOperation<IMoveOptions>) =>
+							handleChangeOption(e)
+						}
 						onCheck={(e: ChangeEvent<HTMLInputElement>, p: IPath) =>
 							updateSelected(e, p)
 						}
@@ -59,15 +68,21 @@ function ElementsPane(props: IProps) {
 			</div>
 			<AssignClass
 				selected={selected}
-				onChange={(e: ChangeOptions) => handleChangeOption(e)}
+				onChange={(e: ChangeOperation<IAssignClassOptions>) =>
+					handleChangeOption(e)
+				}
 				classes={classes}
 			/>
 			<AddGroup
-				onChange={(e: ChangeOptions) => handleChangeOption(e)}
+				onChange={(e: ChangeOperation<IGroupOptions>) =>
+					handleChangeOption(e)
+				}
 				selected={selected}
 			/>
 			<PrefixClasses
-				onChange={(e: ChangeOptions) => handleChangeOption(e)}
+				onChange={(e: ChangeOperation<IPrefixClassOptions>) =>
+					handleChangeOption(e)
+				}
 			/>
 		</div>
 	);

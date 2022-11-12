@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import styles from './Class.module.css';
-import { IClassOptions } from 'types';
+import { ChangeOperation, IClassOptions } from 'types';
+import { renameClass } from '../../../../../../../helpers/transformers';
 
 interface IProps {
 	name: string;
-	onChange: (changeOptions: IClassOptions) => void;
+	onChange: (changeOptions: ChangeOperation<IClassOptions>) => void;
 }
 
 function Class(props: IProps) {
@@ -24,7 +25,7 @@ function Class(props: IProps) {
 				newClassName: newName,
 			},
 		};
-		props.onChange(options);
+		props.onChange({ func: renameClass, options });
 		setRenaming(false);
 	}
 
@@ -35,7 +36,7 @@ function Class(props: IProps) {
 				existingClassName: props.name,
 			},
 		};
-		props.onChange(options);
+		props.onChange({ func: deleteClass, options });
 	}
 
 	useEffect(() => setNewName(props.name), [props]);

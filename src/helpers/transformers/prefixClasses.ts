@@ -6,7 +6,7 @@ function createPrefix(): string {
 	return 'svg-magic-' + Date.now().toString(36);
 }
 
-export function prefixClassesInSVG(
+export function prefixClasses(
 	svgElem: SVGSVGElement,
 	options?: IPrefixClassOptions
 ) {
@@ -23,7 +23,3 @@ export function prefixClassesInSVG(
 		});
 	}
 }
-
-export const prefixClasses: IPrefixClassOptions = {
-	type: 'prefixClasses',
-};

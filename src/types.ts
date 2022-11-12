@@ -21,17 +21,21 @@ export interface ISVGRule {
 	rule: CSSContents;
 }
 
-export type ChangeOptions =
-	| IGroupOptions
-	| IMoveOptions
-	| IAssignClassOptions
-	| IStripIDOptions
-	| IStripDataOptions
-	| IClassOptions
-	| IMovePointOptions
-	| IPrefixClassOptions;
+export interface IChangeOptions {
+	type: string;
+	options?: {
+		[key: string]: any;
+	};
+}
 
-export interface IGroupOptions {
+export type ChangeOperation<T extends IChangeOptions> = {
+	func: ChangeFunction<T>;
+	options?: T;
+};
+
+export type ChangeFunction<T> = (elem: SVGSVGElement, options: T) => void;
+
+export interface IGroupOptions extends IChangeOptions {
 	type: 'group';
 	options: {
 		className?: string;
@@ -39,7 +43,7 @@ export interface IGroupOptions {
 	};
 }
 
-export interface IMoveOptions {
+export interface IMoveOptions extends IChangeOptions {
 	type: 'move';
 	options: {
 		element: SVGSubElement;
@@ -47,7 +51,7 @@ export interface IMoveOptions {
 	};
 }
 
-export interface IAssignClassOptions {
+export interface IAssignClassOptions extends IChangeOptions {
 	type: 'assign';
 	options: {
 		className: string;
@@ -55,22 +59,22 @@ export interface IAssignClassOptions {
 	};
 }
 
-export interface IStripIDOptions {
+export interface IStripIDOptions extends IChangeOptions {
 	type: 'strip';
 }
 
-export interface IStripDataOptions {
+export interface IStripDataOptions extends IChangeOptions {
 	type: 'stripData';
 }
 
-export interface IPrefixClassOptions {
+export interface IPrefixClassOptions extends IChangeOptions {
 	type: 'prefixClasses';
 	options?: {
 		prefix?: string;
 	};
 }
 
-export interface IClassOptions {
+export interface IClassOptions extends IChangeOptions {
 	type: 'renameClass' | 'removeClass';
 	options: {
 		existingClassName: string;
@@ -78,7 +82,7 @@ export interface IClassOptions {
 	};
 }
 
-export interface IMovePointOptions {
+export interface IMovePointOptions extends IChangeOptions {
 	type: 'movePoint';
 	options: {
 		element: SVGSubElement;

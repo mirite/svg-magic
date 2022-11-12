@@ -1,10 +1,10 @@
 import React, { ChangeEvent } from 'react';
 import Path from './Path/Path';
-import { ChangeOptions, IPath } from 'types';
+import { ChangeOperation, IMoveOptions, IPath } from 'types';
 
 interface IProps {
 	node: IPath;
-	onChange: (options: ChangeOptions) => void;
+	onChange: (options: ChangeOperation<IMoveOptions>) => void;
 	onCheck: (e: ChangeEvent<HTMLInputElement>, p: IPath) => void;
 	selected: IPath[];
 }

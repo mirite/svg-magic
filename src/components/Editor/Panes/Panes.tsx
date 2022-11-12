@@ -4,7 +4,7 @@ import EditorPane from './EditorPane/EditorPane';
 import ElementsPane from './ElementsPane/ElementsPane';
 import RulesPane from './RulesPane/RulesPane';
 import { IEditorState } from '../Editor';
-import { ChangeOptions } from 'types';
+import { ChangeOperation } from 'types';
 import styles from './Panes.module.css';
 
 interface IProps extends IEditorState {
@@ -12,7 +12,7 @@ interface IProps extends IEditorState {
 	svgContainer: React.RefObject<HTMLDivElement | null>;
 	shadowContainer: React.RefObject<HTMLDivElement | null>;
 	setWorkingSVG: (newValue: string) => void;
-	handleChange: (change: ChangeOptions) => void;
+	handleChange: (change: ChangeOperation<any>) => void;
 }
 function Panes(props: IProps) {
 	const {

@@ -1,8 +1,9 @@
 import React, { FormEvent, useState } from 'react';
-import { IPrefixClassOptions } from 'types';
+import { ChangeOperation, IPrefixClassOptions } from 'types';
+import { prefixClasses } from 'helpers/transformers';
 
 interface IProps {
-	onChange: (options: IPrefixClassOptions) => void;
+	onChange: (options: ChangeOperation<IPrefixClassOptions>) => void;
 }
 
 const PrefixClasses = (props: IProps) => {
@@ -18,7 +19,11 @@ const PrefixClasses = (props: IProps) => {
 
 	const handleSubmit = (e: FormEvent) => {
 		e.preventDefault();
-		onChange(options);
+		const operation: ChangeOperation<IPrefixClassOptions> = {
+			func: prefixClasses,
+			options,
+		};
+		onChange(operation);
 		setPrefix('');
 	};
 

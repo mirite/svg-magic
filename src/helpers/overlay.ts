@@ -1,5 +1,11 @@
-import { ChangeOptions, IMovePointOptions, IPoint, SVGSubElement } from 'types';
+import {
+	ChangeOperation,
+	IMovePointOptions,
+	IPoint,
+	SVGSubElement,
+} from 'types';
 import React from 'react';
+import { movePoint } from './transformers';
 
 /**
  * The pixel width/height of the marker that shows on points.
@@ -173,13 +179,13 @@ function onMouseUp(
 	e: React.MouseEvent,
 	point: IPoint,
 	canvas: HTMLCanvasElement,
-	callback: (changeOptions: ChangeOptions) => void,
+	callback: (changeOptions: ChangeOperation<IMovePointOptions>) => void,
 	svg: SVGElement
 ) {
 	const { x, y } = getCursorPosition(canvas, e);
 	const { scaledX, scaledY } = scaleCursor(x, y, svg);
 	const options = createMovePointOptions(point, scaledX, scaledY);
-	callback(options);
+	callback({ func: movePoint, options });
 	point.owner.classList.remove('active');
 }
 
@@ -187,7 +193,7 @@ export function onMouseDown(
 	e: React.MouseEvent<HTMLCanvasElement>,
 	canvas: HTMLCanvasElement,
 	points: IPoint[],
-	onChange: (changeOptions: ChangeOptions) => void,
+	onChange: (changeOptions: ChangeOperation<IMovePointOptions>) => void,
 	svg: SVGElement
 ) {
 	const { x, y } = getCursorPosition(canvas, e);

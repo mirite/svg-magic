@@ -1,9 +1,10 @@
 import React, { FormEvent, useState } from 'react';
-import { IAssignClassOptions, IPath } from 'types';
+import { ChangeOperation, IAssignClassOptions, IPath } from 'types';
+import { assignClass } from 'helpers/transformers';
 
 interface IProps {
 	selected: IPath[];
-	onChange: (options: IAssignClassOptions) => void;
+	onChange: (options: ChangeOperation<IAssignClassOptions>) => void;
 	classes: string[];
 }
 
@@ -21,7 +22,10 @@ function AssignClass(props: IProps) {
 
 	const handleSubmit = (e: FormEvent) => {
 		e.preventDefault();
-		onChange(options);
+		onChange({
+			func: assignClass,
+			options,
+		});
 		setUseExisting(true);
 		setClassName('');
 	};

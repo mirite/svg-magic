@@ -1,13 +1,13 @@
 import React from 'react';
 import SVGClass from './SVGRule/SVGRule';
-import { ChangeOptions, ISVGRule } from 'types';
+import { ChangeOperation, ISVGRule } from 'types';
 import styles from './RulesPane.module.css';
 import ClassList from './SVGRule/ClassList/ClassList';
 
 interface IProps {
 	classes: string[];
 	rules: ISVGRule[];
-	onChange: (changeOptions: ChangeOptions) => void;
+	onChange: (changeOptions: ChangeOperation<any>) => void;
 }
 
 function RulesPane(props: IProps) {
