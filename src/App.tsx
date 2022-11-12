@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import FileSelector from './components/FileSelector/FileSelector';
 import Editor from './components/Editor/Editor';
 import './App.css';
+import { stripXMLDeclaration } from './helpers/transformers';
 
 function App() {
 	const [file, setFile] = useState<string>('');
 
 	function handleSelect(e: string) {
-		setFile(e);
+		setFile(stripXMLDeclaration(e));
 	}
 
 	return (

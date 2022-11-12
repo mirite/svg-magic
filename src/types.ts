@@ -28,7 +28,8 @@ export type ChangeOptions =
 	| IStripIDOptions
 	| IStripDataOptions
 	| IClassOptions
-	| IMovePointOptions;
+	| IMovePointOptions
+	| IPrefixClassOptions;
 
 export interface IGroupOptions {
 	type: 'group';
@@ -60,6 +61,13 @@ export interface IStripIDOptions {
 
 export interface IStripDataOptions {
 	type: 'stripData';
+}
+
+export interface IPrefixClassOptions {
+	type: 'prefixClasses';
+	options?: {
+		prefix?: string;
+	};
 }
 
 export interface IClassOptions {

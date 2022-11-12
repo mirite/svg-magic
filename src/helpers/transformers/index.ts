@@ -6,3 +6,5 @@ export * from './stripData';
 export * from './removeClass';
 export * from './renameClass';
 export * from './movePoint';
+export * from './stripXMLDeclaration';
+export * from './prefixClasses';

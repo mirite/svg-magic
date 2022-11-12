@@ -63,7 +63,10 @@ function findSVGChildren(parent: SVGElement | SVGSubElement): IPath[] {
 	return children.map(processChild);
 }
 
-function findClasses(element: Element, existing?: Set<string>): string[] {
+export function findClasses(
+	element: Element,
+	existing?: Set<string>
+): string[] {
 	const localExistingRef = existing ?? new Set<string>();
 	for (const c of element.classList) {
 		localExistingRef.add(c);

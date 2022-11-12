@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './Header.module.css';
 
 import { ChangeOptions } from 'types';
-import { stripData, stripIDs } from 'helpers/transformers';
+import { prefixClasses, stripData, stripIDs } from 'helpers/transformers';
 
 interface IProps {
 	workingSVG: string;
@@ -31,6 +31,9 @@ function Header(props: IProps) {
 		<header className={styles.header}>
 			<h1>SVG Magic</h1>
 			<div className={styles.actions}>
+				<button onClick={() => onChange(prefixClasses)}>
+					Prefix Classes
+				</button>
 				<button onClick={() => onChange(stripIDs)}>Strip IDs</button>
 				<button onClick={() => onChange(stripData)}>Strip Data</button>
 				<button className="positive" onClick={() => saveFile()}>

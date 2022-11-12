@@ -5,6 +5,7 @@ import {
 	assignClass,
 	moveElement,
 	movePoint,
+	prefixClassesInSVG,
 	removeClass,
 	renameClass,
 	stripDataFromSVG,
@@ -47,6 +48,8 @@ export function performChange(
 		case 'movePoint':
 			movePoint(svgElem, change);
 			break;
+		case 'prefixClasses':
+			prefixClassesInSVG(svgElem, change);
 	}
 	const html = shadowContainer.innerHTML;
 	shadowContainer.innerHTML = '';
