@@ -9,35 +9,36 @@ interface IProps {
 }
 
 function Class(props: IProps) {
+	const { name, onChange } = props;
 	const [renaming, setRenaming] = useState(false);
-	const [newName, setNewName] = useState(props.name);
+	const [newName, setNewName] = useState(name);
 
 	function cancelRename() {
-		setNewName(props.name);
+		setNewName(name);
 		setRenaming(false);
 	}
 
 	function confirmRename() {
 		const options: IClassOptions = {
 			options: {
-				existingClassName: props.name,
+				existingClassName: name,
 				newClassName: newName,
 			},
 		};
-		props.onChange({ func: renameClass, options });
+		onChange({ func: renameClass, options });
 		setRenaming(false);
 	}
 
 	function deleteClass() {
 		const options: IClassOptions = {
 			options: {
-				existingClassName: props.name,
+				existingClassName: name,
 			},
 		};
-		props.onChange({ func: removeClass, options });
+		onChange({ func: removeClass, options });
 	}
 
-	useEffect(() => setNewName(props.name), [props]);
+	useEffect(() => setNewName(name), [props]);
 
 	return (
 		<li className={styles.className}>
@@ -49,7 +50,7 @@ function Class(props: IProps) {
 						onChange={(e) => setNewName(e.currentTarget.value)}
 					/>
 				) : (
-					props.name
+					name
 				)}
 			</span>
 			{renaming ? (
