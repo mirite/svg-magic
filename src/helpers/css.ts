@@ -50,9 +50,13 @@ export function renameCSSClass(
 	if (!css?.stylesheet) return '';
 
 	function processRule(rule: Rule) {
-		rule.selectors = rule.selectors?.map((s) =>
-			s.replace(oldClassName, newClassName)
-		);
+		rule.selectors = rule.selectors?.map((s) => {
+			const pattern = new RegExp(
+				`(\.)${oldClassName}([. ,\\n{]|$)`,
+				'ig'
+			);
+			return s.replace(pattern, '$1' + newClassName + '$2');
+		});
 	}
 
 	for (const rule of css.stylesheet.rules) {
