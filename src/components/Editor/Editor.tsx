@@ -34,7 +34,7 @@ function Editor(props: IProps) {
 	const svgContainer = useRef<HTMLDivElement>(null);
 	const shadowContainer = useRef<HTMLDivElement>(null);
 
-	const handleChange = (e: ChangeOperation<any>) => {
+	const handleChange = (e: ChangeOperation) => {
 		setWorkingSVG(performChange(shadowContainer, e, workingSVG));
 	};
 

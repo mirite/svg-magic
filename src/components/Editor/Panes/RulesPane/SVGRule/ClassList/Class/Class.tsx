@@ -5,7 +5,7 @@ import { removeClass, renameClass } from 'helpers/transformers';
 
 interface IProps {
 	name: string;
-	onChange: (changeOptions: ChangeOperation<IClassOptions>) => void;
+	onChange: (changeOptions: ChangeOperation) => void;
 }
 
 function Class(props: IProps) {
@@ -23,7 +23,7 @@ function Class(props: IProps) {
 			existingClassName: name,
 			newClassName: newName,
 		};
-		onChange({ func: renameClass, ...options });
+		onChange((elem) => renameClass(elem, options));
 		setRenaming(false);
 	}
 
@@ -31,7 +31,7 @@ function Class(props: IProps) {
 		const options: IClassOptions = {
 			existingClassName: name,
 		};
-		onChange({ func: removeClass, ...options });
+		onChange((elem) => removeClass(elem, options));
 	}
 
 	useEffect(() => setNewName(name), [props]);

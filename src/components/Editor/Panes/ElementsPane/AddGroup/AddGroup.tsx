@@ -1,19 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { ChangeOperation, IGroupOptions, IPath } from 'types';
-import { addGroup } from '../../../../../helpers/transformers';
+import { addGroup } from 'helpers/transformers';
 
 interface IProps {
-	onChange: (changeOptions: ChangeOperation<IGroupOptions>) => void;
+	onChange: (changeOptions: ChangeOperation) => void;
 	selected?: IPath[];
 }
 
 function AddGroup(props: IProps) {
 	const createOptions = (): IGroupOptions => {
 		return {
-			options: {
-				className,
-				selectedItems: selected,
-			},
+			className,
+			selectedItems: selected,
 		};
 	};
 
@@ -25,10 +23,7 @@ function AddGroup(props: IProps) {
 
 	function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
-		onChange({
-			func: addGroup,
-			...options,
-		});
+		onChange((elem) => addGroup(elem, options));
 		setClassName('');
 	}
 

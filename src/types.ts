@@ -21,45 +21,37 @@ export interface ISVGRule {
 	rule: CSSContents;
 }
 
-export interface IChangeOptions {
-	[key: string]: any;
-}
+export type ChangeOperation = (e: SVGSVGElement) => void;
 
-export type ChangeOperation<T extends IChangeOptions> = {
-	func: ChangeFunction<T>;
-};
-
-export type ChangeFunction<T> = (elem: SVGSVGElement, options: T) => void;
-
-export interface IGroupOptions extends IChangeOptions {
+export interface IGroupOptions {
 	className?: string;
 	selectedItems?: IPath[];
 }
 
-export interface IMoveOptions extends IChangeOptions {
+export interface IMoveOptions {
 	element: SVGSubElement;
 	target: SVGSubElement;
 }
 
-export interface IAssignClassOptions extends IChangeOptions {
+export interface IAssignClassOptions {
 	className: string;
 	selectedItems: IPath[];
 }
 
-export interface IStripIDOptions extends IChangeOptions {}
+export interface IStripIDOptions {}
 
-export interface IStripDataOptions extends IChangeOptions {}
+export interface IStripDataOptions {}
 
-export interface IPrefixClassOptions extends IChangeOptions {
+export interface IPrefixClassOptions {
 	prefix?: string;
 }
 
-export interface IClassOptions extends IChangeOptions {
+export interface IClassOptions {
 	existingClassName: string;
 	newClassName?: string;
 }
 
-export interface IMovePointOptions extends IChangeOptions {
+export interface IMovePointOptions {
 	element: SVGSubElement;
 	pointToMove: { x: number; y: number };
 	newLocation: { x: number; y: number };

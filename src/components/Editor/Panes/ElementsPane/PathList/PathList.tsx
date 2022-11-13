@@ -4,7 +4,7 @@ import { ChangeOperation, IMoveOptions, IPath } from 'types';
 
 interface IProps {
 	node: IPath;
-	onChange: (options: ChangeOperation<IMoveOptions>) => void;
+	onChange: (options: ChangeOperation) => void;
 	onCheck: (e: ChangeEvent<HTMLInputElement>, p: IPath) => void;
 	selected: IPath[];
 }

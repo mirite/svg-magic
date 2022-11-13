@@ -12,7 +12,7 @@ interface IProps extends IEditorState {
 	svgContainer: React.RefObject<HTMLDivElement | null>;
 	shadowContainer: React.RefObject<HTMLDivElement | null>;
 	setWorkingSVG: (newValue: string) => void;
-	handleChange: (change: ChangeOperation<any>) => void;
+	handleChange: (change: ChangeOperation) => void;
 }
 function Panes(props: IProps) {
 	const {

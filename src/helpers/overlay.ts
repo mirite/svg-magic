@@ -176,13 +176,13 @@ function onMouseUp(
 	e: React.MouseEvent,
 	point: IPoint,
 	canvas: HTMLCanvasElement,
-	callback: (changeOptions: ChangeOperation<IMovePointOptions>) => void,
+	callback: (changeOptions: ChangeOperation) => void,
 	svg: SVGElement
 ) {
 	const { x, y } = getCursorPosition(canvas, e);
 	const { scaledX, scaledY } = scaleCursor(x, y, svg);
 	const options = createMovePointOptions(point, scaledX, scaledY);
-	callback({ func: movePoint, ...options });
+	callback((elem) => movePoint(elem, options));
 	point.owner.classList.remove('active');
 }
 
@@ -190,7 +190,7 @@ export function onMouseDown(
 	e: React.MouseEvent<HTMLCanvasElement>,
 	canvas: HTMLCanvasElement,
 	points: IPoint[],
-	onChange: (changeOptions: ChangeOperation<IMovePointOptions>) => void,
+	onChange: (changeOptions: ChangeOperation) => void,
 	svg: SVGElement
 ) {
 	const { x, y } = getCursorPosition(canvas, e);
