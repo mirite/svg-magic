@@ -9,7 +9,7 @@ interface IProps {
 	workingSVG: string;
 	fileName: string;
 	onClose: () => void;
-	onChange: (changeOptions: ChangeOperation<any>) => void;
+	onChange: (changeOptions: ChangeOperation) => void;
 }
 
 function Header(props: IProps) {
@@ -19,15 +19,11 @@ function Header(props: IProps) {
 		<header className={styles.header}>
 			<h1>SVG Magic</h1>
 			<div className={styles.actions}>
-				<button onClick={() => onChange({ func: prefixClasses })}>
+				<button onClick={() => onChange(prefixClasses)}>
 					Prefix Classes
 				</button>
-				<button onClick={() => onChange({ func: stripIDs })}>
-					Strip IDs
-				</button>
-				<button onClick={() => onChange({ func: stripData })}>
-					Strip Data
-				</button>
+				<button onClick={() => onChange(stripIDs)}>Strip IDs</button>
+				<button onClick={() => onChange(stripData)}>Strip Data</button>
 				<button
 					className="positive"
 					onClick={() => saveFile(workingSVG, fileName)}

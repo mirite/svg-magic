@@ -1,9 +1,9 @@
 import React from 'react';
-import { ChangeOperation, IChangeOptions } from 'types';
+import { ChangeOperation } from 'types';
 
-export function performChange<T extends IChangeOptions>(
+export function performChange(
 	containerRef: React.RefObject<HTMLDivElement>,
-	change: ChangeOperation<T>,
+	change: ChangeOperation,
 	currentSVG: string
 ): string {
 	const shadowContainer = containerRef.current;
@@ -11,8 +11,7 @@ export function performChange<T extends IChangeOptions>(
 	shadowContainer.innerHTML = currentSVG;
 	const svgElem = shadowContainer.querySelector('svg');
 	if (!svgElem) return currentSVG;
-	const options = { ...change } as unknown as T;
-	change.func(svgElem, options);
+	change(svgElem);
 	const html = shadowContainer.innerHTML;
 	shadowContainer.innerHTML = '';
 	return html;

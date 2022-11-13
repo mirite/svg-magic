@@ -7,7 +7,7 @@ interface IProps {
 	containerRef: RefObject<HTMLDivElement | null>;
 	svgHTML: string;
 	points: IPoint[];
-	onChange: (changeOptions: ChangeOperation<any>) => void;
+	onChange: (changeOptions: ChangeOperation) => void;
 }
 
 function PreviewPane(props: IProps) {

@@ -3,10 +3,10 @@ import PathList from '../PathList';
 import styles from './Path.module.css';
 import { ChangeOperation, IMoveOptions, IPath, SVGSubElement } from 'types';
 import { useDrag, useDrop } from 'react-dnd';
-import { moveElement, movePoint } from 'helpers/transformers';
+import { moveElement } from 'helpers/transformers';
 
 interface IProps extends IPath {
-	onChange: (options: ChangeOperation<IMoveOptions>) => void;
+	onChange: (options: ChangeOperation) => void;
 	onCheck: (e: ChangeEvent<HTMLInputElement>, p: IPath) => void;
 	selected: IPath[];
 }
@@ -43,10 +43,7 @@ function Path(props: IProps) {
 					element: elementBeingDropped,
 					target: currentElement,
 				};
-				props.onChange({
-					func: moveElement,
-					...options,
-				});
+				props.onChange((e) => moveElement(elem, options));
 			},
 		}),
 		[props.elem]

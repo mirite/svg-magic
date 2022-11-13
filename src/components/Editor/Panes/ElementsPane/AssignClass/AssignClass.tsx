@@ -4,7 +4,7 @@ import { assignClass } from 'helpers/transformers';
 
 interface IProps {
 	selected: IPath[];
-	onChange: (options: ChangeOperation<IAssignClassOptions>) => void;
+	onChange: (options: ChangeOperation) => void;
 	classes: string[];
 }
 
@@ -19,10 +19,7 @@ function AssignClass(props: IProps) {
 
 	const handleSubmit = (e: FormEvent) => {
 		e.preventDefault();
-		onChange({
-			func: assignClass,
-			...options,
-		});
+		onChange((elem) => assignClass(elem, options));
 		setUseExisting(true);
 		setClassName('');
 	};

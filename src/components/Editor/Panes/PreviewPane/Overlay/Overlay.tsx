@@ -4,7 +4,7 @@ import { ChangeOperation, IPoint } from 'types';
 
 interface IProps {
 	points: IPoint[];
-	onChange: (changeOptions: ChangeOperation<any>) => void;
+	onChange: (changeOptions: ChangeOperation) => void;
 	svg: SVGElement | null | undefined;
 }
 

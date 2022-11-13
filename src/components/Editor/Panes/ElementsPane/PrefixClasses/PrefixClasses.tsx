@@ -3,7 +3,7 @@ import { ChangeOperation, IPrefixClassOptions } from 'types';
 import { prefixClasses } from 'helpers/transformers';
 
 interface IProps {
-	onChange: (options: ChangeOperation<IPrefixClassOptions>) => void;
+	onChange: (options: ChangeOperation) => void;
 }
 
 const PrefixClasses = (props: IProps) => {
@@ -16,11 +16,7 @@ const PrefixClasses = (props: IProps) => {
 
 	const handleSubmit = (e: FormEvent) => {
 		e.preventDefault();
-		const operation: ChangeOperation<IPrefixClassOptions> = {
-			func: prefixClasses,
-			...options,
-		};
-		onChange(operation);
+		onChange((elem) => prefixClasses(elem, options));
 		setPrefix('');
 	};
 

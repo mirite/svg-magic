@@ -7,7 +7,7 @@ import ClassList from './SVGRule/ClassList/ClassList';
 interface IProps {
 	classes: string[];
 	rules: ISVGRule[];
-	onChange: (changeOptions: ChangeOperation<any>) => void;
+	onChange: (changeOptions: ChangeOperation) => void;
 }
 
 function RulesPane(props: IProps) {
