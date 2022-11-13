@@ -1,4 +1,5 @@
 import * as CSSTypes from 'css';
+export { CSSTypes };
 
 export type SVGSubElement =
 	| SVGElement
@@ -67,5 +68,3 @@ export interface IFile {
 	title: string;
 	contents: string;
 }
-
-export { CSSTypes };
