@@ -1,5 +1,4 @@
 import { traverseTree } from 'helpers/dom';
-import { IStripDataOptions } from 'types';
 
 export function stripData(svgElem: SVGSVGElement) {
 	const func = (elem: Element) => {

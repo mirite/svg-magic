@@ -39,10 +39,6 @@ export interface IAssignClassOptions {
 	selectedItems: IPath[];
 }
 
-export interface IStripIDOptions {}
-
-export interface IStripDataOptions {}
-
 export interface IPrefixClassOptions {
 	prefix?: string;
 }
