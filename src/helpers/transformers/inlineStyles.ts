@@ -1,5 +1,5 @@
-import { traverseTree } from '../dom';
 import { parseCSS } from '../css';
+import { Rule } from 'css';
 
 const cssPropToHtmlAttributeMap = {
 	color: 'stroke',
@@ -16,14 +16,40 @@ const cssPropToHtmlAttributeMap = {
 	rotate: 'rotate',
 } as const;
 
+function flattenSelector(rule: Rule) {
+	if (!rule.selectors) return '';
+	const combinedSelectors = rule.selectors.reduce(
+		(acc, selector) => acc + selector + ', ',
+		''
+	);
+	return combinedSelectors.slice(0, -2) || '';
+}
+
+function processRule(
+	svgElem: SVGSVGElement,
+	rule: Rule,
+	options: IInliningOptions | undefined
+) {
+	if (!rule.selectors) return;
+	const flattenedSelector = flattenSelector(rule);
+	if (!flattenedSelector) return;
+	const applicableElements = Array.from(
+		svgElem.querySelectorAll(flattenedSelector)
+	);
+}
+
 export function inlineStyles(
 	svgElem: SVGSVGElement,
 	options?: IInliningOptions
 ): void {
 	const styles = parseCSS(svgElem.querySelector('style')?.textContent || '');
-	if (!styles) return;
-for(const r)
-	traverseTree(svgElem, func);
+	const rules = styles?.stylesheet?.rules;
+	if (!rules) return;
+	for (const rule of rules) {
+		if (rule.type === 'rule') {
+			processRule(svgElem, rule, options);
+		}
+	}
 }
 
 export interface IInliningOptions {}
