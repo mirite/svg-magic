@@ -4,6 +4,8 @@ import styles from './Header.module.css';
 import { ChangeOperation } from 'types';
 import { prefixClasses, stripData, stripIDs } from 'helpers/transformers';
 import { saveFile } from 'helpers/fileSaving';
+import { inlineStyles } from '../../../helpers/transformers/inlineStyles';
+import { stripClasses } from '../../../helpers/transformers/stripClasses';
 
 interface IProps {
 	workingSVG: string;
@@ -19,10 +21,16 @@ function Header(props: IProps) {
 		<header className={styles.header}>
 			<h1>SVG Magic</h1>
 			<div className={styles.actions}>
+				<button onClick={() => onChange(inlineStyles)}>
+					Inline Styles
+				</button>
 				<button onClick={() => onChange(prefixClasses)}>
 					Prefix Classes
 				</button>
 				<button onClick={() => onChange(stripIDs)}>Strip IDs</button>
+				<button onClick={() => onChange(stripClasses)}>
+					Strip Classes
+				</button>
 				<button onClick={() => onChange(stripData)}>Strip Data</button>
 				<button
 					className="positive"
