@@ -1,8 +1,5 @@
-import { traverseTree } from 'helpers/dom';
+import { stripAttribute } from './stripAttribute';
 
 export function stripIDs(svgElem: Element) {
-	const func = (elem: Element) => {
-		elem.removeAttribute('id');
-	};
-	traverseTree(svgElem, func);
+	stripAttribute(svgElem, 'id');
 }

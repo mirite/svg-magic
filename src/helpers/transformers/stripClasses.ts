@@ -1,8 +1,5 @@
-import { traverseTree } from 'helpers/dom';
+import { stripAttribute } from './stripAttribute';
 
 export function stripClasses(svgElem: Element) {
-	const func = (elem: Element) => {
-		elem.removeAttribute('class');
-	};
-	traverseTree(svgElem, func);
+	stripAttribute(svgElem, 'class');
 }
