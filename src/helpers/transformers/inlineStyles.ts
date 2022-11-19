@@ -5,7 +5,9 @@ import { SVGSubElement } from '../../types';
 class CSSInliner {
 	private readonly rules: Array<Rule | Comment | AtRule>;
 	private cssPropToHtmlAttributeMap = {
-		color: 'stroke',
+		stroke: 'stroke',
+		'stroke-linecap': 'stroke-linecap',
+		'stroke-linejoin': 'stroke-linejoin',
 		fill: 'fill',
 		'stroke-width': 'stroke-width',
 		'fill-opacity': 'stroke-opacity',
