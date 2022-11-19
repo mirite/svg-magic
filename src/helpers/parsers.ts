@@ -16,14 +16,17 @@ function findSVGRules(
 		);
 	};
 
+	function getStyleElement(child: SVGSubElement) {
+		return (('style' === child.nodeName && child) ||
+			child.querySelector('style')) as HTMLStyleElement | null;
+	}
+
 	const processChild = (child: SVGSubElement) => {
-		if ('defs' !== child.nodeName) {
+		if ('defs' !== child.nodeName && 'style' !== child.nodeName) {
 			return;
 		}
+		const styleElem = getStyleElement(child);
 
-		const styleElem = child.querySelector(
-			'style'
-		) as HTMLStyleElement | null;
 		if (styleElem && 'style' === styleElem.nodeName) {
 			localClasses.push(...findRules(styleElem));
 		}
