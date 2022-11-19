@@ -5,6 +5,7 @@ import { ChangeOperation } from 'types';
 import { prefixClasses, stripData, stripIDs } from 'helpers/transformers';
 import { saveFile } from 'helpers/fileSaving';
 import { inlineStyles } from '../../../helpers/transformers/inlineStyles';
+import { stripClasses } from '../../../helpers/transformers/stripClasses';
 
 interface IProps {
 	workingSVG: string;
@@ -27,6 +28,9 @@ function Header(props: IProps) {
 					Prefix Classes
 				</button>
 				<button onClick={() => onChange(stripIDs)}>Strip IDs</button>
+				<button onClick={() => onChange(stripClasses)}>
+					Strip Classes
+				</button>
 				<button onClick={() => onChange(stripData)}>Strip Data</button>
 				<button
 					className="positive"
