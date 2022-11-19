@@ -1,23 +1,9 @@
-import { parseCSS } from '../css';
+import { parseCSS, setShadowCSS, stylesheetToText } from '../css';
 import { AtRule, Declaration, Rule, Stylesheet } from 'css';
 import { SVGSubElement } from '../../types';
 
 class CSSInliner {
 	private readonly rules: Array<Rule | Comment | AtRule>;
-	public constructor(
-		private svgElem: SVGSVGElement,
-		private stylesheet: Stylesheet,
-		private options?: IInliningOptions
-	) {
-		this.rules = this.stylesheet?.stylesheet?.rules || [];
-
-		for (const rule of this.rules) {
-			if ('type' in rule && rule.type === 'rule') {
-				this.processRule(rule as Rule);
-			}
-		}
-	}
-
 	private cssPropToHtmlAttributeMap = {
 		color: 'stroke',
 		fill: 'fill',
@@ -33,17 +19,44 @@ class CSSInliner {
 		rotate: 'rotate',
 	} as const;
 
-	private flattenSelector(rule: Rule) {
-		if (!rule.selectors) return '';
-		const combinedSelectors = rule.selectors.reduce(
-			(acc, selector) => acc + selector + ', ',
-			''
-		);
-		return combinedSelectors.slice(0, -2) || '';
+	public constructor(
+		private svgElem: SVGSVGElement,
+		private stylesheet: Stylesheet,
+		private options?: IInliningOptions
+	) {
+		this.rules = this.stylesheet?.stylesheet?.rules || [];
+
+		for (const rule of this.rules) {
+			if ('type' in rule && rule.type === 'rule') {
+				this.processRule(rule as Rule);
+			}
+		}
+	}
+
+	private processRule(rule: Rule) {
+		const flattenedSelector = this.flattenSelector(rule);
+		if (!rule.selectors || !flattenedSelector) return;
+		const applicableElements =
+			this.getApplicableElements(flattenedSelector);
+		const removedDeclarations = new Set<Declaration>();
+		for (const element of applicableElements) {
+			const removed = this.processElement(element, rule);
+			removed.forEach((declaration) => {
+				removedDeclarations.add(declaration);
+			});
+		}
+		this.removeInlinedDeclarations(removedDeclarations);
+	}
+
+	private getApplicableElements(flattenedSelector: string) {
+		return Array.from(
+			this.svgElem.querySelectorAll(flattenedSelector)
+		) as SVGSubElement[];
 	}
 
 	private processElement(element: SVGSubElement, rule: Rule) {
-		if (!rule.declarations) return;
+		const removedDeclarations: Declaration[] = [];
+		if (!rule.declarations) return [];
 		for (const declaration of rule.declarations as Declaration[]) {
 			if (
 				declaration.type !== 'declaration' ||
@@ -58,20 +71,37 @@ class CSSInliner {
 				)
 			) {
 				element.setAttribute(declaration.property, declaration.value);
+				removedDeclarations.push(declaration);
 			}
 		}
+		return removedDeclarations;
 	}
 
-	private processRule(rule: Rule) {
-		if (!rule.selectors) return;
-		const flattenedSelector = this.flattenSelector(rule);
-		if (!flattenedSelector) return;
-		const applicableElements = Array.from(
-			this.svgElem.querySelectorAll(flattenedSelector)
-		) as SVGSubElement[];
-		for (const element of applicableElements) {
-			this.processElement(element, rule);
-		}
+	private removeInlinedDeclarations(removedDeclarations: Set<Declaration>) {
+		removedDeclarations.forEach((declaration) =>
+			this.removeInlinedDeclaration(declaration)
+		);
+	}
+
+	private removeInlinedDeclaration(declaration: Declaration) {
+		const removeRule = () => {
+			const parent = declaration.parent as Rule;
+			parent.declarations =
+				parent.declarations?.filter(
+					(d) => (d as Declaration).property !== declaration.property
+				) || [];
+			return stylesheetToText(this.stylesheet).trim();
+		};
+		setShadowCSS(this.svgElem, removeRule);
+	}
+
+	private flattenSelector(rule: Rule) {
+		if (!rule.selectors) return '';
+		const combinedSelectors = rule.selectors.reduce(
+			(acc, selector) => acc + selector + ', ',
+			''
+		);
+		return combinedSelectors.slice(0, -2) || '';
 	}
 }
 
