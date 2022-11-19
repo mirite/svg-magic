@@ -21,7 +21,7 @@ function Header(props: IProps) {
 			<h1>SVG Magic</h1>
 			<div className={styles.actions}>
 				<button onClick={() => onChange(inlineStyles)}>
-					Inlining Styles
+					Inline Styles
 				</button>
 				<button onClick={() => onChange(prefixClasses)}>
 					Prefix Classes
