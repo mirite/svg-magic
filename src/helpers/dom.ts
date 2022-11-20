@@ -45,3 +45,13 @@ export function traverseTree(elem: Element, func: (e: Element) => unknown) {
 		traverseTree(child, func);
 	}
 }
+
+export function traverseTreeInsideOut(
+	elem: Element,
+	func: (e: Element) => unknown
+) {
+	for (const child of elem.children) {
+		traverseTreeInsideOut(child, func);
+	}
+	func(elem);
+}
