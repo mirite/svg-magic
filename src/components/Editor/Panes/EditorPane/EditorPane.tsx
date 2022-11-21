@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './EditorPane.module.css';
 import { minify } from 'helpers/transformers/minify';
 import { ChangeOperation } from 'types';
+import { format } from 'helpers/transformers/format';
 
 interface IProps {
 	svgHTML: string;
@@ -14,7 +15,10 @@ function EditorPane(props: IProps) {
 	return (
 		<div className={styles.editorPane}>
 			<h2>Raw</h2>
-			<button onClick={() => onChange(minify)}>Minify</button>
+			<div className={styles.formattingOptions}>
+				<button onClick={() => onChange(minify)}>Minify</button>
+				<button onClick={() => onChange(format)}>Format</button>
+			</div>
 			<textarea
 				value={svgHTML}
 				className={styles.editor}
