@@ -14,6 +14,7 @@ interface IProps extends IEditorState {
 	setWorkingSVG: (newValue: string) => void;
 	handleChange: (change: ChangeOperation) => void;
 }
+
 function Panes(props: IProps) {
 	const {
 		paths,
@@ -32,7 +33,8 @@ function Panes(props: IProps) {
 		<div className={styles.container}>
 			<EditorPane
 				svgHTML={workingSVG}
-				onChange={(e) => setWorkingSVG(e)}
+				onChange={(e) => handleChange(e)}
+				onManualEdit={(e) => setWorkingSVG(e)}
 			/>
 			<ElementsPane
 				paths={paths}
