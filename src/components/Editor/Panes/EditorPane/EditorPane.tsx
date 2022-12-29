@@ -17,7 +17,7 @@ function EditorPane(props: IProps) {
 			<h2>Raw</h2>
 			<div className={styles.formattingOptions}>
 				<button onClick={() => onChange(minify)}>Minify</button>
-				<button onClick={() => onChange(format)}>Format</button>
+				{/*<button onClick={() => onChange(format)}>Format</button>*/}
 			</div>
 			<textarea
 				value={svgHTML}
