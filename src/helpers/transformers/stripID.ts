@@ -1,5 +1,5 @@
-import { stripAttribute } from './stripAttribute';
+import { stripAttribute } from "./stripAttribute";
 
 export function stripIDs(svgElem: Element) {
-	stripAttribute(svgElem, 'id');
+  stripAttribute(svgElem, "id");
 }

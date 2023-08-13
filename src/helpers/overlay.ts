@@ -1,11 +1,11 @@
 import {
-	ChangeOperation,
-	IMovePointOptions,
-	IPoint,
-	SVGSubElement,
-} from 'types';
-import React from 'react';
-import { movePoint } from './transformers';
+  ChangeOperation,
+  IMovePointOptions,
+  IPoint,
+  SVGSubElement,
+} from "types";
+import React from "react";
+import { movePoint } from "./transformers";
 
 /**
  * The pixel width/height of the marker that shows on points.
@@ -21,18 +21,18 @@ const markerSize = 8;
  * @param  yScale
  */
 const createMarkerRect = (
-	x: number,
-	xScale: number,
-	y: number,
-	yScale: number
+  x: number,
+  xScale: number,
+  y: number,
+  yScale: number,
 ) => {
-	const tolerance = getTolerance();
-	return [
-		x * xScale - tolerance,
-		y * yScale - tolerance,
-		markerSize,
-		markerSize,
-	] as const;
+  const tolerance = getTolerance();
+  return [
+    x * xScale - tolerance,
+    y * yScale - tolerance,
+    markerSize,
+    markerSize,
+  ] as const;
 };
 
 /**
@@ -43,37 +43,37 @@ const createMarkerRect = (
  * @param  svg    The SVG element to generate the overlay for.
  */
 export function drawOverlay(
-	points: IPoint[],
-	canvas: HTMLCanvasElement,
-	svg: SVGElement
+  points: IPoint[],
+  canvas: HTMLCanvasElement,
+  svg: SVGElement,
 ) {
-	/**
-	 * Forces the canvas to match the size of the SVG behind it.
-	 */
-	function setCanvasSize() {
-		canvas.width = svg.clientWidth;
-		canvas.height = svg.clientHeight;
-	}
+  /**
+   * Forces the canvas to match the size of the SVG behind it.
+   */
+  function setCanvasSize() {
+    canvas.width = svg.clientWidth;
+    canvas.height = svg.clientHeight;
+  }
 
-	/**
-	 * Clears the canvas for a fresh drawing
-	 *
-	 * @param  ctx
-	 */
-	function clearCanvas(ctx: CanvasRenderingContext2D) {
-		ctx.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
-	}
+  /**
+   * Clears the canvas for a fresh drawing
+   *
+   * @param  ctx
+   */
+  function clearCanvas(ctx: CanvasRenderingContext2D) {
+    ctx.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
+  }
 
-	setCanvasSize();
-	const context = canvas.getContext('2d');
-	if (!context) return;
-	const { xScale, yScale } = getScale(svg);
-	clearCanvas(context);
-	context.fillStyle = 'blue';
-	for (const point of points) {
-		const { x, y } = point;
-		context.fillRect(...createMarkerRect(x, xScale, y, yScale));
-	}
+  setCanvasSize();
+  const context = canvas.getContext("2d");
+  if (!context) return;
+  const { xScale, yScale } = getScale(svg);
+  clearCanvas(context);
+  context.fillStyle = "blue";
+  for (const point of points) {
+    const { x, y } = point;
+    context.fillRect(...createMarkerRect(x, xScale, y, yScale));
+  }
 }
 
 /**
@@ -83,17 +83,17 @@ export function drawOverlay(
  * @param  event
  */
 function getCursorPosition(canvas: HTMLCanvasElement, event: React.MouseEvent) {
-	const rect = canvas.getBoundingClientRect();
-	const x = event.clientX - rect.left;
-	const y = event.clientY - rect.top;
-	return { x, y };
+  const rect = canvas.getBoundingClientRect();
+  const x = event.clientX - rect.left;
+  const y = event.clientY - rect.top;
+  return { x, y };
 }
 
 /**
  * Gets the distance around a point where the marker exists.
  */
 function getTolerance() {
-	return markerSize / 2;
+  return markerSize / 2;
 }
 
 /**
@@ -104,22 +104,22 @@ function getTolerance() {
  * @param  points
  */
 export function findPoint(
-	mouseDownX: number,
-	mouseDownY: number,
-	points: IPoint[]
+  mouseDownX: number,
+  mouseDownY: number,
+  points: IPoint[],
 ): IPoint | undefined {
-	const tolerance = getTolerance();
-	const evaluatePoint = (point: IPoint) => {
-		const { x, y } = point;
-		if (mouseDownX > x - tolerance && mouseDownX < x + tolerance) {
-			if (mouseDownY > y - tolerance && mouseDownY < y + tolerance) {
-				return point;
-			}
-		}
-	};
-	for (const point of points) {
-		if (evaluatePoint(point)) return point;
-	}
+  const tolerance = getTolerance();
+  const evaluatePoint = (point: IPoint) => {
+    const { x, y } = point;
+    if (mouseDownX > x - tolerance && mouseDownX < x + tolerance) {
+      if (mouseDownY > y - tolerance && mouseDownY < y + tolerance) {
+        return point;
+      }
+    }
+  };
+  for (const point of points) {
+    if (evaluatePoint(point)) return point;
+  }
 }
 
 /**
@@ -128,12 +128,12 @@ export function findPoint(
  * @param  svg
  */
 function getScale(svg: SVGElement) {
-	const viewBox = svg.getAttribute('viewBox') || '0 0 100 100';
-	const [x1, y1, x2, y2] = viewBox.split(' ').map(Number.parseFloat);
-	const { clientWidth: actualWidth, clientHeight: actualHeight } = svg;
-	const xScale = actualWidth / (x2 - x1);
-	const yScale = actualHeight / (y2 - y1);
-	return { xScale, yScale };
+  const viewBox = svg.getAttribute("viewBox") || "0 0 100 100";
+  const [x1, y1, x2, y2] = viewBox.split(" ").map(Number.parseFloat);
+  const { clientWidth: actualWidth, clientHeight: actualHeight } = svg;
+  const xScale = actualWidth / (x2 - x1);
+  const yScale = actualHeight / (y2 - y1);
+  return { xScale, yScale };
 }
 
 /**
@@ -144,12 +144,12 @@ function getScale(svg: SVGElement) {
  * @param  svg
  */
 function scaleCursor(
-	x: number,
-	y: number,
-	svg: SVGElement
+  x: number,
+  y: number,
+  svg: SVGElement,
 ): { scaledX: number; scaledY: number } {
-	const { xScale, yScale } = getScale(svg);
-	return { scaledX: x / xScale, scaledY: y / yScale };
+  const { xScale, yScale } = getScale(svg);
+  return { scaledX: x / xScale, scaledY: y / yScale };
 }
 
 /**
@@ -160,54 +160,54 @@ function scaleCursor(
  * @param  newY
  */
 function createMovePointOptions(
-	point: IPoint,
-	newX: number,
-	newY: number
+  point: IPoint,
+  newX: number,
+  newY: number,
 ): IMovePointOptions {
-	const { x, y, owner } = point;
-	return {
-		element: owner as SVGSubElement,
-		pointToMove: { x, y },
-		newLocation: { x: newX, y: newY },
-	};
+  const { x, y, owner } = point;
+  return {
+    element: owner as SVGSubElement,
+    pointToMove: { x, y },
+    newLocation: { x: newX, y: newY },
+  };
 }
 
 function onMouseUp(
-	e: React.MouseEvent,
-	point: IPoint,
-	canvas: HTMLCanvasElement,
-	callback: (changeOptions: ChangeOperation) => void,
-	svg: SVGElement
+  e: React.MouseEvent,
+  point: IPoint,
+  canvas: HTMLCanvasElement,
+  callback: (changeOptions: ChangeOperation) => void,
+  svg: SVGElement,
 ) {
-	const { x, y } = getCursorPosition(canvas, e);
-	const { scaledX, scaledY } = scaleCursor(x, y, svg);
-	const options = createMovePointOptions(point, scaledX, scaledY);
-	callback((elem) => movePoint(elem, options));
-	point.owner.classList.remove('active');
+  const { x, y } = getCursorPosition(canvas, e);
+  const { scaledX, scaledY } = scaleCursor(x, y, svg);
+  const options = createMovePointOptions(point, scaledX, scaledY);
+  callback((elem) => movePoint(elem, options));
+  point.owner.classList.remove("active");
 }
 
 export function onMouseDown(
-	e: React.MouseEvent<HTMLCanvasElement>,
-	canvas: HTMLCanvasElement,
-	points: IPoint[],
-	onChange: (changeOptions: ChangeOperation) => void,
-	svg: SVGElement
+  e: React.MouseEvent<HTMLCanvasElement>,
+  canvas: HTMLCanvasElement,
+  points: IPoint[],
+  onChange: (changeOptions: ChangeOperation) => void,
+  svg: SVGElement,
 ) {
-	const { x, y } = getCursorPosition(canvas, e);
-	const { scaledX, scaledY } = scaleCursor(x, y, svg);
-	const match = findPoint(scaledX, scaledY, points);
-	if (!match) return;
-	match.owner.classList.add('active');
-	e.currentTarget.addEventListener(
-		'mouseup',
-		(mouseUpE) =>
-			onMouseUp(
-				mouseUpE as unknown as React.MouseEvent,
-				match,
-				canvas,
-				onChange,
-				svg
-			),
-		{ once: true }
-	);
+  const { x, y } = getCursorPosition(canvas, e);
+  const { scaledX, scaledY } = scaleCursor(x, y, svg);
+  const match = findPoint(scaledX, scaledY, points);
+  if (!match) return;
+  match.owner.classList.add("active");
+  e.currentTarget.addEventListener(
+    "mouseup",
+    (mouseUpE) =>
+      onMouseUp(
+        mouseUpE as unknown as React.MouseEvent,
+        match,
+        canvas,
+        onChange,
+        svg,
+      ),
+    { once: true },
+  );
 }
