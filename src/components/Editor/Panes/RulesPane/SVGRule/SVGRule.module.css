@@ -1,16 +1,16 @@
 .rule label {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 .rule input {
-    border: 2px solid black;
-    border-radius: 100rem;
-    appearance: initial;
-    width: 1rem;
-    height: 1rem;
-    display: inline-block;
+  border: 2px solid black;
+  border-radius: 100rem;
+  appearance: initial;
+  width: 1rem;
+  height: 1rem;
+  display: inline-block;
 }
 
 .rule input:checked {
-    background-color: red;
+  background-color: red;
 }
