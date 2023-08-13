@@ -15,8 +15,11 @@ export function isEquivalentElement(
   b: HTMLElement | SVGElement,
 ): boolean {
   const clean = (toClean: HTMLElement | SVGElement) => {
-    return toClean.outerHTML.trim().replace(/ active"/g, '"');
+    const clone = toClean.cloneNode(true) as HTMLElement;
+    removeActiveClass(clone);
+    return clone.outerHTML;
   };
+  console.log({a: clean(a), b: clean(b)});
   return clean(a) === clean(b);
 }
 
@@ -54,4 +57,11 @@ export function traverseTreeInsideOut(
     traverseTreeInsideOut(child, func);
   }
   func(elem);
+}
+
+function removeActiveClass(elem: Element) {
+  elem.classList.remove("active");
+  if(!elem.classList.length) {
+    elem.removeAttribute("class");
+  }
 }
