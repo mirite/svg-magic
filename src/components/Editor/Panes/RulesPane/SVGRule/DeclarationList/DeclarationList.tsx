@@ -42,7 +42,7 @@ function DeclarationList(props: IProps) {
         <label>
           <input
             type="checkbox"
-            onChange={(e) => handleDeclarationToggle(isOn, dec)}
+            onChange={() => handleDeclarationToggle(isOn, dec)}
             checked={isOn}
           />
           {dec.property} : {dec.value}

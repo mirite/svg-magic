@@ -23,7 +23,6 @@ function Panes(props: IProps) {
     points,
     workingSVG,
     svgContainer,
-    shadowContainer,
     setWorkingSVG,
     handleChange,
   } = props;

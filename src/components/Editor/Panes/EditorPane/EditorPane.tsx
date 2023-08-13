@@ -2,7 +2,6 @@ import React from "react";
 import styles from "./EditorPane.module.css";
 import { minify } from "helpers/transformers/minify";
 import { ChangeOperation } from "types";
-import { format } from "helpers/transformers/format";
 
 interface IProps {
   svgHTML: string;

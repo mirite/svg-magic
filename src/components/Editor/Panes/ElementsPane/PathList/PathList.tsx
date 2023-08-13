@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from "react";
 import Path from "./Path/Path";
-import { ChangeOperation, IMoveOptions, IPath } from "types";
+import { ChangeOperation, IPath } from "types";
 
 interface IProps {
   node: IPath;

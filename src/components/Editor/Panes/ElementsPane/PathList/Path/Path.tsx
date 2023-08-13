@@ -43,7 +43,7 @@ function Path(props: IProps) {
           element: elementBeingDropped,
           target: currentElement,
         };
-        props.onChange((e) => moveElement(elem, options));
+        props.onChange(() => moveElement(elem, options));
       },
     }),
     [props.elem],
