@@ -8,7 +8,11 @@ export function assignClass(
   for (const path of change.selectedItems) {
     const shadow = findShadowEquivalent(path.elem, svgElem);
     if (shadow) {
-      shadow.classList.add(change.className);
+      if (shadow.classList.length) {
+        shadow.classList.add(change.className);
+      } else {
+        shadow.setAttribute("class", change.className);
+      }
     }
   }
 }
