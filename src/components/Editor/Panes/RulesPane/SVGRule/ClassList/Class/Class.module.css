@@ -1,10 +1,10 @@
 .className {
-  display: flex;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
-  align-items: center;
+	display: flex;
+	gap: 0.5rem;
+	margin-bottom: 1rem;
+	align-items: center;
 }
 
 .className span {
-  flex: 1;
+	flex: 1;
 }

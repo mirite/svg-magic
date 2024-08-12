@@ -1,53 +1,77 @@
-import { IMovePointOptions, SVGSubElement } from "types";
+import type { IMovePointOptions, SVGSubElement } from "types";
+
 import { findShadowEquivalent } from "../dom";
 
+/**
+ * @param c
+ * @param element
+ * @param pointToMove
+ * @param pointToMove.x
+ * @param pointToMove.y
+ * @param newLocation
+ * @param newLocation.x
+ * @param newLocation.y
+ */
 function checkLinePoint(
-  c: string,
-  element: SVGSubElement,
-  pointToMove: { x: number; y: number },
-  newLocation: { x: number; y: number },
+	c: string,
+	element: SVGSubElement,
+	pointToMove: { x: number; y: number },
+	newLocation: { x: number; y: number },
 ) {
-  const portion = c.substring(1);
-  const x = Number.parseFloat(element.getAttribute("x" + portion) || "0");
-  const y = Number.parseFloat(element.getAttribute("y" + portion) || "0");
-  if (pointToMove.x === x && pointToMove.y === y) {
-    element.setAttribute("x" + portion, String(newLocation.x));
-    element.setAttribute("y" + portion, String(newLocation.y));
-    return true;
-  }
+	const portion = c.substring(1);
+	const x = Number.parseFloat(element.getAttribute("x" + portion) || "0");
+	const y = Number.parseFloat(element.getAttribute("y" + portion) || "0");
+	if (pointToMove.x === x && pointToMove.y === y) {
+		element.setAttribute("x" + portion, String(newLocation.x));
+		element.setAttribute("y" + portion, String(newLocation.y));
+		return true;
+	}
 }
 
+/**
+ * @param element
+ * @param pointToMove
+ * @param pointToMove.x
+ * @param pointToMove.y
+ * @param newLocation
+ * @param newLocation.x
+ * @param newLocation.y
+ */
 function checkPolyPoint(
-  element: SVGSubElement,
-  pointToMove: { x: number; y: number },
-  newLocation: { x: number; y: number },
+	element: SVGSubElement,
+	pointToMove: { x: number; y: number },
+	newLocation: { x: number; y: number },
 ) {
-  const pointsList = element.getAttribute("points") || "";
-  const values = pointsList.split(/[, ]+/g);
-  for (let i = 0; i < values.length; i += 2) {
-    const x = Number.parseFloat(values[i]);
-    const y = Number.parseFloat(values[i + 1]);
-    if (pointToMove.x === x && pointToMove.y === y) {
-      values[i] = String(newLocation.x);
-      values[i + 1] = String(newLocation.y);
-      const newList = values.join(" ");
-      element.setAttribute("points", newList);
-      return true;
-    }
-  }
+	const pointsList = element.getAttribute("points") || "";
+	const values = pointsList.split(/[, ]+/g);
+	for (let i = 0; i < values.length; i += 2) {
+		const x = Number.parseFloat(values[i]);
+		const y = Number.parseFloat(values[i + 1]);
+		if (pointToMove.x === x && pointToMove.y === y) {
+			values[i] = String(newLocation.x);
+			values[i + 1] = String(newLocation.y);
+			const newList = values.join(" ");
+			element.setAttribute("points", newList);
+			return true;
+		}
+	}
 }
 
+/**
+ * @param svgElem
+ * @param change
+ */
 export function movePoint(svgElem: SVGSVGElement, change: IMovePointOptions) {
-  const { element: lightWorldElem, pointToMove, newLocation } = change;
-  const element = findShadowEquivalent(lightWorldElem, svgElem);
-  if (!element) {
-    return;
-  }
-  for (const c of element.getAttributeNames()) {
-    if (c.startsWith("x")) {
-      if (checkLinePoint(c, element, pointToMove, newLocation)) return;
-    } else if (c === "points") {
-      if (checkPolyPoint(element, pointToMove, newLocation)) return;
-    }
-  }
+	const { element: lightWorldElem, pointToMove, newLocation } = change;
+	const element = findShadowEquivalent(lightWorldElem, svgElem);
+	if (!element) {
+		return;
+	}
+	for (const c of element.getAttributeNames()) {
+		if (c.startsWith("x")) {
+			if (checkLinePoint(c, element, pointToMove, newLocation)) return;
+		} else if (c === "points") {
+			if (checkPolyPoint(element, pointToMove, newLocation)) return;
+		}
+	}
 }

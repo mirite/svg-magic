@@ -1,18 +1,18 @@
 .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: aliceblue;
-  padding: 1rem;
-  position: sticky;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1;
-  height: var(--header-height);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: aliceblue;
+	padding: 1rem;
+	position: sticky;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 1;
+	height: var(--header-height);
 }
 
 .actions {
-  display: flex;
-  gap: 1rem;
+	display: flex;
+	gap: 1rem;
 }

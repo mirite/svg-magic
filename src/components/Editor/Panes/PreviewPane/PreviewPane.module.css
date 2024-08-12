@@ -1,35 +1,35 @@
 .previewPane {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
 }
 
 .livePreview {
-  position: relative;
+	position: relative;
 }
 
 .livePreview canvas {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
 }
 
 .title {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 1rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+	gap: 1rem;
 }
 .preview {
-  border: 2px dashed #555;
-  border-radius: 1rem;
+	border: 2px dashed #555;
+	border-radius: 1rem;
 }
 .dark .preview {
-  background-color: black;
+	background-color: black;
 }
 
 .light .preview {
-  background-color: white;
+	background-color: white;
 }

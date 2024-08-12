@@ -1,14 +1,14 @@
 .editorPane {
-  display: flex;
-  flex-direction: column;
+	display: flex;
+	flex-direction: column;
 }
 
 .editor {
-  flex-grow: 1;
-  overflow: auto;
+	flex-grow: 1;
+	overflow: auto;
 }
 
 .formattingOptions {
-  display: flex;
-  gap: 1rem;
+	display: flex;
+	gap: 1rem;
 }
