@@ -5,6 +5,9 @@ import "./App.css";
 import { stripXMLDeclaration } from "helpers/transformers";
 import type { IFile } from "types";
 
+/**
+ *
+ */
 function App() {
 	const [file, setFile] = useState<IFile>();
 

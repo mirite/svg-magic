@@ -3,6 +3,9 @@ import type { AtRule, Declaration, Rule, Stylesheet } from "css";
 import type { SVGSubElement } from "../../types";
 import { parseCSS, setShadowCSS, stylesheetToText } from "../css";
 
+/**
+ *
+ */
 class CSSInliner {
 	private readonly rules: Array<Rule | Comment | AtRule>;
 	private cssPropToHtmlAttributeMap = {

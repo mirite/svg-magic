@@ -11,7 +11,13 @@ interface IState {
 	file: IFile;
 }
 
+/**
+ *
+ */
 class FileSelector extends Component<IProps, IState> {
+	/**
+	 *
+	 */
 	render() {
 		return (
 			<div className={styles.container}>
