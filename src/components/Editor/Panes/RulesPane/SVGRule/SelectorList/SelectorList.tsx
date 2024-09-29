@@ -3,7 +3,7 @@ import CSSParser from "css";
 import { setTagContent } from "helpers/dom";
 import React, { useRef, useState } from "react";
 
-import styles from "../SVGRule.module.css";
+import Selector from "./Selector";
 
 interface IProps {
 	selectors: string[];
@@ -33,31 +33,26 @@ function SelectorList(props: IProps) {
 		};
 		const styleSheet: CSSParser.Stylesheet = {
 			stylesheet: { rules: [newRule] },
+			type: "stylesheet",
 		};
 		setTagContent(ref, CSSParser.stringify(styleSheet));
 		setCurrent(s);
-	};
-
-	const selector = (s: string, i: number) => {
-		return (
-			<li key={i} className={styles.rule}>
-				<label>
-					{s}
-					<input
-						type="checkbox"
-						onChange={(e) => handleSelectorToggle(e, s)}
-						checked={current === s}
-					/>
-				</label>
-			</li>
-		);
 	};
 
 	const [current, setCurrent] = useState<string>("");
 	const ref = useRef(null);
 	return (
 		<div>
-			<ul>{props.selectors.map(selector)}</ul>
+			<ul>
+				{props.selectors.map((selector, index) => (
+					<Selector
+						key={index}
+						onSelectorToggle={handleSelectorToggle}
+						selector={selector}
+						isChecked={selector === current}
+					/>
+				))}
+			</ul>
 			<style ref={ref}></style>
 		</div>
 	);

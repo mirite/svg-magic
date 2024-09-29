@@ -1,13 +1,17 @@
-import type { AtRule, Declaration, Rule, Stylesheet } from "css";
+import type {
+	AtRule,
+	Declaration,
+	Rule,
+	Stylesheet,
+	Supports,
+	Comment,
+} from "css";
 
 import type { SVGSubElement } from "../../types";
 import { parseCSS, setShadowCSS, stylesheetToText } from "../css";
 
-/**
- *
- */
 class CSSInliner {
-	private readonly rules: Array<Rule | Comment | AtRule>;
+	private readonly rules: Array<Rule | Comment | AtRule | Supports>;
 	private cssPropToHtmlAttributeMap = {
 		stroke: "stroke",
 		"stroke-linecap": "stroke-linecap",
@@ -132,4 +136,4 @@ export function inlineStyles(
 	new CSSInliner(svgElem, styles, options);
 }
 
-export interface IInliningOptions {}
+export type IInliningOptions = object;
