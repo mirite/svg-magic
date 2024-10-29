@@ -2,7 +2,7 @@
 	"name": "@mirite/svg-magic",
 	"private": true,
 	"author": "Jesse Conner",
-	"version": "0.2.8",
+	"version": "0.3.0",
 	"type": "module",
 	"scripts": {
 		"dev": "vite",
