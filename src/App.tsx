@@ -1,17 +1,23 @@
-import React, { useState } from "react";
 import Editor from "components/Editor/Editor";
-import FileSelector from "components/FileSelector/FileSelector";
-import "./App.css";
+import FileSelector from "components/FileSelector";
 import { stripXMLDeclaration } from "helpers/transformers";
+import type { ReactElement } from "react";
+import React, { useState } from "react";
 import type { IFile } from "types";
 
 /**
+ * The main application component.
  *
+ * @returns The main application component.
  */
-function App() {
+function App(): ReactElement {
 	const [file, setFile] = useState<IFile>();
 
-	/** @param e */
+	/**
+	 * Update the editor with the selected file's contents.
+	 *
+	 * @param e The newly selected file.
+	 */
 	function handleSelect(e: IFile) {
 		const { title, contents } = e;
 		const cleanedContents = stripXMLDeclaration(contents);
@@ -19,7 +25,7 @@ function App() {
 	}
 
 	return (
-		<div className="App">
+		<div>
 			{file ? (
 				<Editor
 					contents={file.contents}

@@ -1,9 +1,0 @@
-.container {
-	display: flex;
-	place-items: center;
-	text-align: center;
-	flex-direction: column;
-	justify-content: center;
-	height: 100vh;
-	gap: 1rem;
-}
