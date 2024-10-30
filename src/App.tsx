@@ -24,19 +24,9 @@ function App(): ReactElement {
 		setFile({ title, contents: cleanedContents });
 	}
 
-	return (
-		<div>
-			{file ? (
-				<Editor
-					contents={file.contents}
-					fileName={file.title}
-					onClose={() => setFile(undefined)}
-				/>
-			) : (
-				<FileSelector onSelect={(e: IFile) => handleSelect(e)} />
-			)}
-		</div>
-	);
+	if (file) return <Editor file={file} onClose={() => setFile(undefined)} />;
+
+	return <FileSelector onSelect={(e: IFile) => handleSelect(e)} />;
 }
 
 export default App;

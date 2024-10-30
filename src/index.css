@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-	font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+	font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
 
 	color-scheme: light dark;
 	color: black;
@@ -14,9 +14,8 @@
 	--header-height: 95px;
 }
 
-body {
-	font-weight: 400;
-	margin: 0;
+body, #root {
+	@apply h-dvh;
 }
 
 h1,

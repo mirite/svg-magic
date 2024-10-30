@@ -2,6 +2,8 @@ import type { RefObject } from "react";
 import React, { useEffect, useState } from "react";
 import type { ChangeOperation, IPoint } from "types";
 
+import { paneStyles } from "../paneStyles";
+
 import Overlay from "./Overlay/Overlay";
 import styles from "./PreviewPane.module.css";
 
@@ -28,7 +30,11 @@ function PreviewPane(props: IProps) {
 	return (
 		<div
 			className={
-				styles.previewPane + " " + (isDark ? styles.dark : styles.light)
+				paneStyles +
+				" " +
+				styles.previewPane +
+				" " +
+				(isDark ? styles.dark : styles.light)
 			}
 		>
 			<div className={styles.title}>

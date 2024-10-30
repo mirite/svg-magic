@@ -4,6 +4,8 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import type { ChangeOperation, IPath } from "types";
 
+import { paneStyles } from "../paneStyles";
+
 import AddGroup from "./AddGroup/AddGroup";
 import AssignClass from "./AssignClass/AssignClass";
 import PathList from "./PathList/PathList";
@@ -47,7 +49,7 @@ function ElementsPane(props: IProps) {
 	};
 
 	return (
-		<div>
+		<div className={paneStyles}>
 			<h2>Elements</h2>
 			<div className="group">
 				<h3>Tree:</h3>

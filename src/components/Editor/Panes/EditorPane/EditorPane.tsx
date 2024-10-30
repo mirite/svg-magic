@@ -2,6 +2,8 @@ import { minify } from "helpers/transformers/minify";
 import React from "react";
 import type { ChangeOperation } from "types";
 
+import { paneStyles } from "../paneStyles";
+
 import styles from "./EditorPane.module.css";
 
 interface IProps {
@@ -14,7 +16,7 @@ interface IProps {
 function EditorPane(props: IProps) {
 	const { svgHTML, onManualEdit, onChange } = props;
 	return (
-		<div className={styles.editorPane}>
+		<div className={paneStyles + " " + styles.editorPane}>
 			<h2>Raw</h2>
 			<div className={styles.formattingOptions}>
 				<button onClick={() => onChange(minify)}>Minify</button>

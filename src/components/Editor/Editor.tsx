@@ -1,15 +1,14 @@
 import { evaluateSVG } from "helpers/parsers";
 import { performChange } from "helpers/transformer";
+import type { ReactElement } from "react";
 import React, { useEffect, useRef, useState } from "react";
-import type { ChangeOperation, IPath, IPoint, ISVGRule } from "types";
+import type { ChangeOperation, IFile, IPath, IPoint, ISVGRule } from "types";
 
-import styles from "./Editor.module.css";
-import Header from "./Header/Header";
+import Header from "./Header";
 import Panes from "./Panes/Panes";
 
 interface IProps {
-	contents: string;
-	fileName: string;
+	file: IFile;
 	onClose: () => void;
 }
 
@@ -27,9 +26,15 @@ const defaultState: IEditorState = {
 	points: [],
 };
 
-/** @param props */
-function Editor(props: IProps) {
-	const { fileName, contents, onClose } = props;
+/**
+ * The main editor component.
+ *
+ * @param props The component props.
+ * @returns The rendered component.
+ */
+function Editor(props: IProps): ReactElement {
+	const { file, onClose } = props;
+	const { contents, title: fileName } = file;
 	const [state, setState] = useState<IEditorState>(defaultState);
 	const [workingSVG, setWorkingSVG] = useState<string>(contents);
 
@@ -42,7 +47,7 @@ function Editor(props: IProps) {
 
 	useEffect(() => {
 		setWorkingSVG(contents);
-	}, [props]);
+	}, [contents]);
 
 	useEffect(() => {
 		if (!svgContainer) return;
@@ -53,7 +58,7 @@ function Editor(props: IProps) {
 	}, [workingSVG]);
 
 	return (
-		<div className={styles.fileDisplay}>
+		<div className={"h-dvh"}>
 			<Header
 				workingSVG={workingSVG}
 				fileName={fileName}
@@ -63,12 +68,11 @@ function Editor(props: IProps) {
 			<Panes
 				workingSVG={workingSVG}
 				svgContainer={svgContainer}
-				shadowContainer={shadowContainer}
 				setWorkingSVG={(e) => setWorkingSVG(e)}
 				handleChange={(e) => handleChange(e)}
 				{...state}
 			/>
-			<div className={styles.shadowContainer} ref={shadowContainer}></div>
+			<div ref={shadowContainer}></div>
 		</div>
 	);
 }
