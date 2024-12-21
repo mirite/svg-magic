@@ -14,7 +14,7 @@ type Props = {
  * @returns The component.
  */
 export default function Selector(props: Props): ReactElement {
-	const { onSelectorToggle,selector,isChecked } = props;
+	const { onSelectorToggle, selector, isChecked } = props;
 	return (
 		<li className={styles.rule}>
 			<label>
