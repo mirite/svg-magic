@@ -7,7 +7,7 @@ import type { ChangeOperation } from "types";
  * @param currentSVG
  */
 export function performChange(
-	containerRef: React.RefObject<HTMLDivElement>,
+	containerRef: React.RefObject<HTMLDivElement | null>,
 	change: ChangeOperation,
 	currentSVG: string,
 ): string {

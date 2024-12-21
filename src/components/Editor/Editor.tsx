@@ -1,7 +1,7 @@
 import { evaluateSVG } from "helpers/parsers";
 import { performChange } from "helpers/transformer";
 import type { ReactElement } from "react";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { ChangeOperation, IFile, IPath, IPoint, ISVGRule } from "types";
 
 import Header from "./Header";

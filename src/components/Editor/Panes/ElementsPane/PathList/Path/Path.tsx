@@ -28,7 +28,7 @@ function Path(props: IProps) {
 		props.onCheck(e, { elem, name, children });
 	};
 
-	const [{ opacity }, dragRef] = useDrag(
+	const [{ opacity }, drag] = useDrag(
 		() => ({
 			type: "element",
 			item: { elem },
@@ -39,7 +39,7 @@ function Path(props: IProps) {
 		[],
 	);
 
-	const [, dropRef] = useDrop(
+	const [, drop] = useDrop(
 		() => ({
 			accept: "element",
 			drop(_item: { elem: SVGSubElement }) {
@@ -60,16 +60,16 @@ function Path(props: IProps) {
 
 	return (
 		<li style={{ opacity }}>
-			<div ref={dropRef}>
-				<label ref={dragRef} className={styles.label}>
+			{drop(<div>
+				{drag(<label className={styles.label}>
 					<input
 						type="checkbox"
 						onChange={(e) => handleChange(e)}
 						checked={!!selected.find((s) => s.elem === elem)}
 					/>
 					{name}
-				</label>
-			</div>
+				</label>)}
+			</div>)}
 			{children.length ? (
 				<PathList
 					node={props}
