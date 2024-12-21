@@ -60,16 +60,20 @@ function Path(props: IProps) {
 
 	return (
 		<li style={{ opacity }}>
-			{drop(<div>
-				{drag(<label className={styles.label}>
-					<input
-						type="checkbox"
-						onChange={(e) => handleChange(e)}
-						checked={!!selected.find((s) => s.elem === elem)}
-					/>
-					{name}
-				</label>)}
-			</div>)}
+			{drop(
+				<div>
+					{drag(
+						<label className={styles.label}>
+							<input
+								type="checkbox"
+								onChange={(e) => handleChange(e)}
+								checked={!!selected.find((s) => s.elem === elem)}
+							/>
+							{name}
+						</label>,
+					)}
+				</div>,
+			)}
 			{children.length ? (
 				<PathList
 					node={props}

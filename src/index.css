@@ -14,7 +14,8 @@
 	--header-height: 95px;
 }
 
-body, #root {
+body,
+#root {
 	@apply h-dvh;
 }
 
