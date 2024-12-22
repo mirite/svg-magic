@@ -10,7 +10,10 @@ type FileSelectorState = {
 	file: IFile;
 };
 
-/** Allows for the selection of an SVG file. */
+/**
+ * Allows for the selection of an SVG file.
+ * @param props
+ */
 function FileSelector(props: Props) {
 	const [state, setState] = useState<FileSelectorState>();
 	/**

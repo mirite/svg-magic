@@ -15,11 +15,17 @@ function Class(props: IProps) {
 	const [renaming, setRenaming] = useState(false);
 	const [newName, setNewName] = useState(name);
 
+	/**
+	 *
+	 */
 	function cancelRename() {
 		setNewName(name);
 		setRenaming(false);
 	}
 
+	/**
+	 *
+	 */
 	function confirmRename() {
 		const options: IClassOptions = {
 			existingClassName: name,
@@ -29,6 +35,9 @@ function Class(props: IProps) {
 		setRenaming(false);
 	}
 
+	/**
+	 *
+	 */
 	function deleteClass() {
 		const options: IClassOptions = {
 			existingClassName: name,

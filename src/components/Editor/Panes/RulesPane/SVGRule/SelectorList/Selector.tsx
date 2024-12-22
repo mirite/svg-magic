@@ -1,4 +1,5 @@
 import React, { type ReactElement } from "react";
+
 import styles from "../SVGRule.module.css";
 
 type Props = {

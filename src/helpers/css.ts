@@ -3,18 +3,16 @@ import CSSParser from "css";
 import type { CSSContents, CSSTypes } from "types";
 
 /** @param value */
-export function assertIsRule(
-	value: CSSContents,
-): asserts value is CSSParser.Rule {
-	if (value.type !== "rule")
-		throw new Error("Value provided is not a CSS rule");
+export function assertIsRule(value: CSSContents): value is CSSParser.Rule {
+	return value.type === "rule";
 }
 
 /** @param stylesheetAsString */
 export function parseCSS(stylesheetAsString: string): Stylesheet | null {
 	try {
 		return CSSParser.parse(stylesheetAsString);
-	} catch (e) {
+	} catch (e: unknown) {
+		console.error(e);
 		return null;
 	}
 }

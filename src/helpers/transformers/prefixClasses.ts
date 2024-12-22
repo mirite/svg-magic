@@ -4,6 +4,9 @@ import { findClasses } from "../parsers";
 
 import { renameClass } from "./renameClass";
 
+/**
+ *
+ */
 function createPrefix(): string {
 	return "svg-magic-" + Date.now().toString(36);
 }

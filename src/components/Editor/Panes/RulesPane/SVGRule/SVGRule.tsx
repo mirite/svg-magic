@@ -1,17 +1,21 @@
 import { assertIsRule } from "helpers/css";
-import React from "react";
+import type { ReactElement } from "react";
 import type { ISVGRule } from "types";
 
 import DeclarationList from "./DeclarationList/DeclarationList";
 import SelectorList from "./SelectorList/SelectorList";
 
-interface IProps extends ISVGRule {}
+type Props = ISVGRule;
 
-/** @param props */
-function SVGRule(props: IProps) {
+/**
+ * A CSS rule for the SVG
+ *
+ * @param props The rule to display
+ * @returns The component.
+ */
+function SVGRule(props: Props): ReactElement {
 	const { rule } = props;
-	if (rule.type !== "rule") return <span>Provided Value Was Not a Rule</span>;
-	assertIsRule(rule); //There has to be a better way of doing this.
+	if (!assertIsRule(rule)) return <span>Provided Value Was Not a Rule</span>;
 	return (
 		<li>
 			<div className="group">
