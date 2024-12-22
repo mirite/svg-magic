@@ -1,10 +1,9 @@
+import { Pane } from "components/shared/Pane";
 import type { ChangeEvent } from "react";
 import React, { useState } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import type { ChangeOperation, IPath } from "types";
-
-import { paneStyles } from "../paneStyles";
 
 import AddGroup from "./AddGroup/AddGroup";
 import AssignClass from "./AssignClass/AssignClass";
@@ -49,7 +48,7 @@ function ElementsPane(props: IProps) {
 	};
 
 	return (
-		<div className={paneStyles}>
+		<Pane>
 			<h2>Elements</h2>
 			<div className="group">
 				<h3>Tree:</h3>
@@ -74,7 +73,7 @@ function ElementsPane(props: IProps) {
 				selected={selected}
 			/>
 			<PrefixClasses onChange={(e: ChangeOperation) => handleChangeOption(e)} />
-		</div>
+		</Pane>
 	);
 }
 

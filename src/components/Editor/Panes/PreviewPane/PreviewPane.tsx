@@ -1,8 +1,7 @@
+import { Pane } from "components/shared/Pane";
 import type { CSSProperties, ReactElement, RefObject } from "react";
 import { useEffect, useState } from "react";
 import type { ChangeOperation, IPoint } from "types";
-
-import { paneStyles } from "../paneStyles";
 
 import Overlay from "./Overlay/Overlay";
 
@@ -32,10 +31,7 @@ function PreviewPane(props: Props): ReactElement {
 	const { current: ref } = containerRef;
 
 	return (
-		<div
-			className={paneStyles}
-			style={{ "--background": background } as CSSProperties}
-		>
+		<Pane style={{ "--background": background } as CSSProperties}>
 			<div>
 				<h2>Preview</h2>
 				<div className="flex gap-4">
@@ -95,7 +91,7 @@ function PreviewPane(props: Props): ReactElement {
 			>
 				<img src={"data:image/svg+xml;base64," + base64} alt="preview" />
 			</div>
-		</div>
+		</Pane>
 	);
 }
 

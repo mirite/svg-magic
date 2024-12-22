@@ -10,9 +10,6 @@ import type {
 import type { SVGSubElement } from "../../types";
 import { parseCSS, setShadowCSS, stylesheetToText } from "../css";
 
-/**
- *
- */
 class CSSInliner {
 	private readonly rules: Array<Rule | Comment | AtRule | Supports>;
 	private cssPropToHtmlAttributeMap = {

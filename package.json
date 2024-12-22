@@ -5,14 +5,15 @@
 		"name": "Jesse Conner",
 		"email": "me@jesseconner.ca"
 	},
-	"version": "0.4.0",
+	"version": "0.5.0",
 	"type": "module",
 	"scripts": {
 		"dev": "vite",
-		"build": "tsc --noEmit && vite build",
+		"check": "tsc --noEmit",
+		"build": "yarn check && vite build",
 		"preview": "vite preview",
 		"lint": "eslint --fix",
-		"format": "prettier --write .",
+		"format": "prettier --write --cache .",
 		"test": "vitest --run --ui",
 		"test:watch": "vitest --ui"
 	},
@@ -22,7 +23,8 @@
 		"react": "^19.0.0",
 		"react-dnd": "^16.0.1",
 		"react-dnd-html5-backend": "^16.0.1",
-		"react-dom": "^19.0.0"
+		"react-dom": "^19.0.0",
+		"tailwind-merge": "^2.5.5"
 	},
 	"devDependencies": {
 		"@mirite/eslint-config-mirite": "^0.1.0",

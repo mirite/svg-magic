@@ -808,6 +808,7 @@ __metadata:
     react-dnd: "npm:^16.0.1"
     react-dnd-html5-backend: "npm:^16.0.1"
     react-dom: "npm:^19.0.0"
+    tailwind-merge: "npm:^2.5.5"
     tailwindcss: "npm:^3.4.17"
     typescript: "npm:^5.7.2"
     vite: "npm:^6.0.5"
@@ -5416,6 +5417,13 @@ __metadata:
     "@pkgr/core": "npm:^0.1.0"
     tslib: "npm:^2.6.2"
   checksum: 10/d45c4288be9c0232343650643892a7edafb79152c0c08d7ae5d33ca2c296b67a0e15f8cb5c9153969612c4ea5cd5686297542384aab977db23cfa6653fe02027
+  languageName: node
+  linkType: hard
+
+"tailwind-merge@npm:^2.5.5":
+  version: 2.5.5
+  resolution: "tailwind-merge@npm:2.5.5"
+  checksum: 10/a5bfa32559d95bacc422225e0287d7d023d72be97be41f34bba41651a9e51e37ea0524ade7f0b7ef96b5486de282e020a645597fd7f8c5e6c37562f0739a96b9
   languageName: node
   linkType: hard
 

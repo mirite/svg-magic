@@ -12,6 +12,7 @@ type FileSelectorState = {
 
 /**
  * Allows for the selection of an SVG file.
+ *
  * @param props
  */
 function FileSelector(props: Props) {
