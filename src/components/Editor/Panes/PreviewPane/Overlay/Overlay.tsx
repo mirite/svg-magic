@@ -17,13 +17,14 @@ function Overlay(props: IProps) {
 		if (canvasRef?.current && svg) {
 			drawOverlay(points, canvasRef.current, svg);
 		}
-	}, [props]);
+	}, [points, svg]);
 
 	if (!svg) {
-		return <></>;
+		return null;
 	}
 	return (
 		<canvas
+			className="absolute inset-0"
 			ref={canvasRef}
 			onMouseDown={(e) =>
 				onMouseDown(
