@@ -1,9 +1,9 @@
-import { traverseTreeInsideOut } from "../dom";
+import { traverseTreeInsideOut } from "../dom.js";
 
-import { minify } from "./minify";
+import { minify } from "./minify.js";
 
 /** @param svgElem */
-export function format(svgElem: SVGSVGElement) {
+export function format(svgElem: SVGSVGElement): void {
 	minify(svgElem);
 	const func = (elem: Element) => {
 		if (elem.nodeName === "style") return;

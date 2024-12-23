@@ -1,6 +1,6 @@
-import type { IMoveOptions } from "types";
+import type { IMoveOptions } from "@/types.js";
 
-import { findShadowEquivalent } from "../dom";
+import { findShadowEquivalent } from "../dom.js";
 
 /**
  * @param shadowContainer

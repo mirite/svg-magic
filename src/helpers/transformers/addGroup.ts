@@ -1,11 +1,14 @@
-import type { IGroupOptions } from "../../types";
-import { findShadowEquivalent } from "../dom";
+import type { IGroupOptions } from "../../types.js";
+import { findShadowEquivalent } from "../dom.js";
 
 /**
  * @param shadowContainer
  * @param change
  */
-export function addGroup(shadowContainer: SVGElement, change: IGroupOptions) {
+export function addGroup(
+	shadowContainer: SVGElement,
+	change: IGroupOptions,
+): void {
 	const { className, selectedItems } = change;
 	const newGroup = document.createElement("g");
 	newGroup.className = className || "";

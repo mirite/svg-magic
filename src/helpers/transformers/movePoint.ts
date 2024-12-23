@@ -1,6 +1,6 @@
-import type { IMovePointOptions, SVGSubElement } from "types";
+import type { IMovePointOptions, SVGSubElement } from "@/types.js";
 
-import { findShadowEquivalent } from "../dom";
+import { findShadowEquivalent } from "../dom.js";
 
 /**
  * @param c

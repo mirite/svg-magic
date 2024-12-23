@@ -7,8 +7,8 @@ import type {
 	Comment,
 } from "css";
 
-import type { SVGSubElement } from "../../types";
-import { parseCSS, setShadowCSS, stylesheetToText } from "../css";
+import type { SVGSubElement } from "../../types.js";
+import { parseCSS, setShadowCSS, stylesheetToText } from "../css.js";
 
 class CSSInliner {
 	private readonly rules: Array<Rule | Comment | AtRule | Supports>;

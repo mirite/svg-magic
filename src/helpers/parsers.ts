@@ -1,8 +1,8 @@
-import type { IPath, IPoint, ISVGRule, SVGSubElement } from "types";
+import type { IPath, IPoint, ISVGRule, SVGSubElement } from "@/types.js";
 
-import type { IEditorState } from "../components/Editor/Editor";
+import type { IEditorState } from "../components/Editor/Editor.js";
 
-import { parseCSS } from "./css";
+import { parseCSS } from "./css.js";
 
 /**
  * @param parent
@@ -23,7 +23,7 @@ function findSVGRules(
 	};
 
 	/** @param child */
-	function getStyleElement(child: SVGSubElement) {
+	function getStyleElement(child: SVGSubElement): HTMLStyleElement | null {
 		return (("style" === child.nodeName && child) ||
 			child.querySelector("style")) as HTMLStyleElement | null;
 	}

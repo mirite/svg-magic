@@ -1,6 +1,6 @@
 import type { Rule, StyleRules, Stylesheet } from "css";
 import CSSParser from "css";
-import type { CSSContents, CSSTypes } from "types";
+import type { CSSContents, CSSTypes } from "@/types.js";
 
 /** @param value */
 export function assertIsRule(value: CSSContents): value is CSSParser.Rule {

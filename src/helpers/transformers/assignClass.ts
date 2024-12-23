@@ -1,6 +1,6 @@
-import type { IAssignClassOptions } from "types";
+import type { IAssignClassOptions } from "@/types.js";
 
-import { findShadowEquivalent } from "../dom";
+import { findShadowEquivalent } from "../dom.js";
 
 /**
  * @param svgElem
@@ -9,7 +9,7 @@ import { findShadowEquivalent } from "../dom";
 export function assignClass(
 	svgElem: SVGSVGElement,
 	change: IAssignClassOptions,
-) {
+): void {
 	for (const path of change.selectedItems) {
 		const shadow = findShadowEquivalent(path.elem, svgElem);
 		if (shadow) {
