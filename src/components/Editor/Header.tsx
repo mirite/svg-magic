@@ -1,11 +1,15 @@
-import { saveFile } from "helpers/fileSaving";
-import { prefixClasses, stripData, stripIDs } from "helpers/transformers";
 import type { ReactElement } from "react";
 import React from "react";
-import type { ChangeOperation } from "types";
 
-import { inlineStyles } from "../../helpers/transformers/inlineStyles";
-import { stripClasses } from "../../helpers/transformers/stripClasses";
+import { saveFile } from "@/helpers/fileSaving.js";
+import {
+	prefixClasses,
+	stripData,
+	stripIDs,
+} from "@/helpers/transformers/index.js";
+import { inlineStyles } from "@/helpers/transformers/inlineStyles.js";
+import { stripClasses } from "@/helpers/transformers/stripClasses.js";
+import type { ChangeOperation } from "@/types.js";
 
 interface IProps {
 	workingSVG: string;

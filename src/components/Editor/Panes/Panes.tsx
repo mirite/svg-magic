@@ -1,13 +1,14 @@
 import type { ReactElement } from "react";
 import React from "react";
-import type { ChangeOperation } from "types";
 
-import type { IEditorState } from "../Editor";
+import type { IEditorState } from "../Editor.js";
 
-import EditorPane from "./EditorPane/EditorPane";
-import ElementsPane from "./ElementsPane/ElementsPane";
-import PreviewPane from "./PreviewPane/PreviewPane";
-import RulesPane from "./RulesPane/RulesPane";
+import EditorPane from "./EditorPane/EditorPane.js";
+import ElementsPane from "./ElementsPane/ElementsPane.js";
+import PreviewPane from "./PreviewPane/PreviewPane.js";
+import RulesPane from "./RulesPane/RulesPane.js";
+
+import type { ChangeOperation } from "@/types.js";
 
 interface IProps extends IEditorState {
 	workingSVG: string;

@@ -1,11 +1,18 @@
-import { evaluateSVG } from "helpers/parsers";
-import { performChange } from "helpers/transformer";
 import type { ReactElement } from "react";
 import { useEffect, useRef, useState } from "react";
-import type { ChangeOperation, IFile, IPath, IPoint, ISVGRule } from "types";
 
-import Header from "./Header";
-import Panes from "./Panes/Panes";
+import Header from "./Header.js";
+import Panes from "./Panes/Panes.js";
+
+import { evaluateSVG } from "@/helpers/parsers.js";
+import { performChange } from "@/helpers/transformer.js";
+import type {
+	ChangeOperation,
+	IFile,
+	IPath,
+	IPoint,
+	ISVGRule,
+} from "@/types.js";
 
 interface IProps {
 	file: IFile;

@@ -1,4 +1,4 @@
-import { traverseTree } from "helpers/dom";
+import { traverseTree } from "@/helpers/dom.js";
 
 /**
  * @param svgElem
