@@ -1,12 +1,17 @@
-import { renameCSSClass, setShadowCSS } from "helpers/css";
-import { traverseTree } from "helpers/dom";
-import type { IClassOptions } from "types";
+import { renameCSSClass, setShadowCSS } from "@/helpers/css.js";
+import { traverseTree } from "@/helpers/dom.js";
+import type { IClassOptions } from "@/types.js";
 
 /**
- * @param svgElem
- * @param change
+ * Renames a class in theSVG
+ *
+ * @param svgElem The SVG Element
+ * @param change The change operation to perform.
  */
-export function renameClass(svgElem: SVGSVGElement, change: IClassOptions) {
+export function renameClass(
+	svgElem: SVGSVGElement,
+	change: IClassOptions,
+): void {
 	const { existingClassName, newClassName } = change;
 	const func = (elem: Element) => {
 		if (elem.classList.contains(existingClassName)) {

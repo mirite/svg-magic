@@ -1,21 +1,29 @@
-import type { IPrefixClassOptions } from "types";
+import { findClasses } from "../parsers.js";
 
-import { findClasses } from "../parsers";
+import { renameClass } from "./renameClass.js";
 
-import { renameClass } from "./renameClass";
+import type { IPrefixClassOptions } from "@/types.js";
 
+/**
+ * Create a random prefix for the class
+ *
+ * @returns The generated prefix.
+ */
 function createPrefix(): string {
 	return "svg-magic-" + Date.now().toString(36);
 }
 
 /**
- * @param svgElem
- * @param options
+ * Adds a prefix to the classes in the SVG. Useful to avoid conflicts when
+ * in-lining.
+ *
+ * @param svgElem The SVG element
+ * @param options The change options.
  */
 export function prefixClasses(
 	svgElem: SVGSVGElement,
 	options?: IPrefixClassOptions,
-) {
+): void {
 	const classes = findClasses(svgElem);
 	const prefix = options?.prefix ?? createPrefix();
 	for (const existingClassName of classes) {
