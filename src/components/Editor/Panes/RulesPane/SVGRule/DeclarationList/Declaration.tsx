@@ -1,5 +1,6 @@
-import React, { type ReactElement } from "react";
-import type { CSSTypes } from "types";
+import { type ReactElement } from "react";
+
+import type { CSSTypes } from "@/types.js";
 
 type Props = {
 	onDeclarationToggle: (

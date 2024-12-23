@@ -1,16 +1,17 @@
-import { stylesheetToText } from "helpers/css";
-import { setTagContent } from "helpers/dom";
-import React, { useEffect, useRef, useState } from "react";
-import type { CSSTypes } from "types";
+import { type ReactElement, useEffect, useRef, useState } from "react";
 
-import Declaration from "./Declaration";
+import Declaration from "./Declaration.js";
+
+import { stylesheetToText } from "@/helpers/css.js";
+import { setTagContent } from "@/helpers/dom.js";
+import type { CSSTypes } from "@/types.js";
 
 interface IProps {
 	rule: CSSTypes.Rule;
 }
 
 /** @param props */
-function DeclarationList(props: IProps) {
+function DeclarationList(props: IProps): ReactElement {
 	const handleDeclarationToggle = (
 		previouslyOn: boolean,
 		dec: CSSTypes.Declaration,

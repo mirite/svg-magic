@@ -1,7 +1,8 @@
-import React from "react";
-import type { ChangeOperation } from "types";
+import type { ReactElement } from "react";
 
-import Class from "./Class/Class";
+import Class from "./Class/Class.js";
+
+import type { ChangeOperation } from "@/types.js";
 
 interface IProps {
 	classes: string[];
@@ -9,7 +10,7 @@ interface IProps {
 }
 
 /** @param props */
-function ClassList(props: IProps) {
+function ClassList(props: IProps): ReactElement {
 	return (
 		<div>
 			<h2>Classes</h2>

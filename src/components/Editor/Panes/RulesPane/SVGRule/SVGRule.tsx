@@ -1,9 +1,10 @@
-import { assertIsRule } from "helpers/css";
 import type { ReactElement } from "react";
-import type { ISVGRule } from "types";
 
-import DeclarationList from "./DeclarationList/DeclarationList";
-import SelectorList from "./SelectorList/SelectorList";
+import DeclarationList from "./DeclarationList/DeclarationList.js";
+import SelectorList from "./SelectorList/SelectorList.js";
+
+import { assertIsRule } from "@/helpers/css.js";
+import type { ISVGRule } from "@/types.js";
 
 type Props = ISVGRule;
 

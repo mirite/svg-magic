@@ -1,6 +1,8 @@
-import { drawOverlay, onMouseDown } from "helpers/overlay";
-import React, { useEffect, useRef } from "react";
-import type { ChangeOperation, IPoint } from "types";
+import type { ReactElement } from "react";
+import { useEffect, useRef } from "react";
+
+import { drawOverlay, onMouseDown } from "@/helpers/overlay.js";
+import type { ChangeOperation, IPoint } from "@/types.js";
 
 interface IProps {
 	points: IPoint[];
@@ -9,7 +11,7 @@ interface IProps {
 }
 
 /** @param props */
-function Overlay(props: IProps) {
+function Overlay(props: IProps): ReactElement | null {
 	const { points, onChange, svg } = props;
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 

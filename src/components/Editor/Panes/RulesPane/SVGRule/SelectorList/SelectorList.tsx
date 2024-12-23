@@ -1,16 +1,17 @@
 import type { Rule } from "css";
 import CSSParser from "css";
-import { setTagContent } from "helpers/dom";
-import React, { useRef, useState } from "react";
+import React, { type ReactElement, useRef, useState } from "react";
 
-import Selector from "./Selector";
+import Selector from "./Selector.js";
+
+import { setTagContent } from "@/helpers/dom.js";
 
 interface IProps {
 	selectors: string[];
 }
 
 /** @param props */
-function SelectorList(props: IProps) {
+function SelectorList(props: IProps): ReactElement {
 	const handleSelectorToggle = (
 		e: React.ChangeEvent<HTMLInputElement>,
 		s: string,

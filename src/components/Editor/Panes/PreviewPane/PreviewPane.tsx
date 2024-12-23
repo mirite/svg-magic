@@ -1,9 +1,10 @@
-import { Pane } from "components/shared/Pane";
 import type { CSSProperties, ReactElement, RefObject } from "react";
 import { useEffect, useState } from "react";
-import type { ChangeOperation, IPoint } from "types";
 
-import Overlay from "./Overlay/Overlay";
+import Overlay from "./Overlay/Overlay.js";
+
+import { Pane } from "@/components/shared/Pane.js";
+import type { ChangeOperation, IPoint } from "@/types.js";
 
 type Props = {
 	containerRef: RefObject<HTMLDivElement | null>;

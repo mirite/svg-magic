@@ -1,8 +1,9 @@
-import { removeClass, renameClass } from "helpers/transformers";
-import React, { useEffect, useState } from "react";
-import type { ChangeOperation, IClassOptions } from "types";
+import { useEffect, useState } from "react";
 
 import styles from "./Class.module.css";
+
+import { removeClass, renameClass } from "@/helpers/transformers/index.js";
+import type { ChangeOperation, IClassOptions } from "@/types.js";
 
 interface IProps {
 	name: string;

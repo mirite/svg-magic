@@ -1,10 +1,11 @@
-import { Pane } from "components/shared/Pane";
-import React from "react";
-import type { ChangeOperation, ISVGRule } from "types";
+import type { ReactElement } from "react";
 
 import styles from "./RulesPane.module.css";
-import ClassList from "./SVGRule/ClassList/ClassList";
-import SVGClass from "./SVGRule/SVGRule";
+import ClassList from "./SVGRule/ClassList/ClassList.js";
+import SVGClass from "./SVGRule/SVGRule.js";
+
+import { Pane } from "@/components/shared/Pane.js";
+import type { ChangeOperation, ISVGRule } from "@/types.js";
 
 interface IProps {
 	classes: string[];
@@ -13,7 +14,7 @@ interface IProps {
 }
 
 /** @param props */
-function RulesPane(props: IProps) {
+function RulesPane(props: IProps): ReactElement {
 	return (
 		<Pane>
 			<ClassList classes={props.classes} onChange={(e) => props.onChange(e)} />

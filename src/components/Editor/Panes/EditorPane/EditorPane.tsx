@@ -1,9 +1,8 @@
-import { Pane } from "components/shared/Pane";
-import { minify } from "helpers/transformers/minify";
-import React from "react";
-import type { ChangeOperation } from "types";
-
 import styles from "./EditorPane.module.css";
+
+import { Pane } from "@/components/shared/Pane.js";
+import { minify } from "@/helpers/transformers/minify.js";
+import type { ChangeOperation } from "@/types.js";
 
 interface IProps {
 	svgHTML: string;
