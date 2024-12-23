@@ -1,8 +1,9 @@
-import { Input } from "components/shared/Input";
-import { prefixClasses } from "helpers/transformers";
 import type { FormEvent, ReactElement } from "react";
 import { useState } from "react";
-import type { ChangeOperation, IPrefixClassOptions } from "types";
+
+import { Input } from "@/components/shared/Input.js";
+import { prefixClasses } from "@/helpers/transformers/index.js";
+import type { ChangeOperation, IPrefixClassOptions } from "@/types.js";
 
 interface IProps {
 	onChange: (options: ChangeOperation) => void;

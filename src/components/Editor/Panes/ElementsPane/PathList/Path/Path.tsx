@@ -6,7 +6,7 @@ import PathList from "../PathList.js";
 
 import styles from "./Path.module.css";
 
-import { moveElement } from "@/helpers/transformers.js";
+import { moveElement } from "@/helpers/transformers/index.js";
 import type {
 	ChangeOperation,
 	IMoveOptions,

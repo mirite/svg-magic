@@ -1,7 +1,8 @@
-import { assignClass } from "helpers/transformers";
-import type { FormEvent } from "react";
-import React, { useState } from "react";
-import type { ChangeOperation, IAssignClassOptions, IPath } from "types";
+import type { FormEvent, ReactElement } from "react";
+import { useState } from "react";
+
+import { assignClass } from "@/helpers/transformers/index.js";
+import type { ChangeOperation, IAssignClassOptions, IPath } from "@/types.js";
 
 interface IProps {
 	selected: IPath[];
@@ -10,7 +11,7 @@ interface IProps {
 }
 
 /** @param props */
-function AssignClass(props: IProps) {
+function AssignClass(props: IProps): ReactElement {
 	const { selected: selectedItems, classes, onChange } = props;
 	const [useExisting, setUseExisting] = useState(true);
 	const [className, setClassName] = useState("");

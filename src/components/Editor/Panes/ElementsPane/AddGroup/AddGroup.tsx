@@ -1,8 +1,9 @@
-import { Input } from "components/shared/Input";
-import { addGroup } from "helpers/transformers";
 import type { ReactElement } from "react";
 import React, { useEffect, useState } from "react";
-import type { ChangeOperation, IGroupOptions, IPath } from "types";
+
+import { Input } from "@/components/shared/Input.js";
+import { addGroup } from "@/helpers/transformers/index.js";
+import type { ChangeOperation, IGroupOptions, IPath } from "@/types.js";
 
 interface IProps {
 	onChange: (changeOptions: ChangeOperation) => void;
