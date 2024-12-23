@@ -1,6 +1,7 @@
-import type { ChangeEvent, FormEvent } from "react";
+import type { ChangeEvent, FormEvent, ReactElement } from "react";
 import React, { useState } from "react";
-import type { IFile } from "types";
+
+import type { IFile } from "@/types.js";
 
 type Props = {
 	onSelect: (file: IFile) => void;
@@ -15,7 +16,7 @@ type FileSelectorState = {
  *
  * @param props
  */
-function FileSelector(props: Props) {
+function FileSelector(props: Props): ReactElement {
 	const [state, setState] = useState<FileSelectorState>();
 	/**
 	 * Handle the form submission.

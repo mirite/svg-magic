@@ -1,8 +1,8 @@
-import type { IPath, IPoint, ISVGRule, SVGSubElement } from "@/types.js";
-
 import type { IEditorState } from "../components/Editor/Editor.js";
 
 import { parseCSS } from "./css.js";
+
+import type { IPath, IPoint, ISVGRule, SVGSubElement } from "@/types.js";
 
 /**
  * @param parent
