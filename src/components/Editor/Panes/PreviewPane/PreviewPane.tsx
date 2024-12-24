@@ -2,9 +2,10 @@ import type { CSSProperties, ReactElement, RefObject } from "react";
 import { useEffect, useState } from "react";
 
 import Overlay from "./Overlay/Overlay.js";
-
+import { Checkbox } from "@/components/shared/CheckBox.js";
 import { Pane } from "@/components/shared/Pane.js";
 import type { ChangeOperation, IPoint } from "@/types.js";
+import { Input } from "@/components/shared/Input.js";
 
 type Props = {
 	containerRef: RefObject<HTMLDivElement | null>;
@@ -32,38 +33,29 @@ function PreviewPane(props: Props): ReactElement {
 	const { current: ref } = containerRef;
 
 	return (
-		<Pane style={{ "--background": background } as CSSProperties}>
+		<Pane
+			style={{ "--background": isDark ? background : "#FFF" } as CSSProperties}
+		>
 			<div>
 				<h2>Preview</h2>
 				<div className="flex gap-4">
-					<label className="flex flex-col items-center">
-						Dark:
-						<input
-							className="m-0"
-							type="checkbox"
-							checked={isDark}
-							onChange={(e) => setIsDark(e.currentTarget.checked)}
-						/>
-					</label>
-					<label className="flex flex-col items-center">
-						Show Overlay:
-						<input
-							className="m-0"
-							type="checkbox"
-							checked={showOverlay}
-							onChange={(e) => setShowOverlay(e.currentTarget.checked)}
-						/>
-					</label>
+					<Checkbox
+						checked={isDark}
+						onChange={() => setIsDark((e) => !e)}
+						label="Dark:"
+					/>
+					<Checkbox
+						checked={showOverlay}
+						onChange={() => setShowOverlay((e) => !e)}
+						label="Show Overlay:"
+					/>
 					{isDark && (
-						<label className="flex items-center flex-col">
-							Background:
-							<input
-								className="m-0"
-								type="color"
-								value={background}
-								onChange={(e) => setBackground(e.currentTarget.value)}
-							/>
-						</label>
+						<Input
+							type="color"
+							value={background}
+							onChange={(e) => setBackground(e.currentTarget.value)}
+							label={"Background:"}
+						/>
 					)}
 				</div>
 			</div>
