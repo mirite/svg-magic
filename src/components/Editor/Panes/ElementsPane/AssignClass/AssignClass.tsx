@@ -3,6 +3,7 @@ import { useState } from "react";
 
 import { assignClass } from "@/helpers/transformers/index.js";
 import type { ChangeOperation, IAssignClassOptions, IPath } from "@/types.js";
+import { Checkbox } from "@/components/shared/CheckBox.js";
 
 interface IProps {
 	selected: IPath[];
@@ -10,7 +11,12 @@ interface IProps {
 	classes: string[];
 }
 
-/** @param props */
+/**
+ * Controls for assigning a new or existing class to the selected classes.
+ *
+ * @param props The component props.
+ * @returns The component.
+ */
 function AssignClass(props: IProps): ReactElement {
 	const { selected: selectedItems, classes, onChange } = props;
 	const [useExisting, setUseExisting] = useState(true);
@@ -29,17 +35,14 @@ function AssignClass(props: IProps): ReactElement {
 	return (
 		<form className="group" onSubmit={(e) => handleSubmit(e)}>
 			<h3>Assign Class:</h3>
-			<label>
-				Existing?
-				<input
-					type="checkbox"
-					checked={useExisting}
-					onChange={(e) => {
-						setClassName("");
-						setUseExisting(e.currentTarget.checked);
-					}}
-				/>
-			</label>
+			<Checkbox
+				checked={useExisting}
+				label="Existing?"
+				onChange={(e) => {
+					setClassName("");
+					setUseExisting(e.currentTarget.checked);
+				}}
+			/>
 			<label htmlFor="assign-class-name">
 				Class:
 				{useExisting ? (

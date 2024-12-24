@@ -1,5 +1,5 @@
 import { type ReactElement } from "react";
-
+import { Checkbox } from "@/components/shared/CheckBox.js";
 import type { CSSTypes } from "@/types.js";
 
 type Props = {
@@ -22,14 +22,11 @@ export default function Declaration(props: Props): ReactElement {
 	const isOn = !toggledOff.find((d) => d === dec);
 	return (
 		<li>
-			<label>
-				<input
-					type="checkbox"
-					onChange={() => onDeclarationToggle(isOn, dec)}
-					checked={isOn}
-				/>
-				{dec.property} : {dec.value}
-			</label>
+			<Checkbox
+				checked={isOn}
+				onChange={() => onDeclarationToggle(isOn, dec)}
+				label={`${dec.property} : ${dec.value}`}
+			/>
 		</li>
 	);
 }

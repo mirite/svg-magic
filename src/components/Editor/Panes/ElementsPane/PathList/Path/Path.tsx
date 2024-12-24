@@ -4,8 +4,6 @@ import { useDrag, useDrop } from "react-dnd";
 
 import PathList from "../PathList.js";
 
-import styles from "./Path.module.css";
-
 import { moveElement } from "@/helpers/transformers/index.js";
 import type {
 	ChangeOperation,
@@ -13,6 +11,7 @@ import type {
 	IPath,
 	SVGSubElement,
 } from "@/types.js";
+import { Checkbox } from "@/components/shared/CheckBox.js";
 
 interface IProps extends IPath {
 	onChange: (options: ChangeOperation) => void;
@@ -67,28 +66,23 @@ function Path(props: IProps): ReactElement {
 	return (
 		<li style={{ opacity }}>
 			{drop(
-				<div>
-					{drag(
-						<label className={styles.label}>
-							<input
-								type="checkbox"
-								onChange={(e) => handleChange(e)}
-								checked={!!selected.find((s) => s.elem === elem)}
-							/>
-							{name}
-						</label>,
-					)}
-				</div>,
+				drag(
+					<div>
+						<Checkbox
+							label={name}
+							onChange={(e) => handleChange(e)}
+							checked={!!selected.find((s) => s.elem === elem)}
+						/>
+					</div>,
+				),
 			)}
-			{children.length ? (
+			{children.length > 0 && (
 				<PathList
 					node={props}
 					onChange={(e) => props.onChange(e)}
 					onCheck={(e, p: IPath) => props.onCheck(e, p)}
 					selected={props.selected}
 				/>
-			) : (
-				""
 			)}
 		</li>
 	);
