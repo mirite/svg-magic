@@ -15,7 +15,7 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
       - name: Install dependencies
-        run: apk add --upgrade brotli && corepack enable && yarn install
+        run: apt install brotli && corepack enable && yarn install
       - name: Build project
         run: yarn build
       - name: Compress
