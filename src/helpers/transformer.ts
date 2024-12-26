@@ -10,8 +10,9 @@ export function performChange(
 	fileState: FileProps,
 	change: ChangeOperation,
 ): void {
-	const svgElem = document.createElement("svg") as unknown as SVGSVGElement;
-	svgElem.outerHTML = fileState.stateTuple[0].file.contents;
+	const container = document.createElement("div");
+	container.innerHTML = fileState.stateTuple[0].file.contents;
+	const svgElem = container.querySelector("svg") as SVGSVGElement;
 	change(svgElem);
 	const html = svgElem.outerHTML;
 	fileState.stateTuple[1]((previous) => {
