@@ -1,5 +1,7 @@
 import { type ReactElement, useId, type InputHTMLAttributes } from "react";
 
+import { InputWrapper } from "./InputWrapper.js";
+
 type Props = Omit<InputHTMLAttributes<HTMLInputElement>, "id"> & {
 	label: string;
 };
@@ -14,9 +16,9 @@ export function Checkbox(props: Props): ReactElement {
 	const { label, ...rest } = props;
 	const id = useId();
 	return (
-		<div className="flex gap-2 items-center">
+		<InputWrapper>
 			<label htmlFor={id}>{label}</label>
 			<input id={id} type="checkbox" {...rest} />
-		</div>
+		</InputWrapper>
 	);
 }

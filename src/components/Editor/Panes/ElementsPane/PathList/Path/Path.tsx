@@ -4,6 +4,7 @@ import { useDrag, useDrop } from "react-dnd";
 
 import PathList from "../PathList.js";
 
+import { Checkbox } from "@/components/shared/CheckBox.js";
 import { moveElement } from "@/helpers/transformers/index.js";
 import type {
 	ChangeOperation,
@@ -11,7 +12,6 @@ import type {
 	IPath,
 	SVGSubElement,
 } from "@/types.js";
-import { Checkbox } from "@/components/shared/CheckBox.js";
 
 interface IProps extends IPath {
 	onChange: (options: ChangeOperation) => void;

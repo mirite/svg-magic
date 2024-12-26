@@ -2,10 +2,11 @@ import type { CSSProperties, ReactElement, RefObject } from "react";
 import { useEffect, useState } from "react";
 
 import Overlay from "./Overlay/Overlay.js";
+
 import { Checkbox } from "@/components/shared/CheckBox.js";
+import { Input } from "@/components/shared/Input.js";
 import { Pane } from "@/components/shared/Pane.js";
 import type { ChangeOperation, IPoint } from "@/types.js";
-import { Input } from "@/components/shared/Input.js";
 
 type Props = {
 	containerRef: RefObject<HTMLDivElement | null>;

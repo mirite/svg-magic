@@ -1,9 +1,11 @@
 import type { FormEvent, ReactElement } from "react";
 import { useState } from "react";
 
+import { Checkbox } from "@/components/shared/CheckBox.js";
+import { Input } from "@/components/shared/Input.js";
+import { Select } from "@/components/shared/Select.js";
 import { assignClass } from "@/helpers/transformers/index.js";
 import type { ChangeOperation, IAssignClassOptions, IPath } from "@/types.js";
-import { Checkbox } from "@/components/shared/CheckBox.js";
 
 interface IProps {
 	selected: IPath[];
@@ -43,33 +45,30 @@ function AssignClass(props: IProps): ReactElement {
 					setUseExisting(e.currentTarget.checked);
 				}}
 			/>
-			<label htmlFor="assign-class-name">
-				Class:
-				{useExisting ? (
-					<select
-						id="assign-class-name"
-						required
-						onChange={(e) => setClassName(e.currentTarget.value)}
-						value={className}
-					>
-						<option value="">Select an Existing Class</option>
-						{classes.map((c, i) => (
-							<option key={i} value={c}>
-								{c}
-							</option>
-						))}
-					</select>
-				) : (
-					<input
-						id="assign-class-name"
-						type="text"
-						required
-						value={className}
-						onChange={(e) => setClassName(e.currentTarget.value)}
-					/>
-				)}
-			</label>
-			<button disabled={selectedItems.length === 0 || className === ""}>
+			{useExisting ? (
+				<Select
+					label="Class:"
+					onChange={(e) => setClassName(e.currentTarget.value)}
+					value={className}
+				>
+					<option value="">Select an Existing Class</option>
+					{classes.map((c, i) => (
+						<option key={i} value={c}>
+							{c}
+						</option>
+					))}
+				</Select>
+			) : (
+				<Input
+					label="Class:"
+					value={className}
+					onChange={(e) => setClassName(e.currentTarget.value)}
+				/>
+			)}
+			<button
+				disabled={selectedItems.length === 0 || className === ""}
+				type="button"
+			>
 				Assign
 			</button>
 		</form>
