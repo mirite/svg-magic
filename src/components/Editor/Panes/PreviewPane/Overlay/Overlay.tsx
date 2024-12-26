@@ -3,6 +3,7 @@ import { useEffect, useRef } from "react";
 import { getSVGElement } from "@/helpers/getSVGElement.js";
 import { drawOverlay, onMouseDown } from "@/helpers/overlay.js";
 import { findSVGPoints } from "@/helpers/parsers.js";
+import { performChange } from "@/helpers/transformer.js";
 import type { PaneSubComponent } from "@/types.js";
 
 /**
@@ -12,7 +13,6 @@ import type { PaneSubComponent } from "@/types.js";
  * @returns The component.
  */
 const Overlay: PaneSubComponent = (props) => {
-	const { onChange } = props.stateTuple[0];
 	const svg = getSVGElement(props);
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 	const points = findSVGPoints(svg);
@@ -31,7 +31,7 @@ const Overlay: PaneSubComponent = (props) => {
 					e,
 					canvasRef.current!,
 					points,
-					(changeOptions) => onChange(changeOptions),
+					(changeOptions) => performChange(props, changeOptions),
 					svg,
 				)
 			}

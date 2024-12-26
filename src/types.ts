@@ -70,7 +70,6 @@ export interface IFile {
 export type FileState = {
 	file: IFile;
 	svgContainer: HTMLDivElement | null;
-	onChange: (operation: ChangeOperation) => void;
 	previous: IFile["contents"][];
 };
 

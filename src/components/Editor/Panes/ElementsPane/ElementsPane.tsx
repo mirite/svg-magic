@@ -11,6 +11,7 @@ import PrefixClasses from "./PrefixClasses/PrefixClasses.js";
 import { Pane } from "@/components/shared/Pane.js";
 import { getSVGElement } from "@/helpers/getSVGElement.js";
 import { findClasses, findSVGChildren } from "@/helpers/parsers.js";
+import { performChange } from "@/helpers/transformer.js";
 import type { ChangeOperation, IPath, PaneComponent } from "@/types.js";
 
 /**
@@ -20,8 +21,6 @@ import type { ChangeOperation, IPath, PaneComponent } from "@/types.js";
  * @returns The component.
  */
 const ElementsPane: PaneComponent = (props) => {
-	const { onChange } = props.stateTuple[0];
-
 	const [selected, setSelected] = useState<IPath[]>([]);
 	const svgRoot = getSVGElement(props);
 	const children = findSVGChildren(svgRoot);
@@ -46,7 +45,7 @@ const ElementsPane: PaneComponent = (props) => {
 	}
 
 	const handleChangeOption = (e: ChangeOperation) => {
-		onChange(e);
+		performChange(props, e);
 		setSelected([]);
 	};
 

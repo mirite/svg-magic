@@ -29,13 +29,6 @@ function App(): ReactElement {
 				title: e.title,
 				contents,
 			},
-			onChange: (operation) => {
-				// TODO Implement a wrapper for handle current file update
-				// 	const handleChange = (e: ChangeOperation) => {
-				//	handleCurrentFileUpdate(performChange(shadowContainer, e, workingSVG));
-
-				console.log(operation);
-			},
 			previous: [],
 			svgContainer: null,
 		};

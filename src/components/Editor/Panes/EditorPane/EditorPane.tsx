@@ -1,6 +1,7 @@
 import styles from "./EditorPane.module.css";
 
 import { Pane } from "@/components/shared/Pane.js";
+import { performChange } from "@/helpers/transformer.js";
 import { minify } from "@/helpers/transformers/minify.js";
 import type { PaneComponent } from "@/types.js";
 
@@ -11,7 +12,7 @@ import type { PaneComponent } from "@/types.js";
  * @returns The component.
  */
 const EditorPane: PaneComponent = (props) => {
-	const { file, onChange } = props.stateTuple[0];
+	const { file } = props.stateTuple[0];
 	const svgHTML = file.contents;
 	const onManualEdit = (newContent: string) => {
 		props.stateTuple[1]((previousState) => {
@@ -24,7 +25,7 @@ const EditorPane: PaneComponent = (props) => {
 		<Pane className={styles.editorPane}>
 			<div className={"flex justify-between gap-2 items-center mb-2"}>
 				<h2>Raw</h2>
-				<button onClick={() => onChange(minify)} type="button">
+				<button onClick={() => performChange(props, minify)} type="button">
 					Minify
 				</button>
 			</div>

@@ -1,24 +1,22 @@
-import type React from "react";
-
-import type { ChangeOperation } from "@/types.js";
+import type { ChangeOperation, FileProps } from "@/types.js";
 
 /**
- * @param containerRef
- * @param change
- * @param currentSVG
+ * Helper for altering the SVG.
+ *
+ * @param fileState The current file state
+ * @param change The change to perform
  */
 export function performChange(
-	containerRef: React.RefObject<HTMLDivElement | null>,
+	fileState: FileProps,
 	change: ChangeOperation,
-	currentSVG: string,
-): string {
-	const shadowContainer = containerRef.current;
-	if (!shadowContainer) return currentSVG;
-	shadowContainer.innerHTML = currentSVG;
-	const svgElem = shadowContainer.querySelector("svg");
-	if (!svgElem) return currentSVG;
+): void {
+	const svgElem = document.createElement("svg") as unknown as SVGSVGElement;
+	svgElem.outerHTML = fileState.stateTuple[0].file.contents;
 	change(svgElem);
-	const html = shadowContainer.innerHTML;
-	shadowContainer.innerHTML = "";
-	return html;
+	const html = svgElem.outerHTML;
+	fileState.stateTuple[1]((previous) => {
+		const newState = { ...previous };
+		newState.file.contents = html;
+		return newState;
+	});
 }

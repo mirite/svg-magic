@@ -2,6 +2,7 @@ import Class from "./Class/Class.js";
 
 import { getSVGElement } from "@/helpers/getSVGElement.js";
 import { findClasses } from "@/helpers/parsers.js";
+import { performChange } from "@/helpers/transformer.js";
 import type { PaneSubComponent } from "@/types.js";
 
 /**
@@ -17,11 +18,7 @@ const ClassList: PaneSubComponent = (props) => {
 			<h2>Classes</h2>
 			<ul>
 				{classes.map((c, i) => (
-					<Class
-						key={i}
-						name={c}
-						onChange={(e) => props.stateTuple[0].onChange(e)}
-					/>
+					<Class key={i} name={c} onChange={(e) => performChange(props, e)} />
 				))}
 			</ul>
 		</div>

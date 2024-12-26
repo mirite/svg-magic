@@ -1,6 +1,7 @@
 import type { ReactElement } from "react";
 
 import { saveFile } from "@/helpers/fileSaving.js";
+import { performChange } from "@/helpers/transformer.js";
 import {
 	prefixClasses,
 	stripData,
@@ -18,7 +19,7 @@ import type { FileProps } from "@/types.js";
  */
 function Header(props: FileProps): ReactElement {
 	const [state] = props.stateTuple;
-	const { file, onChange } = state;
+	const { file } = state;
 	const { title, contents } = file;
 	return (
 		<header
@@ -28,19 +29,28 @@ function Header(props: FileProps): ReactElement {
 		>
 			<h1>SVG Magic</h1>
 			<div className={"flex gap-4 items-center grow justify-end"}>
-				<button type={"button"} onClick={() => onChange(inlineStyles)}>
+				<button
+					type={"button"}
+					onClick={() => performChange(props, inlineStyles)}
+				>
 					Inline Styles
 				</button>
-				<button type={"button"} onClick={() => onChange(prefixClasses)}>
+				<button
+					type={"button"}
+					onClick={() => performChange(props, prefixClasses)}
+				>
 					Prefix Classes
 				</button>
-				<button type={"button"} onClick={() => onChange(stripIDs)}>
+				<button type={"button"} onClick={() => performChange(props, stripIDs)}>
 					Strip IDs
 				</button>
-				<button type={"button"} onClick={() => onChange(stripClasses)}>
+				<button
+					type={"button"}
+					onClick={() => performChange(props, stripClasses)}
+				>
 					Strip Classes
 				</button>
-				<button type={"button"} onClick={() => onChange(stripData)}>
+				<button type={"button"} onClick={() => performChange(props, stripData)}>
 					Strip Data
 				</button>
 				<button
