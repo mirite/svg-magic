@@ -69,14 +69,9 @@ export interface IFile {
 
 export type FileState = {
 	file: IFile;
-	workingSVG: string;
 	svgContainer: HTMLDivElement | null;
 	onChange: (operation: ChangeOperation) => void;
-	paths: IPath[];
-	rules: ISVGRule[];
-	classes: string[];
-	points: IPoint[];
-	previous: Exclude<FileState, "previous" | "onChange" | "file">[];
+	previous: IFile["contents"][];
 };
 
 export type EditorState = {
@@ -89,3 +84,6 @@ export type FileProps = {
 };
 
 export type PaneComponent = ComponentType<FileProps>;
+
+// Just to prepare for future divergance between the two.
+export type PaneSubComponent = ComponentType<FileProps>;

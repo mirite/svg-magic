@@ -6,13 +6,6 @@ import FileSelector from "@/components/FileSelector.js";
 import { stripXMLDeclaration } from "@/helpers/transformers/index.js";
 import type { EditorState, FileState, IFile } from "@/types.js";
 
-const defaultState = {
-	paths: [],
-	rules: [],
-	classes: [],
-	points: [],
-};
-
 /**
  * The main application component.
  *
@@ -36,8 +29,6 @@ function App(): ReactElement {
 				title: e.title,
 				contents,
 			},
-			...defaultState,
-			workingSVG: contents,
 			onChange: (operation) => {
 				// TODO Implement a wrapper for handle current file update
 				// 	const handleChange = (e: ChangeOperation) => {
@@ -74,12 +65,9 @@ function App(): ReactElement {
 		} else {
 			newEditorState.files[current] = newState;
 		}
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		const newHistoryItem: any = editorState.files[current];
-		delete newHistoryItem.previous;
-		delete newHistoryItem.onChange;
-		delete newHistoryItem.file;
-		newEditorState.files[current].previous.unshift(newHistoryItem);
+		newEditorState.files[current].previous.unshift(
+			editorState.files[current].file.contents,
+		);
 		setEditorState(newEditorState);
 	};
 

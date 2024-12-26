@@ -3,6 +3,8 @@ import ClassList from "./SVGRule/ClassList/ClassList.js";
 import SVGClass from "./SVGRule/SVGRule.js";
 
 import { Pane } from "@/components/shared/Pane.js";
+import { getSVGElement } from "@/helpers/getSVGElement.js";
+import { findSVGRules } from "@/helpers/parsers.js";
 import type { PaneComponent } from "@/types.js";
 
 /**
@@ -12,13 +14,13 @@ import type { PaneComponent } from "@/types.js";
  * @returns The component.
  */
 const RulesPane: PaneComponent = (props) => {
-	const state = props.stateTuple[0];
+	const rules = findSVGRules(getSVGElement(props));
 	return (
 		<Pane>
-			<ClassList classes={state.classes} onChange={(e) => state.onChange(e)} />
+			<ClassList stateTuple={props.stateTuple} />
 			<h2>Rules</h2>
 			<ul className={styles.ruleList}>
-				{state.rules.map((c, i) => (
+				{rules.map((c, i) => (
 					<SVGClass key={i} {...c} />
 				))}
 			</ul>

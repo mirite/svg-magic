@@ -9,6 +9,8 @@ import PathList from "./PathList/PathList.js";
 import PrefixClasses from "./PrefixClasses/PrefixClasses.js";
 
 import { Pane } from "@/components/shared/Pane.js";
+import { getSVGElement } from "@/helpers/getSVGElement.js";
+import { findClasses, findSVGChildren } from "@/helpers/parsers.js";
 import type { ChangeOperation, IPath, PaneComponent } from "@/types.js";
 
 /**
@@ -18,15 +20,13 @@ import type { ChangeOperation, IPath, PaneComponent } from "@/types.js";
  * @returns The component.
  */
 const ElementsPane: PaneComponent = (props) => {
-	const { paths, classes, onChange, svgContainer } = props.stateTuple[0];
+	const { onChange } = props.stateTuple[0];
 
 	const [selected, setSelected] = useState<IPath[]>([]);
-	const svgRoot = svgContainer?.querySelector("svg");
-	if (!svgRoot) {
-		return <div>SVG Root Element Not Found</div>;
-	}
-
-	const rootNode: IPath = { name: "root", elem: svgRoot, children: paths };
+	const svgRoot = getSVGElement(props);
+	const children = findSVGChildren(svgRoot);
+	const classes = findClasses(svgRoot);
+	const rootNode: IPath = { name: "root", elem: svgRoot, children };
 
 	/**
 	 * Update which elements are selected

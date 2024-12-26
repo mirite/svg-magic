@@ -11,12 +11,12 @@ import type { PaneComponent } from "@/types.js";
  * @returns The component.
  */
 const EditorPane: PaneComponent = (props) => {
-	const { workingSVG: svgHTML, onChange } = props.stateTuple[0];
-
+	const { file, onChange } = props.stateTuple[0];
+	const svgHTML = file.contents;
 	const onManualEdit = (newContent: string) => {
 		props.stateTuple[1]((previousState) => {
 			const newState = { ...previousState };
-			newState.workingSVG = newContent;
+			newState.file.contents = newContent;
 			return newState;
 		});
 	};

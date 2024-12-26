@@ -1,23 +1,18 @@
 import { parseCSS } from "./css.js";
 
-import type {
-	IPath,
-	IPoint,
-	ISVGRule,
-	SVGSubElement,
-	FileState,
-} from "@/types.js";
+import type { IPath, IPoint, ISVGRule, SVGSubElement } from "@/types.js";
 
 /**
  * Finds SVG rules in the stlyesheet
  *
  * @param parent The element to find styles in
- * @param classes
+ * @param classes The existing rules found.
+ * @returns The SVG Rules.
  */
-function findSVGRules(
+export function findSVGRules(
 	parent: SVGElement | SVGSubElement,
 	classes?: ISVGRule[],
-) {
+): ISVGRule[] {
 	const findRules = (styleElem: HTMLStyleElement): ISVGRule[] => {
 		const stylesheet = parseCSS(styleElem.innerHTML);
 
@@ -65,7 +60,7 @@ function foldClassList(d: DOMTokenList): string | null {
 }
 
 /** @param parent */
-function findSVGChildren(parent: SVGElement | SVGSubElement): IPath[] {
+export function findSVGChildren(parent: SVGElement | SVGSubElement): IPath[] {
 	const processChild = (child: SVGSubElement): IPath => {
 		const name = `${child.nodeName}${child.id ? "#" + child.id : ""}${
 			foldClassList(child.classList) ?? ""
@@ -100,10 +95,13 @@ export function findClasses(
 }
 
 /**
- * @param element
- * @param existing
+ * Find the points used in the SVG
+ *
+ * @param element The element to check
+ * @param existing The points already found
+ * @returns The points found.
  */
-function findSVGPoints(
+export function findSVGPoints(
 	element: SVGSubElement,
 	existing?: Set<IPoint>,
 ): IPoint[] {
@@ -138,15 +136,18 @@ function findSVGPoints(
  * @param svgContainer The container of the SVG.
  * @returns The components of the SVG.
  */
-export function evaluateSVG(
-	svgContainer: HTMLDivElement | null,
-): Pick<FileState, "paths" | "rules" | "classes" | "points"> | null {
+export function evaluateSVG(svgContainer: HTMLDivElement | null): {
+	paths: IPath[];
+	rules: ISVGRule[];
+	classes: string[];
+	points: IPoint[];
+} | null {
 	if (!svgContainer) return null;
 	const svgElem = svgContainer.firstChild as SVGElement;
 	if (!svgElem) return null;
-	const paths: IPath[] = findSVGChildren(svgElem);
-	const rules: ISVGRule[] = findSVGRules(svgElem);
-	const points: IPoint[] = findSVGPoints(svgElem);
+	const paths = findSVGChildren(svgElem);
+	const rules = findSVGRules(svgElem);
+	const points = findSVGPoints(svgElem);
 	const classes = findClasses(svgElem);
 	return { paths, rules, classes, points };
 }

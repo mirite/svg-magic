@@ -1,29 +1,27 @@
-import type { ReactElement } from "react";
 import { useEffect, useRef } from "react";
 
+import { getSVGElement } from "@/helpers/getSVGElement.js";
 import { drawOverlay, onMouseDown } from "@/helpers/overlay.js";
-import type { ChangeOperation, IPoint } from "@/types.js";
+import { findSVGPoints } from "@/helpers/parsers.js";
+import type { PaneSubComponent } from "@/types.js";
 
-interface IProps {
-	points: IPoint[];
-	onChange: (changeOptions: ChangeOperation) => void;
-	svg: SVGElement | null | undefined;
-}
-
-/** @param props */
-function Overlay(props: IProps): ReactElement | null {
-	const { points, onChange, svg } = props;
+/**
+ * Displays an overlay with the point locations over the preview pane.
+ *
+ * @param props The pane components.
+ * @returns The component.
+ */
+const Overlay: PaneSubComponent = (props) => {
+	const { onChange } = props.stateTuple[0];
+	const svg = getSVGElement(props);
 	const canvasRef = useRef<HTMLCanvasElement>(null);
-
+	const points = findSVGPoints(svg);
 	useEffect(() => {
 		if (canvasRef?.current && svg) {
 			drawOverlay(points, canvasRef.current, svg);
 		}
 	}, [points, svg]);
 
-	if (!svg) {
-		return null;
-	}
 	return (
 		<canvas
 			className="absolute inset-0"
@@ -39,6 +37,6 @@ function Overlay(props: IProps): ReactElement | null {
 			}
 		></canvas>
 	);
-}
+};
 
 export default Overlay;

@@ -18,8 +18,8 @@ import type { FileProps } from "@/types.js";
  */
 function Header(props: FileProps): ReactElement {
 	const [state] = props.stateTuple;
-	const { file, onChange, workingSVG } = state;
-	const fileName = file.title;
+	const { file, onChange } = state;
+	const { title, contents } = file;
 	return (
 		<header
 			className={
@@ -46,7 +46,7 @@ function Header(props: FileProps): ReactElement {
 				<button
 					type={"button"}
 					className="positive"
-					onClick={() => saveFile(workingSVG, fileName)}
+					onClick={() => saveFile(contents, title)}
 				>
 					Save
 				</button>

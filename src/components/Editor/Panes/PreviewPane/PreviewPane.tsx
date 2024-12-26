@@ -15,17 +15,13 @@ import type { PaneComponent } from "@/types.js";
  * @returns The component.
  */
 const PreviewPane: PaneComponent = (props) => {
-	const {
-		workingSVG: svgHTML,
-		points,
-		onChange,
-		svgContainer,
-	} = props.stateTuple[0];
-
+	const { svgContainer, file } = props.stateTuple[0];
+	const svgHTML = file.contents;
 	const [base64, setBase64] = useState("");
 	const [isDark, setIsDark] = useState(false);
 	const [showOverlay, setShowOverlay] = useState(true);
 	const [background, setBackground] = useState("#000");
+
 	useEffect(() => {
 		setBase64(window.btoa(svgHTML));
 	}, [svgHTML]);
@@ -74,13 +70,7 @@ const PreviewPane: PaneComponent = (props) => {
 					}}
 					dangerouslySetInnerHTML={{ __html: svgHTML }}
 				></div>
-				{showOverlay && (
-					<Overlay
-						points={points}
-						onChange={(e) => onChange(e)}
-						svg={svgContainer?.querySelector("svg")}
-					/>
-				)}
+				{showOverlay && <Overlay stateTuple={props.stateTuple} />}
 			</div>
 			<h3>&lt;img&gt;</h3>
 			<div
