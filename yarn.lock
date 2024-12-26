@@ -800,6 +800,7 @@ __metadata:
     autoprefixer: "npm:^10.4.20"
     css: "npm:^3.0.0"
     eslint: "npm:^9.17.0"
+    husky: "npm:^9.1.7"
     lodash: "npm:^4.17.21"
     postcss: "npm:^8.4.49"
     prettier: "npm:^3.4.2"
@@ -3184,6 +3185,15 @@ __metadata:
     agent-base: "npm:^7.1.2"
     debug: "npm:4"
   checksum: 10/784b628cbd55b25542a9d85033bdfd03d4eda630fb8b3c9477959367f3be95dc476ed2ecbb9836c359c7c698027fc7b45723a302324433590f45d6c1706e8c13
+  languageName: node
+  linkType: hard
+
+"husky@npm:^9.1.7":
+  version: 9.1.7
+  resolution: "husky@npm:9.1.7"
+  bin:
+    husky: bin.js
+  checksum: 10/c2412753f15695db369634ba70f50f5c0b7e5cb13b673d0826c411ec1bd9ddef08c1dad89ea154f57da2521d2605bd64308af748749b27d08c5f563bcd89975f
   languageName: node
   linkType: hard
 
