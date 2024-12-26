@@ -15,11 +15,14 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
       - name: Install dependencies
-        run: apt install brotli && corepack enable && yarn install
+        run: corepack enable && yarn install
       - name: Build project
         run: yarn build
-      - name: Compress
-        run: find dist/**/* -type -f -exec brotli {} \dist;
+      - name: Brotli compress the html, css and js files in the "build" directory
+        id: brotli
+        uses: charlesworth/compress-action@1.0
+        with:
+          target-directory: "dist"
       - uses: a7ul/tar-action@v1.1.0
         with:
           command: c
