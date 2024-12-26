@@ -1,9 +1,10 @@
+import type { ReactElement } from "react";
+
 import styles from "./EditorPane.module.css";
 
 import { Pane } from "@/components/shared/Pane.js";
 import { minify } from "@/helpers/transformers/minify.js";
 import type { ChangeOperation } from "@/types.js";
-import type { ReactElement } from "react";
 
 interface IProps {
 	svgHTML: string;
