@@ -15,9 +15,11 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
       - name: Install dependencies
-        run: corepack enable && yarn install
+        run: apk add --upgrade brotli && corepack enable && yarn install
       - name: Build project
         run: yarn build
+      - name: Compress
+        run: find dist/**/* -type -f -exec brotli {} \dist;
       - uses: a7ul/tar-action@v1.1.0
         with:
           command: c
@@ -25,6 +27,7 @@ jobs:
           files: |
             dist/
             nginx.conf
+            captain-definition
           outPath: deploy.tar
 
       - name: Deploy App to CapRover
