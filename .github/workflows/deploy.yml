@@ -10,7 +10,7 @@ on:
 jobs:
   deployment:
     runs-on: ubuntu-latest
-    environment: production
+    environment: Production
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -24,7 +24,7 @@ jobs:
           cwd: "./"
           files: |
             dist/
-            nginx.config
+            nginx.conf
           outPath: deploy.tar
 
       - name: Deploy App to CapRover
