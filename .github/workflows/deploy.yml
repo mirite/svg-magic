@@ -29,6 +29,7 @@ jobs:
           cwd: "./"
           files: |
             dist/
+            Dockerfile
             nginx.conf
             captain-definition
           outPath: deploy.tar
