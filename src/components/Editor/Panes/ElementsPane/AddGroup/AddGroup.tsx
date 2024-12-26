@@ -1,6 +1,9 @@
-import { addGroup } from "helpers/transformers";
+import type { ReactElement } from "react";
 import React, { useEffect, useState } from "react";
-import type { ChangeOperation, IGroupOptions, IPath } from "types";
+
+import { Input } from "@/components/shared/Input.js";
+import { addGroup } from "@/helpers/transformers/index.js";
+import type { ChangeOperation, IGroupOptions, IPath } from "@/types.js";
 
 interface IProps {
 	onChange: (changeOptions: ChangeOperation) => void;
@@ -8,7 +11,7 @@ interface IProps {
 }
 
 /** @param props */
-function AddGroup(props: IProps) {
+function AddGroup(props: IProps): ReactElement {
 	const createOptions = (): IGroupOptions => {
 		return {
 			className,
@@ -20,6 +23,7 @@ function AddGroup(props: IProps) {
 	const [className, setClassName] = useState("");
 	const [options, setOptions] = useState<IGroupOptions>(createOptions());
 
+	//TODO The dpendencies here are off and likely doesn't need to be a useEffect in the first place.
 	useEffect(() => setOptions(createOptions()), [props.selected, className]);
 
 	/** @param e */
@@ -32,15 +36,12 @@ function AddGroup(props: IProps) {
 	return (
 		<form className="group" onSubmit={(e) => handleSubmit(e)}>
 			<h3>Add Group:</h3>
-			<label>
-				Class:
-				<input
-					type="text"
-					value={className}
-					onChange={(e) => setClassName(e.currentTarget.value)}
-				/>
-			</label>
-			<button>Add</button>
+			<Input
+				label={"Class:"}
+				value={className}
+				onChange={(e) => setClassName(e.currentTarget.value)}
+			/>
+			<button type="submit">Add</button>
 		</form>
 	);
 }

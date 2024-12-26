@@ -1,12 +1,17 @@
-import { removeCSSClass, setShadowCSS } from "helpers/css";
-import { traverseTree } from "helpers/dom";
-import type { IClassOptions } from "types";
+import { removeCSSClass, setShadowCSS } from "@/helpers/css.js";
+import { traverseTree } from "@/helpers/dom.js";
+import type { IClassOptions } from "@/types.js";
 
 /**
- * @param svgElem
- * @param change
+ * Removes a class from the svg.
+ *
+ * @param svgElem The SVG Element
+ * @param change The change operation.
  */
-export function removeClass(svgElem: SVGSVGElement, change: IClassOptions) {
+export function removeClass(
+	svgElem: SVGSVGElement,
+	change: IClassOptions,
+): void {
 	const func = (elem: Element) => {
 		elem.classList.remove(change.existingClassName);
 	};

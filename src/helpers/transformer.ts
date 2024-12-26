@@ -1,5 +1,6 @@
 import type React from "react";
-import type { ChangeOperation } from "types";
+
+import type { ChangeOperation } from "@/types.js";
 
 /**
  * @param containerRef

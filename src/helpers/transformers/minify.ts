@@ -1,4 +1,4 @@
-import { traverseTreeInsideOut } from "../dom";
+import { traverseTreeInsideOut } from "../dom.js";
 
 /** @param svgElem */
 export function minify(svgElem: SVGSVGElement) {

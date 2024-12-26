@@ -1,15 +1,15 @@
-import type { ChangeEvent } from "react";
+import type { ChangeEvent, ReactElement } from "react";
 import React, { useState } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import type { ChangeOperation, IPath } from "types";
 
-import { paneStyles } from "../paneStyles";
+import AddGroup from "./AddGroup/AddGroup.js";
+import AssignClass from "./AssignClass/AssignClass.js";
+import PathList from "./PathList/PathList.js";
+import PrefixClasses from "./PrefixClasses/PrefixClasses.js";
 
-import AddGroup from "./AddGroup/AddGroup";
-import AssignClass from "./AssignClass/AssignClass";
-import PathList from "./PathList/PathList";
-import PrefixClasses from "./PrefixClasses/PrefixClasses";
+import { Pane } from "@/components/shared/Pane.js";
+import type { ChangeOperation, IPath } from "@/types.js";
 
 interface IProps {
 	svgRoot: SVGElement | undefined | null;
@@ -18,8 +18,13 @@ interface IProps {
 	classes: string[];
 }
 
-/** @param props */
-function ElementsPane(props: IProps) {
+/**
+ * The pane displaying the list of elements in the SVG.
+ *
+ * @param props The component props.
+ * @returns The component.
+ */
+function ElementsPane(props: IProps): ReactElement {
 	const { svgRoot, paths, classes } = props;
 
 	const [selected, setSelected] = useState<IPath[]>([]);
@@ -49,7 +54,7 @@ function ElementsPane(props: IProps) {
 	};
 
 	return (
-		<div className={paneStyles}>
+		<Pane>
 			<h2>Elements</h2>
 			<div className="group">
 				<h3>Tree:</h3>
@@ -74,7 +79,7 @@ function ElementsPane(props: IProps) {
 				selected={selected}
 			/>
 			<PrefixClasses onChange={(e: ChangeOperation) => handleChangeOption(e)} />
-		</div>
+		</Pane>
 	);
 }
 

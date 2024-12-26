@@ -1,17 +1,17 @@
-import { moveElement } from "helpers/transformers";
-import type { ChangeEvent } from "react";
+import type { ChangeEvent, ReactElement } from "react";
 import React from "react";
 import { useDrag, useDrop } from "react-dnd";
+
+import PathList from "../PathList.js";
+
+import { Checkbox } from "@/components/shared/CheckBox.js";
+import { moveElement } from "@/helpers/transformers/index.js";
 import type {
 	ChangeOperation,
 	IMoveOptions,
 	IPath,
 	SVGSubElement,
-} from "types";
-
-import PathList from "../PathList";
-
-import styles from "./Path.module.css";
+} from "@/types.js";
 
 interface IProps extends IPath {
 	onChange: (options: ChangeOperation) => void;
@@ -19,8 +19,13 @@ interface IProps extends IPath {
 	selected: IPath[];
 }
 
-/** @param props */
-function Path(props: IProps) {
+/**
+ * Displays a path in the elements list.
+ *
+ * @param props The data about the path.
+ * @returns The component.
+ */
+function Path(props: IProps): ReactElement {
 	const { elem, name, children, selected } = props;
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -61,28 +66,23 @@ function Path(props: IProps) {
 	return (
 		<li style={{ opacity }}>
 			{drop(
-				<div>
-					{drag(
-						<label className={styles.label}>
-							<input
-								type="checkbox"
-								onChange={(e) => handleChange(e)}
-								checked={!!selected.find((s) => s.elem === elem)}
-							/>
-							{name}
-						</label>,
-					)}
-				</div>,
+				drag(
+					<div>
+						<Checkbox
+							label={name}
+							onChange={(e) => handleChange(e)}
+							checked={!!selected.find((s) => s.elem === elem)}
+						/>
+					</div>,
+				),
 			)}
-			{children.length ? (
+			{children.length > 0 && (
 				<PathList
 					node={props}
 					onChange={(e) => props.onChange(e)}
 					onCheck={(e, p: IPath) => props.onCheck(e, p)}
 					selected={props.selected}
 				/>
-			) : (
-				""
 			)}
 		</li>
 	);

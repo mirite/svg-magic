@@ -1,25 +1,32 @@
-import { removeClass, renameClass } from "helpers/transformers";
-import React, { useEffect, useState } from "react";
-import type { ChangeOperation, IClassOptions } from "types";
+import { type ReactElement, useEffect, useState } from "react";
 
-import styles from "./Class.module.css";
+import { Input } from "@/components/shared/Input.js";
+import { removeClass, renameClass } from "@/helpers/transformers/index.js";
+import type { ChangeOperation, IClassOptions } from "@/types.js";
 
 interface IProps {
 	name: string;
 	onChange: (changeOptions: ChangeOperation) => void;
 }
 
-/** @param props */
-function Class(props: IProps) {
+/**
+ * Displays an individual class in the class list
+ *
+ * @param props The component props
+ * @returns The component
+ */
+function Class(props: IProps): ReactElement {
 	const { name, onChange } = props;
 	const [renaming, setRenaming] = useState(false);
 	const [newName, setNewName] = useState(name);
 
+	/** Cancels the renaming action */
 	function cancelRename() {
 		setNewName(name);
 		setRenaming(false);
 	}
 
+	/** Commits the rename */
 	function confirmRename() {
 		const options: IClassOptions = {
 			existingClassName: name,
@@ -29,6 +36,7 @@ function Class(props: IProps) {
 		setRenaming(false);
 	}
 
+	/** Deletes the selected class */
 	function deleteClass() {
 		const options: IClassOptions = {
 			existingClassName: name,
@@ -36,14 +44,14 @@ function Class(props: IProps) {
 		onChange((elem) => removeClass(elem, options));
 	}
 
-	useEffect(() => setNewName(name), [props]);
+	useEffect(() => setNewName(name), [name]);
 
 	return (
-		<li className={styles.className}>
+		<li className={"flex justify-between gap-2 items-center"}>
 			<span>
 				{renaming ? (
-					<input
-						type="text"
+					<Input
+						label="New Name:"
 						value={newName}
 						onChange={(e) => setNewName(e.currentTarget.value)}
 					/>
@@ -51,16 +59,26 @@ function Class(props: IProps) {
 					name
 				)}
 			</span>
-			{renaming ? (
-				<button onClick={() => confirmRename()}>Confirm</button>
-			) : (
-				<button onClick={() => setRenaming(true)}>Rename</button>
-			)}
-			{renaming ? (
-				<button onClick={() => cancelRename()}>Cancel</button>
-			) : (
-				<button onClick={() => deleteClass()}>Delete</button>
-			)}
+			<div className="flex gap-2 items-center">
+				{renaming ? (
+					<button type="button" onClick={() => confirmRename()}>
+						Confirm
+					</button>
+				) : (
+					<button type="button" onClick={() => setRenaming(true)}>
+						Rename
+					</button>
+				)}
+				{renaming ? (
+					<button type="button" onClick={() => cancelRename()}>
+						Cancel
+					</button>
+				) : (
+					<button type="button" onClick={() => deleteClass()}>
+						Delete
+					</button>
+				)}
+			</div>
 		</li>
 	);
 }

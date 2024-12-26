@@ -1,13 +1,15 @@
-import { prefixClasses } from "helpers/transformers";
-import type { FormEvent } from "react";
-import React, { useState } from "react";
-import type { ChangeOperation, IPrefixClassOptions } from "types";
+import type { FormEvent, ReactElement } from "react";
+import { useState } from "react";
+
+import { Input } from "@/components/shared/Input.js";
+import { prefixClasses } from "@/helpers/transformers/index.js";
+import type { ChangeOperation, IPrefixClassOptions } from "@/types.js";
 
 interface IProps {
 	onChange: (options: ChangeOperation) => void;
 }
 
-const PrefixClasses = (props: IProps) => {
+const PrefixClasses = (props: IProps): ReactElement => {
 	const { onChange } = props;
 	const [prefix, setPrefix] = useState("");
 
@@ -24,17 +26,16 @@ const PrefixClasses = (props: IProps) => {
 	return (
 		<form className="group" onSubmit={(e) => handleSubmit(e)}>
 			<h3>Prefix Classes:</h3>
-			<label htmlFor="assign-class-name">
-				Prefix:
-				<input
-					id="assign-class-name"
-					type="text"
-					required
-					value={prefix}
-					onChange={(e) => setPrefix(e.currentTarget.value)}
-				/>
-			</label>
-			<button disabled={prefix === ""}>Add Prefix</button>
+			<Input
+				type="text"
+				label="Prefix:"
+				required
+				value={prefix}
+				onChange={(e) => setPrefix(e.currentTarget.value)}
+			/>
+			<button type="submit" disabled={prefix === ""}>
+				Add Prefix
+			</button>
 		</form>
 	);
 };

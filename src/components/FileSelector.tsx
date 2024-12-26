@@ -1,6 +1,7 @@
-import type { ChangeEvent, FormEvent } from "react";
+import type { ChangeEvent, FormEvent, ReactElement } from "react";
 import React, { useState } from "react";
-import type { IFile } from "types";
+
+import type { IFile } from "@/types.js";
 
 type Props = {
 	onSelect: (file: IFile) => void;
@@ -10,8 +11,12 @@ type FileSelectorState = {
 	file: IFile;
 };
 
-/** Allows for the selection of an SVG file. */
-function FileSelector(props: Props) {
+/**
+ * Allows for the selection of an SVG file.
+ *
+ * @param props
+ */
+function FileSelector(props: Props): ReactElement {
 	const [state, setState] = useState<FileSelectorState>();
 	/**
 	 * Handle the form submission.

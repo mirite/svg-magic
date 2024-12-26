@@ -1,9 +1,10 @@
-import Editor from "components/Editor/Editor";
-import FileSelector from "components/FileSelector";
-import { stripXMLDeclaration } from "helpers/transformers";
 import type { ReactElement } from "react";
 import React, { useState } from "react";
-import type { IFile } from "types";
+
+import Editor from "@/components/Editor/Editor.js";
+import FileSelector from "@/components/FileSelector.js";
+import { stripXMLDeclaration } from "@/helpers/transformers/index.js";
+import type { IFile } from "@/types.js";
 
 /**
  * The main application component.

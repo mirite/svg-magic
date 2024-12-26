@@ -1,5 +1,6 @@
 import React, { type ReactElement } from "react";
-import styles from "../SVGRule.module.css";
+
+import { Checkbox } from "@/components/shared/CheckBox.js";
 
 type Props = {
 	onSelectorToggle: (e: React.ChangeEvent<HTMLInputElement>, s: string) => void;
@@ -16,15 +17,12 @@ type Props = {
 export default function Selector(props: Props): ReactElement {
 	const { onSelectorToggle, selector, isChecked } = props;
 	return (
-		<li className={styles.rule}>
-			<label>
-				{selector}
-				<input
-					type="checkbox"
-					onChange={(e) => onSelectorToggle(e, selector)}
-					checked={isChecked}
-				/>
-			</label>
+		<li>
+			<Checkbox
+				label={selector}
+				checked={isChecked}
+				onChange={(e) => onSelectorToggle(e, selector)}
+			/>
 		</li>
 	);
 }

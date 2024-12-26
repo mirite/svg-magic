@@ -1,10 +1,10 @@
-import { minify } from "helpers/transformers/minify";
-import React from "react";
-import type { ChangeOperation } from "types";
-
-import { paneStyles } from "../paneStyles";
+import type { ReactElement } from "react";
 
 import styles from "./EditorPane.module.css";
+
+import { Pane } from "@/components/shared/Pane.js";
+import { minify } from "@/helpers/transformers/minify.js";
+import type { ChangeOperation } from "@/types.js";
 
 interface IProps {
 	svgHTML: string;
@@ -12,15 +12,21 @@ interface IProps {
 	onChange: (e: ChangeOperation) => void;
 }
 
-/** @param props */
-function EditorPane(props: IProps) {
+/**
+ * The source editor pane
+ *
+ * @param props The source pane props.
+ * @returns The component.
+ */
+function EditorPane(props: IProps): ReactElement {
 	const { svgHTML, onManualEdit, onChange } = props;
 	return (
-		<div className={paneStyles + " " + styles.editorPane}>
-			<h2>Raw</h2>
-			<div className={styles.formattingOptions}>
-				<button onClick={() => onChange(minify)}>Minify</button>
-				{/*<button onClick={() => onChange(format)}>Format</button>*/}
+		<Pane className={styles.editorPane}>
+			<div className={"flex justify-between gap-2 items-center mb-2"}>
+				<h2>Raw</h2>
+				<button onClick={() => onChange(minify)} type="button">
+					Minify
+				</button>
 			</div>
 			<textarea
 				value={svgHTML}
@@ -28,7 +34,7 @@ function EditorPane(props: IProps) {
 				onChange={(e) => onManualEdit(e.currentTarget.value)}
 				rows={svgHTML.split("\n").length}
 			></textarea>
-		</div>
+		</Pane>
 	);
 }
 

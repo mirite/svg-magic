@@ -1,8 +1,8 @@
-import type { ChangeEvent } from "react";
-import React from "react";
-import type { ChangeOperation, IPath } from "types";
+import type { ChangeEvent, ReactElement } from "react";
 
-import Path from "./Path/Path";
+import Path from "./Path/Path.js";
+
+import type { ChangeOperation, IPath } from "@/types.js";
 
 interface IProps {
 	node: IPath;
@@ -12,7 +12,7 @@ interface IProps {
 }
 
 /** @param props */
-function PathList(props: IProps) {
+function PathList(props: IProps): ReactElement {
 	const { children } = props.node;
 
 	return (

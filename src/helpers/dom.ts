@@ -1,6 +1,6 @@
 import type React from "react";
 
-import type { SVGSubElement } from "../types";
+import type { SVGSubElement } from "@/types.js";
 
 /**
  * @param ref
@@ -28,7 +28,6 @@ export function isEquivalentElement(
 		removeActiveClass(clone);
 		return clone.outerHTML;
 	};
-	console.log({ a: clean(a), b: clean(b) });
 	return clean(a) === clean(b);
 }
 

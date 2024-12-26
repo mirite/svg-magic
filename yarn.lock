@@ -800,6 +800,7 @@ __metadata:
     autoprefixer: "npm:^10.4.20"
     css: "npm:^3.0.0"
     eslint: "npm:^9.17.0"
+    husky: "npm:^9.1.7"
     lodash: "npm:^4.17.21"
     postcss: "npm:^8.4.49"
     prettier: "npm:^3.4.2"
@@ -808,6 +809,7 @@ __metadata:
     react-dnd: "npm:^16.0.1"
     react-dnd-html5-backend: "npm:^16.0.1"
     react-dom: "npm:^19.0.0"
+    tailwind-merge: "npm:^2.5.5"
     tailwindcss: "npm:^3.4.17"
     typescript: "npm:^5.7.2"
     vite: "npm:^6.0.5"
@@ -3186,6 +3188,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"husky@npm:^9.1.7":
+  version: 9.1.7
+  resolution: "husky@npm:9.1.7"
+  bin:
+    husky: bin.js
+  checksum: 10/c2412753f15695db369634ba70f50f5c0b7e5cb13b673d0826c411ec1bd9ddef08c1dad89ea154f57da2521d2605bd64308af748749b27d08c5f563bcd89975f
+  languageName: node
+  linkType: hard
+
 "iconv-lite@npm:^0.6.2":
   version: 0.6.3
   resolution: "iconv-lite@npm:0.6.3"
@@ -5416,6 +5427,13 @@ __metadata:
     "@pkgr/core": "npm:^0.1.0"
     tslib: "npm:^2.6.2"
   checksum: 10/d45c4288be9c0232343650643892a7edafb79152c0c08d7ae5d33ca2c296b67a0e15f8cb5c9153969612c4ea5cd5686297542384aab977db23cfa6653fe02027
+  languageName: node
+  linkType: hard
+
+"tailwind-merge@npm:^2.5.5":
+  version: 2.5.5
+  resolution: "tailwind-merge@npm:2.5.5"
+  checksum: 10/a5bfa32559d95bacc422225e0287d7d023d72be97be41f34bba41651a9e51e37ea0524ade7f0b7ef96b5486de282e020a645597fd7f8c5e6c37562f0739a96b9
   languageName: node
   linkType: hard
 
