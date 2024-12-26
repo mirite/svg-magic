@@ -1,12 +1,17 @@
-import type { IEditorState } from "../components/Editor/Editor.js";
-
 import { parseCSS } from "./css.js";
 
-import type { IPath, IPoint, ISVGRule, SVGSubElement } from "@/types.js";
+import type {
+	IPath,
+	IPoint,
+	ISVGRule,
+	SVGSubElement,
+	FileState,
+} from "@/types.js";
 
 /**
- * @param parent
- * @param classes
+ * Finds SVG rules in the stlyesheet
+ *
+ * @param parent The element to find styles in
  */
 function findSVGRules(
 	parent: SVGElement | SVGSubElement,
@@ -126,10 +131,15 @@ function findSVGPoints(
 	return Array.from(localExistingRef);
 }
 
-/** @param svgContainer */
+/**
+ * Finds the componenents on an SVG
+ *
+ * @param svgContainer The container of the SVG.
+ * @returns The components of the SVG.
+ */
 export function evaluateSVG(
 	svgContainer: HTMLDivElement | null,
-): IEditorState | null {
+): Pick<FileState, "paths" | "rules" | "classes" | "points"> | null {
 	if (!svgContainer) return null;
 	const svgElem = svgContainer.firstChild as SVGElement;
 	if (!svgElem) return null;

@@ -1,4 +1,4 @@
-import type { CSSProperties, ReactElement, RefObject } from "react";
+import type { CSSProperties } from "react";
 import { useEffect, useState } from "react";
 
 import Overlay from "./Overlay/Overlay.js";
@@ -6,14 +6,7 @@ import Overlay from "./Overlay/Overlay.js";
 import { Checkbox } from "@/components/shared/CheckBox.js";
 import { Input } from "@/components/shared/Input.js";
 import { Pane } from "@/components/shared/Pane.js";
-import type { ChangeOperation, IPoint } from "@/types.js";
-
-type Props = {
-	containerRef: RefObject<HTMLDivElement | null>;
-	svgHTML: string;
-	points: IPoint[];
-	onChange: (changeOptions: ChangeOperation) => void;
-};
+import type { PaneComponent } from "@/types.js";
 
 /**
  * The rendered previews.
@@ -21,8 +14,14 @@ type Props = {
  * @param props The component props.
  * @returns The component.
  */
-function PreviewPane(props: Props): ReactElement {
-	const { containerRef, svgHTML, points, onChange } = props;
+const PreviewPane: PaneComponent = (props) => {
+	const {
+		workingSVG: svgHTML,
+		points,
+		onChange,
+		svgContainer,
+	} = props.stateTuple[0];
+
 	const [base64, setBase64] = useState("");
 	const [isDark, setIsDark] = useState(false);
 	const [showOverlay, setShowOverlay] = useState(true);
@@ -30,8 +29,6 @@ function PreviewPane(props: Props): ReactElement {
 	useEffect(() => {
 		setBase64(window.btoa(svgHTML));
 	}, [svgHTML]);
-
-	const { current: ref } = containerRef;
 
 	return (
 		<Pane
@@ -66,14 +63,22 @@ function PreviewPane(props: Props): ReactElement {
 					className={
 						"bg-[--background] rounded-xl border-2 border-slate-500 border-dashed"
 					}
-					ref={containerRef as RefObject<HTMLDivElement>}
+					ref={(newRef) => {
+						if (newRef !== svgContainer) {
+							props.stateTuple[1]((previous) => {
+								const newState = { ...previous };
+								newState.svgContainer = newRef;
+								return newState;
+							});
+						}
+					}}
 					dangerouslySetInnerHTML={{ __html: svgHTML }}
 				></div>
 				{showOverlay && (
 					<Overlay
 						points={points}
 						onChange={(e) => onChange(e)}
-						svg={ref?.querySelector("svg")}
+						svg={svgContainer?.querySelector("svg")}
 					/>
 				)}
 			</div>
@@ -87,6 +92,6 @@ function PreviewPane(props: Props): ReactElement {
 			</div>
 		</Pane>
 	);
-}
+};
 
 export default PreviewPane;

@@ -1,4 +1,5 @@
 import * as CSSTypes from "css";
+import type { ComponentType, Dispatch, SetStateAction } from "react";
 
 export { CSSTypes };
 
@@ -65,3 +66,26 @@ export interface IFile {
 	title: string;
 	contents: string;
 }
+
+export type FileState = {
+	file: IFile;
+	workingSVG: string;
+	svgContainer: HTMLDivElement | null;
+	onChange: (operation: ChangeOperation) => void;
+	paths: IPath[];
+	rules: ISVGRule[];
+	classes: string[];
+	points: IPoint[];
+	previous: Exclude<FileState, "previous" | "onChange" | "file">[];
+};
+
+export type EditorState = {
+	files: FileState[];
+	currentFile: number | null;
+};
+
+export type FileProps = {
+	stateTuple: [FileState, Dispatch<SetStateAction<FileState>>];
+};
+
+export type PaneComponent = ComponentType<FileProps>;

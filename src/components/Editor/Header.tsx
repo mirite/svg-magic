@@ -1,5 +1,4 @@
 import type { ReactElement } from "react";
-import React from "react";
 
 import { saveFile } from "@/helpers/fileSaving.js";
 import {
@@ -9,14 +8,7 @@ import {
 } from "@/helpers/transformers/index.js";
 import { inlineStyles } from "@/helpers/transformers/inlineStyles.js";
 import { stripClasses } from "@/helpers/transformers/stripClasses.js";
-import type { ChangeOperation } from "@/types.js";
-
-interface IProps {
-	workingSVG: string;
-	fileName: string;
-	onClose: () => void;
-	onChange: (changeOptions: ChangeOperation) => void;
-}
+import type { FileProps } from "@/types.js";
 
 /**
  * The header component for the editor.
@@ -24,9 +16,10 @@ interface IProps {
  * @param props The component props.
  * @returns The rendered component.
  */
-function Header(props: IProps): ReactElement {
-	const { workingSVG, onChange, onClose, fileName } = props;
-
+function Header(props: FileProps): ReactElement {
+	const [state] = props.stateTuple;
+	const { file, onChange, workingSVG } = state;
+	const fileName = file.title;
 	return (
 		<header
 			className={
@@ -56,13 +49,6 @@ function Header(props: IProps): ReactElement {
 					onClick={() => saveFile(workingSVG, fileName)}
 				>
 					Save
-				</button>
-				<button
-					type={"button"}
-					className="destructive"
-					onClick={() => onClose()}
-				>
-					Close
 				</button>
 			</div>
 		</header>

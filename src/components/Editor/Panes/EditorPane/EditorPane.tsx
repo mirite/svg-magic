@@ -1,16 +1,8 @@
-import type { ReactElement } from "react";
-
 import styles from "./EditorPane.module.css";
 
 import { Pane } from "@/components/shared/Pane.js";
 import { minify } from "@/helpers/transformers/minify.js";
-import type { ChangeOperation } from "@/types.js";
-
-interface IProps {
-	svgHTML: string;
-	onManualEdit: (newValue: string) => void;
-	onChange: (e: ChangeOperation) => void;
-}
+import type { PaneComponent } from "@/types.js";
 
 /**
  * The source editor pane
@@ -18,8 +10,16 @@ interface IProps {
  * @param props The source pane props.
  * @returns The component.
  */
-function EditorPane(props: IProps): ReactElement {
-	const { svgHTML, onManualEdit, onChange } = props;
+const EditorPane: PaneComponent = (props) => {
+	const { workingSVG: svgHTML, onChange } = props.stateTuple[0];
+
+	const onManualEdit = (newContent: string) => {
+		props.stateTuple[1]((previousState) => {
+			const newState = { ...previousState };
+			newState.workingSVG = newContent;
+			return newState;
+		});
+	};
 	return (
 		<Pane className={styles.editorPane}>
 			<div className={"flex justify-between gap-2 items-center mb-2"}>
@@ -36,6 +36,6 @@ function EditorPane(props: IProps): ReactElement {
 			></textarea>
 		</Pane>
 	);
-}
+};
 
 export default EditorPane;

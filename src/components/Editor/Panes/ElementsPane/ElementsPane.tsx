@@ -1,4 +1,4 @@
-import type { ChangeEvent, ReactElement } from "react";
+import type { ChangeEvent } from "react";
 import React, { useState } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -9,14 +9,7 @@ import PathList from "./PathList/PathList.js";
 import PrefixClasses from "./PrefixClasses/PrefixClasses.js";
 
 import { Pane } from "@/components/shared/Pane.js";
-import type { ChangeOperation, IPath } from "@/types.js";
-
-interface IProps {
-	svgRoot: SVGElement | undefined | null;
-	paths: IPath[];
-	onChange: (changeOptions: ChangeOperation) => void;
-	classes: string[];
-}
+import type { ChangeOperation, IPath, PaneComponent } from "@/types.js";
 
 /**
  * The pane displaying the list of elements in the SVG.
@@ -24,18 +17,22 @@ interface IProps {
  * @param props The component props.
  * @returns The component.
  */
-function ElementsPane(props: IProps): ReactElement {
-	const { svgRoot, paths, classes } = props;
+const ElementsPane: PaneComponent = (props) => {
+	const { paths, classes, onChange, svgContainer } = props.stateTuple[0];
 
 	const [selected, setSelected] = useState<IPath[]>([]);
+	const svgRoot = svgContainer?.querySelector("svg");
 	if (!svgRoot) {
 		return <div>SVG Root Element Not Found</div>;
 	}
+
 	const rootNode: IPath = { name: "root", elem: svgRoot, children: paths };
 
 	/**
-	 * @param e
-	 * @param clickedPath
+	 * Update which elements are selected
+	 *
+	 * @param e The change event from the checkbox
+	 * @param clickedPath Which path was clicked.
 	 */
 	function updateSelected(
 		e: React.ChangeEvent<HTMLInputElement>,
@@ -49,7 +46,7 @@ function ElementsPane(props: IProps): ReactElement {
 	}
 
 	const handleChangeOption = (e: ChangeOperation) => {
-		props.onChange(e);
+		onChange(e);
 		setSelected([]);
 	};
 
@@ -81,6 +78,6 @@ function ElementsPane(props: IProps): ReactElement {
 			<PrefixClasses onChange={(e: ChangeOperation) => handleChangeOption(e)} />
 		</Pane>
 	);
-}
+};
 
 export default ElementsPane;

@@ -1,31 +1,29 @@
-import type { ReactElement } from "react";
-
 import styles from "./RulesPane.module.css";
 import ClassList from "./SVGRule/ClassList/ClassList.js";
 import SVGClass from "./SVGRule/SVGRule.js";
 
 import { Pane } from "@/components/shared/Pane.js";
-import type { ChangeOperation, ISVGRule } from "@/types.js";
+import type { PaneComponent } from "@/types.js";
 
-interface IProps {
-	classes: string[];
-	rules: ISVGRule[];
-	onChange: (changeOptions: ChangeOperation) => void;
-}
-
-/** @param props */
-function RulesPane(props: IProps): ReactElement {
+/**
+ * The pane for displaying CSS rules and declarations.
+ *
+ * @param props The pane props
+ * @returns The component.
+ */
+const RulesPane: PaneComponent = (props) => {
+	const state = props.stateTuple[0];
 	return (
 		<Pane>
-			<ClassList classes={props.classes} onChange={(e) => props.onChange(e)} />
+			<ClassList classes={state.classes} onChange={(e) => state.onChange(e)} />
 			<h2>Rules</h2>
 			<ul className={styles.ruleList}>
-				{props.rules.map((c, i) => (
+				{state.rules.map((c, i) => (
 					<SVGClass key={i} {...c} />
 				))}
 			</ul>
 		</Pane>
 	);
-}
+};
 
 export default RulesPane;
