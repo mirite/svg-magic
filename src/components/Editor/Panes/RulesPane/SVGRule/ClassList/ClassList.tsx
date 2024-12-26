@@ -13,9 +13,6 @@ import type { PaneSubComponent } from "@/types.js";
  */
 const ClassList: PaneSubComponent = (props) => {
 	const svg = getSVGElement(props);
-	if (!svg) {
-		return <div>Waiting for SVG</div>;
-	}
 	const classes = findClasses(svg);
 	return (
 		<div>

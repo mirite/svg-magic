@@ -15,9 +15,6 @@ import type { PaneComponent } from "@/types.js";
  */
 const RulesPane: PaneComponent = (props) => {
 	const svg = getSVGElement(props);
-	if (!svg) {
-		return <div>Waiting for SVG</div>;
-	}
 	const rules = findSVGRules(svg);
 	return (
 		<Pane>

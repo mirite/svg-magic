@@ -15,9 +15,6 @@ import type { PaneSubComponent } from "@/types.js";
 const Overlay: PaneSubComponent = (props) => {
 	const svg = getSVGElement(props);
 	const [canvas, setCanvas] = useState<HTMLCanvasElement | null>(null);
-	if (!svg) {
-		return null;
-	}
 	const points = findSVGPoints(svg);
 
 	if (canvas) {
@@ -40,7 +37,7 @@ const Overlay: PaneSubComponent = (props) => {
 					svg,
 				);
 			}}
-		></canvas>
+		/>
 	);
 };
 

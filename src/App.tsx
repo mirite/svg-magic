@@ -30,7 +30,6 @@ function App(): ReactElement {
 				contents,
 			},
 			previous: [],
-			svgContainer: null,
 		};
 		const newEditorState = { ...editorState };
 		newEditorState.files.push(fileState);

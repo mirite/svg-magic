@@ -15,7 +15,7 @@ import type { PaneComponent } from "@/types.js";
  * @returns The component.
  */
 const PreviewPane: PaneComponent = (props) => {
-	const { svgContainer, file } = props.stateTuple[0];
+	const { file } = props.stateTuple[0];
 	const svgHTML = file.contents;
 	const [base64, setBase64] = useState("");
 	const [isDark, setIsDark] = useState(false);
@@ -59,15 +59,6 @@ const PreviewPane: PaneComponent = (props) => {
 					className={
 						"bg-[--background] rounded-xl border-2 border-slate-500 border-dashed"
 					}
-					ref={(newRef) => {
-						if (newRef !== svgContainer) {
-							props.stateTuple[1]((previous) => {
-								const newState = { ...previous };
-								newState.svgContainer = newRef;
-								return newState;
-							});
-						}
-					}}
 					dangerouslySetInnerHTML={{ __html: svgHTML }}
 				></div>
 				{showOverlay && <Overlay stateTuple={props.stateTuple} />}
