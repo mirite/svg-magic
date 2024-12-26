@@ -12,7 +12,7 @@
 		"check": "tsc --noEmit",
 		"build": "yarn check && vite build",
 		"preview": "vite preview",
-		"lint": "eslint --fix",
+		"lint": "eslint --fix --cache",
 		"format": "prettier --write --cache .",
 		"test": "vitest --run --ui",
 		"test:watch": "vitest --ui",
