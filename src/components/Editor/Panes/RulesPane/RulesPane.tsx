@@ -14,7 +14,11 @@ import type { PaneComponent } from "@/types.js";
  * @returns The component.
  */
 const RulesPane: PaneComponent = (props) => {
-	const rules = findSVGRules(getSVGElement(props));
+	const svg = getSVGElement(props);
+	if (!svg) {
+		return <div>Waiting for SVG</div>;
+	}
+	const rules = findSVGRules(svg);
 	return (
 		<Pane>
 			<ClassList stateTuple={props.stateTuple} />

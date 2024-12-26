@@ -23,6 +23,9 @@ import type { ChangeOperation, IPath, PaneComponent } from "@/types.js";
 const ElementsPane: PaneComponent = (props) => {
 	const [selected, setSelected] = useState<IPath[]>([]);
 	const svgRoot = getSVGElement(props);
+	if (!svgRoot) {
+		return null;
+	}
 	const children = findSVGChildren(svgRoot);
 	const classes = findClasses(svgRoot);
 	const rootNode: IPath = { name: "root", elem: svgRoot, children };

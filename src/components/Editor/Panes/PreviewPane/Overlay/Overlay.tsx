@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useState } from "react";
 
 import { getSVGElement } from "@/helpers/getSVGElement.js";
 import { drawOverlay, onMouseDown } from "@/helpers/overlay.js";
@@ -14,27 +14,32 @@ import type { PaneSubComponent } from "@/types.js";
  */
 const Overlay: PaneSubComponent = (props) => {
 	const svg = getSVGElement(props);
-	const canvasRef = useRef<HTMLCanvasElement>(null);
+	const [canvas, setCanvas] = useState<HTMLCanvasElement | null>(null);
+	if (!svg) {
+		return null;
+	}
 	const points = findSVGPoints(svg);
-	useEffect(() => {
-		if (canvasRef?.current && svg) {
-			drawOverlay(points, canvasRef.current, svg);
-		}
-	}, [points, svg]);
+
+	if (canvas) {
+		drawOverlay(points, canvas, svg);
+	}
 
 	return (
 		<canvas
 			className="absolute inset-0"
-			ref={canvasRef}
-			onMouseDown={(e) =>
+			ref={(newRef) => {
+				if (newRef !== canvas) setCanvas(newRef);
+			}}
+			onMouseDown={(e) => {
+				if (!canvas) return;
 				onMouseDown(
 					e,
-					canvasRef.current!,
+					canvas,
 					points,
 					(changeOptions) => performChange(props, changeOptions),
 					svg,
-				)
-			}
+				);
+			}}
 		></canvas>
 	);
 };
