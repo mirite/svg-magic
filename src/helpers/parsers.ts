@@ -12,6 +12,7 @@ import type {
  * Finds SVG rules in the stlyesheet
  *
  * @param parent The element to find styles in
+ * @param classes
  */
 function findSVGRules(
 	parent: SVGElement | SVGSubElement,
