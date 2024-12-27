@@ -4,6 +4,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 
 import AddGroup from "./AddGroup/AddGroup.js";
 import AssignClass from "./AssignClass/AssignClass.js";
+import type { PathProps } from "./PathList/Path/Path.js";
 import PathList from "./PathList/PathList.js";
 import PrefixClasses from "./PrefixClasses/PrefixClasses.js";
 
@@ -12,7 +13,6 @@ import { getSVGElement } from "@/helpers/getSVGElement.js";
 import { findClasses, findSVGChildren } from "@/helpers/parsers.js";
 import { performChange } from "@/helpers/transformer.js";
 import type { ChangeOperation, IPath, PaneComponent } from "@/types.js";
-import type { PathProps } from "./PathList/Path/Path.js";
 
 /**
  * The pane displaying the list of elements in the SVG.
@@ -32,6 +32,8 @@ const ElementsPane: PaneComponent = (props) => {
 	 *
 	 * @param e The change event from the checkbox
 	 * @param clickedPath Which path was clicked.
+	 * @param _e
+	 * @param _clickedPath
 	 */
 	const updateSelected: PathProps["onCheck"] = (_e, _clickedPath) => {
 		const newState = [...selected];
