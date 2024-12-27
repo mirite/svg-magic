@@ -22,6 +22,7 @@ export type UseEditorResult = {
 
 /**
  * Get the open files from the editor state.
+ *
  * @param editorState The current state of the editor.
  * @param setEditorState The function to update the editor state.
  * @returns The open files.
@@ -110,6 +111,7 @@ const handleFileOpen = (
 
 /**
  * Clear the current file from the editor to return to the file selector.
+ *
  * @param setEditorState The function to update the editor state.
  */
 function goHome(
