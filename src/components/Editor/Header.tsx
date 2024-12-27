@@ -1,3 +1,5 @@
+import { faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { ReactElement } from "react";
 
 import { saveFile } from "@/helpers/fileSaving.js";
@@ -10,8 +12,6 @@ import {
 import { inlineStyles } from "@/helpers/transformers/inlineStyles.js";
 import { stripClasses } from "@/helpers/transformers/stripClasses.js";
 import type { FileProps } from "@/types.js";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
 /**
  * The header component for the editor.
  *
