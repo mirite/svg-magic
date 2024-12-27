@@ -1,18 +1,20 @@
-import type { ChangeEvent, ReactElement } from "react";
+import type { ReactElement } from "react";
 
-import Path from "./Path/Path.js";
+import Path, { type PathProps } from "./Path/Path.js";
 
-import type { ChangeOperation, IPath } from "@/types.js";
+import type { IPath } from "@/types.js";
 
-interface IProps {
+export type PathListProps = {
 	node: IPath;
-	onChange: (options: ChangeOperation) => void;
-	onCheck: (e: ChangeEvent<HTMLInputElement>, p: IPath) => void;
-	selected: IPath[];
-}
+} & Pick<PathProps, "onChange" | "onCheck" | "selected">;
 
-/** @param props */
-function PathList(props: IProps): ReactElement {
+/**
+ * A list of the elements in the SVG
+ *
+ * @param props The component props.
+ * @returns The component.
+ */
+function PathList(props: PathListProps): ReactElement {
 	const { children } = props.node;
 
 	return (
@@ -20,11 +22,9 @@ function PathList(props: IProps): ReactElement {
 			{children.map((path, i) => (
 				<Path
 					key={i}
-					onChange={(e) => props.onChange(e)}
+					onChange={props.onChange}
 					selected={props.selected}
-					onCheck={(e: ChangeEvent<HTMLInputElement>, p: IPath) =>
-						props.onCheck(e, p)
-					}
+					onCheck={props.onCheck}
 					{...path}
 				/>
 			))}

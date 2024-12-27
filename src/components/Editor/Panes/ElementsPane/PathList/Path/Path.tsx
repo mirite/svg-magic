@@ -13,11 +13,11 @@ import type {
 	SVGSubElement,
 } from "@/types.js";
 
-interface IProps extends IPath {
+export type PathProps = IPath & {
 	onChange: (options: ChangeOperation) => void;
 	onCheck: (e: ChangeEvent<HTMLInputElement>, p: IPath) => void;
 	selected: IPath[];
-}
+};
 
 /**
  * Displays a path in the elements list.
@@ -25,7 +25,7 @@ interface IProps extends IPath {
  * @param props The data about the path.
  * @returns The component.
  */
-function Path(props: IProps): ReactElement {
+function Path(props: PathProps): ReactElement {
 	const { elem, name, children, selected } = props;
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -71,7 +71,9 @@ function Path(props: IProps): ReactElement {
 						<Checkbox
 							label={name}
 							onChange={(e) => handleChange(e)}
-							checked={!!selected.find((s) => s.elem === elem)}
+							checked={
+								!!selected.find((s) => s.elem.outerHTML === elem.outerHTML)
+							}
 						/>
 					</div>,
 				),

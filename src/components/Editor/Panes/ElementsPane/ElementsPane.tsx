@@ -1,5 +1,4 @@
-import type { ChangeEvent } from "react";
-import React, { useState } from "react";
+import { useState } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
@@ -13,6 +12,7 @@ import { getSVGElement } from "@/helpers/getSVGElement.js";
 import { findClasses, findSVGChildren } from "@/helpers/parsers.js";
 import { performChange } from "@/helpers/transformer.js";
 import type { ChangeOperation, IPath, PaneComponent } from "@/types.js";
+import type { PathProps } from "./PathList/Path/Path.js";
 
 /**
  * The pane displaying the list of elements in the SVG.
@@ -33,18 +33,13 @@ const ElementsPane: PaneComponent = (props) => {
 	 * @param e The change event from the checkbox
 	 * @param clickedPath Which path was clicked.
 	 */
-	function updateSelected(
-		e: React.ChangeEvent<HTMLInputElement>,
-		clickedPath: IPath,
-	) {
-		const old = [...selected].filter((path) => path.elem !== clickedPath.elem);
-		if (e.currentTarget.checked) {
-			old.push(clickedPath);
-		}
-		setSelected(old);
-	}
+	const updateSelected: PathProps["onCheck"] = (_e, _clickedPath) => {
+		const newState = [...selected];
+		// TODO: Need a way to uniquely identify each node now that they aren't references to the original objects.
+		setSelected(newState);
+	};
 
-	const handleChangeOption = (e: ChangeOperation) => {
+	const handleChangeOption: PathProps["onChange"] = (e: ChangeOperation) => {
 		performChange(props, e);
 		setSelected([]);
 	};
@@ -57,10 +52,8 @@ const ElementsPane: PaneComponent = (props) => {
 				<DndProvider backend={HTML5Backend}>
 					<PathList
 						node={rootNode}
-						onChange={(e: ChangeOperation) => handleChangeOption(e)}
-						onCheck={(e: ChangeEvent<HTMLInputElement>, p: IPath) =>
-							updateSelected(e, p)
-						}
+						onChange={(e) => handleChangeOption(e)}
+						onCheck={(e, p) => updateSelected(e, p)}
 						selected={selected}
 					/>
 				</DndProvider>
