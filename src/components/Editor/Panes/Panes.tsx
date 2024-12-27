@@ -1,4 +1,4 @@
-import type { ReactElement } from "react";
+import { type ReactElement } from "react";
 
 import EditorPane from "./EditorPane/EditorPane.js";
 import ElementsPane from "./ElementsPane/ElementsPane.js";
@@ -16,16 +16,16 @@ type IProps = FileProps;
  * @returns The rendered component.
  */
 function Panes(props: IProps): ReactElement {
+	const panes = [EditorPane, ElementsPane, RulesPane, PreviewPane];
 	return (
 		<div
 			className={
 				"grid grid-cols-2 xl:grid-cols-4 h-[calc(100dvh_-_var(--header-height))] overflow-hidden"
 			}
 		>
-			<EditorPane stateTuple={props.stateTuple} />
-			<ElementsPane stateTuple={props.stateTuple} />
-			<RulesPane stateTuple={props.stateTuple} />
-			<PreviewPane stateTuple={props.stateTuple} />
+			{panes.map((Pane) => (
+				<Pane key={Pane.displayName || ""} {...props} />
+			))}
 		</div>
 	);
 }

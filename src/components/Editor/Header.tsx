@@ -10,7 +10,8 @@ import {
 import { inlineStyles } from "@/helpers/transformers/inlineStyles.js";
 import { stripClasses } from "@/helpers/transformers/stripClasses.js";
 import type { FileProps } from "@/types.js";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
 /**
  * The header component for the editor.
  *
@@ -53,12 +54,8 @@ function Header(props: FileProps): ReactElement {
 				<button type={"button"} onClick={() => performChange(props, stripData)}>
 					Strip Data
 				</button>
-				<button
-					type={"button"}
-					className="positive"
-					onClick={() => saveFile(contents, title)}
-				>
-					Save
+				<button type={"button"} onClick={() => saveFile(contents, title)}>
+					<FontAwesomeIcon icon={faFloppyDisk} />{" "}
 				</button>
 			</div>
 		</header>
