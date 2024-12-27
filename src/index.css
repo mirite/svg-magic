@@ -11,7 +11,9 @@
 
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: subpixel-antialiased;
-	--header-height: 95px;
+	--nav-height: 48px;
+	--header-height: 64px;
+	--content-top: calc(var(--nav-height) + var(--header-height));
 }
 
 body,

@@ -3,8 +3,8 @@ import { useState } from "react";
 import { stripXMLDeclaration } from "@/helpers/transformers/stripXMLDeclaration.js";
 import type { EditorState, IFile, FileState } from "@/types.js";
 
-type UseEditorResult = {
-	/** The overal state of the editor */
+export type UseEditorResult = {
+	/** The overall state of the editor */
 	editorState: EditorState;
 	/** A callback for loading a new file into the state. */
 	handleFileOpen: (file: IFile) => void;
@@ -13,50 +13,52 @@ type UseEditorResult = {
 		newState: FileState | ((prev: FileState) => FileState),
 	) => void;
 	/** A helper for accessing the currently open file */
-	currentFile: FileState | null;
+	getCurrentFile: () => FileState | null;
+	/** Tools for dealing with the open files */
+	openFiles: { file: FileState; switchTo: () => void; close: () => void }[];
+	/** Clear the current file */
+	goHome: () => void;
 };
 
-/**
- * A hook for maintaining editor state.
- *
- * @returns The current state and the means of manipulating it.
- */
-export function useEditor(): UseEditorResult {
-	const [editorState, setEditorState] = useState<EditorState>({
-		files: [],
-		currentFile: null,
-	});
-
-	/**
-	 * Update the editor with the selected file's contents.
-	 *
-	 * @param e The newly selected file.
-	 */
-	const handleFileOpen = (e: IFile) => {
-		const contents = stripXMLDeclaration(e.contents);
-		const fileState: FileState = {
-			file: {
-				title: e.title,
-				contents,
-			},
-			previous: [],
+function getOpenFiles(
+	editorState: EditorState,
+	setEditorState: (
+		value: ((prevState: EditorState) => EditorState) | EditorState,
+	) => void,
+) {
+	const openFiles: UseEditorResult["openFiles"] = [];
+	for (let i = 0; i < editorState.files.length; i++) {
+		const file = editorState.files[i];
+		const close = () => {
+			// TODO: Implement this.
 		};
-		const newEditorState = { ...editorState };
-		newEditorState.files.push(fileState);
-		newEditorState.currentFile = newEditorState.files.length - 1;
-		setEditorState(newEditorState);
-	};
+		const switchTo = () => {
+			const newState = { ...editorState };
+			newState.currentFile = i;
+			setEditorState(newState);
+		};
+		openFiles.push({ file, close, switchTo });
+	}
+	return openFiles;
+}
 
 	/**
 	 * Simulates the setState for the current file that is open in the editor.
 	 *
 	 * @param newState Either the new state object or a function that takes the
 	 *   previous state and returns a new one.
+	 * @param editorState The current state of the editor.
+	 * @param setEditorState The function to update the editor state.
 	 * @throws Error if the current file isn't set and this function is called.
 	 */
-	const handleCurrentFileUpdate = (
+function handleCurrentFileUpdate(
 		newState: FileState | ((prev: FileState) => FileState),
-	): void => {
+	editorState: EditorState,
+	setEditorState: (
+		value: ((prevState: EditorState) => EditorState) | EditorState,
+	) => void,
+) {
+
 		const current = editorState.currentFile;
 		if (current === null)
 			throw new Error("Trying to update a file that isn't active");
@@ -71,12 +73,73 @@ export function useEditor(): UseEditorResult {
 			editorState.files[current].file.contents,
 		);
 		setEditorState(newEditorState);
-	};
-	const currentFile =
-		editorState.currentFile !== null &&
-		editorState.files[editorState.currentFile]
-			? editorState.files[editorState.currentFile]
-			: null;
+}
 
-	return { editorState, handleFileOpen, handleCurrentFileUpdate, currentFile };
+/**
+ * Update the editor with the selected file's contents.
+ *
+ * @param e The newly selected file.
+ * @param editorState The current state of the editor.
+ * @param setEditorState The function to update the editor state.
+ */
+const handleFileOpen = (
+	e: IFile,
+	editorState: EditorState,
+	setEditorState: (
+		value: ((prevState: EditorState) => EditorState) | EditorState,
+	) => void,
+) => {
+	const contents = stripXMLDeclaration(e.contents);
+	const fileState: FileState = {
+		file: {
+			title: e.title,
+			contents,
+		},
+		previous: [],
+	};
+	const newEditorState = { ...editorState };
+	newEditorState.files.push(fileState);
+	newEditorState.currentFile = newEditorState.files.length - 1;
+	setEditorState(newEditorState);
+};
+
+function goHome(	setEditorState: (
+	value: ((prevState: EditorState) => EditorState) | EditorState,
+) => void,) {
+	setEditorState((previous) => {
+		const newState = { ...previous };
+		previous.currentFile = null;
+		return newState;
+	});
+}
+
+const getCurrentFile = (editorState:EditorState) =>
+	editorState.currentFile !== null &&
+	editorState.files[editorState.currentFile]
+		? editorState.files[editorState.currentFile]
+		: null;
+
+/**
+ * A hook for maintaining editor state.
+ *
+ * @returns The current state and the means of manipulating it.
+ */
+export function useEditor(): UseEditorResult {
+	const [editorState, setEditorState] = useState<EditorState>({
+		files: [],
+		currentFile: null,
+	});
+
+	const openFiles = getOpenFiles(editorState, setEditorState);
+
+	return {
+		editorState,
+		handleFileOpen: (file: IFile) =>
+			handleFileOpen(file, editorState, setEditorState),
+		handleCurrentFileUpdate: (newState) =>
+			handleCurrentFileUpdate(newState,editorState, setEditorState),
+		getCurrentFile: () => getCurrentFile(editorState),
+		openFiles,
+		goHome: () => goHome(setEditorState),
+	};
 }

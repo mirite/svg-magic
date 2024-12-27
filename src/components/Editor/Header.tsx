@@ -25,10 +25,9 @@ function Header(props: FileProps): ReactElement {
 	return (
 		<header
 			className={
-				"flex items-center bg-blue-200 p-4 h-[--header-height] shadow-lg"
+				"fixed top-[--nav-height] inset-x-0 flex items-center bg-blue-200 p-2 h-[--header-height] shadow-lg"
 			}
 		>
-			<h1>SVG Magic</h1>
 			<div className={"flex gap-4 items-center grow justify-end"}>
 				<button
 					type={"button"}
