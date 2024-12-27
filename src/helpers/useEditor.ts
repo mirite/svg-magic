@@ -20,6 +20,12 @@ export type UseEditorResult = {
 	goHome: () => void;
 };
 
+/**
+ * Get the open files from the editor state.
+ * @param editorState The current state of the editor.
+ * @param setEditorState The function to update the editor state.
+ * @returns The open files.
+ */
 function getOpenFiles(
 	editorState: EditorState,
 	setEditorState: (
@@ -42,37 +48,36 @@ function getOpenFiles(
 	return openFiles;
 }
 
-	/**
-	 * Simulates the setState for the current file that is open in the editor.
-	 *
-	 * @param newState Either the new state object or a function that takes the
-	 *   previous state and returns a new one.
-	 * @param editorState The current state of the editor.
-	 * @param setEditorState The function to update the editor state.
-	 * @throws Error if the current file isn't set and this function is called.
-	 */
+/**
+ * Simulates the setState for the current file that is open in the editor.
+ *
+ * @param newState Either the new state object or a function that takes the
+ *   previous state and returns a new one.
+ * @param editorState The current state of the editor.
+ * @param setEditorState The function to update the editor state.
+ * @throws Error if the current file isn't set and this function is called.
+ */
 function handleCurrentFileUpdate(
-		newState: FileState | ((prev: FileState) => FileState),
+	newState: FileState | ((prev: FileState) => FileState),
 	editorState: EditorState,
 	setEditorState: (
 		value: ((prevState: EditorState) => EditorState) | EditorState,
 	) => void,
 ) {
+	const current = editorState.currentFile;
+	if (current === null)
+		throw new Error("Trying to update a file that isn't active");
+	const newEditorState = structuredClone(editorState);
 
-		const current = editorState.currentFile;
-		if (current === null)
-			throw new Error("Trying to update a file that isn't active");
-		const newEditorState = structuredClone(editorState);
-
-		if (typeof newState === "function") {
-			newEditorState.files[current] = newState(newEditorState.files[current]);
-		} else {
-			newEditorState.files[current] = newState;
-		}
-		newEditorState.files[current].previous.unshift(
-			editorState.files[current].file.contents,
-		);
-		setEditorState(newEditorState);
+	if (typeof newState === "function") {
+		newEditorState.files[current] = newState(newEditorState.files[current]);
+	} else {
+		newEditorState.files[current] = newState;
+	}
+	newEditorState.files[current].previous.unshift(
+		editorState.files[current].file.contents,
+	);
+	setEditorState(newEditorState);
 }
 
 /**
@@ -103,9 +108,15 @@ const handleFileOpen = (
 	setEditorState(newEditorState);
 };
 
-function goHome(	setEditorState: (
-	value: ((prevState: EditorState) => EditorState) | EditorState,
-) => void,) {
+/**
+ * Clear the current file from the editor to return to the file selector.
+ * @param setEditorState The function to update the editor state.
+ */
+function goHome(
+	setEditorState: (
+		value: ((prevState: EditorState) => EditorState) | EditorState,
+	) => void,
+) {
 	setEditorState((previous) => {
 		const newState = { ...previous };
 		previous.currentFile = null;
@@ -113,9 +124,14 @@ function goHome(	setEditorState: (
 	});
 }
 
-const getCurrentFile = (editorState:EditorState) =>
-	editorState.currentFile !== null &&
-	editorState.files[editorState.currentFile]
+/**
+ * Get the current file from the editor state.
+ *
+ * @param editorState The current state of the editor.
+ * @returns The current file or null if there isn't one.
+ */
+const getCurrentFile = (editorState: EditorState) =>
+	editorState.currentFile !== null && editorState.files[editorState.currentFile]
 		? editorState.files[editorState.currentFile]
 		: null;
 
@@ -137,7 +153,7 @@ export function useEditor(): UseEditorResult {
 		handleFileOpen: (file: IFile) =>
 			handleFileOpen(file, editorState, setEditorState),
 		handleCurrentFileUpdate: (newState) =>
-			handleCurrentFileUpdate(newState,editorState, setEditorState),
+			handleCurrentFileUpdate(newState, editorState, setEditorState),
 		getCurrentFile: () => getCurrentFile(editorState),
 		openFiles,
 		goHome: () => goHome(setEditorState),
