@@ -1,6 +1,8 @@
-import type { EditorState, IFile, FileState } from "@/types.js";
 import { useState } from "react";
+
 import { stripXMLDeclaration } from "@/helpers/transformers/stripXMLDeclaration.js";
+import type { EditorState, IFile, FileState } from "@/types.js";
+
 type UseEditorResult = {
 	/** The overal state of the editor */
 	editorState: EditorState;

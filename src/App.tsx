@@ -1,8 +1,9 @@
 import type { ReactElement } from "react";
 
+import { useEditor } from "./helpers/useEditor.js";
+
 import Editor from "@/components/Editor/Editor.js";
 import FileSelector from "@/components/FileSelector.js";
-import { useEditor } from "./helpers/useEditor.js";
 
 /**
  * The main application component.
