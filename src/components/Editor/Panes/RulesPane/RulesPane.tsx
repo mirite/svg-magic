@@ -4,7 +4,7 @@ import SVGClass from "./SVGRule/SVGRule.js";
 
 import { Pane } from "@/components/shared/Pane.js";
 import { getSVGElement } from "@/helpers/getSVGElement.js";
-import { getSVGRules } from "@/helpers/getSVGRules.js";
+import { getCSSRules } from "@/helpers/getCSSRules.js";
 import type { PaneComponent } from "@/types.js";
 
 /**
@@ -15,14 +15,14 @@ import type { PaneComponent } from "@/types.js";
  */
 const RulesPane: PaneComponent = (props) => {
 	const svg = getSVGElement(props);
-	const rules = getSVGRules(svg);
+	const rules = getCSSRules(svg);
 	return (
 		<Pane>
 			<ClassList stateTuple={props.stateTuple} />
 			<h2>Rules</h2>
 			<ul className={styles.ruleList}>
 				{rules.map((c) => (
-					<SVGClass key={c.id} {...c} />
+					<SVGClass key={JSON.stringify(c)} {...c} />
 				))}
 			</ul>
 		</Pane>

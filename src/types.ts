@@ -22,7 +22,6 @@ export type CSSContents = CSSTypes.Rule | CSSTypes.AtRule | CSSTypes.Comment;
 
 export interface ISVGRule {
 	rule: CSSContents;
-	id: string;
 }
 
 export type ChangeOperation = (e: SVGSVGElement) => void;

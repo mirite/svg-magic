@@ -14,8 +14,8 @@
 		"preview": "vite preview",
 		"lint": "eslint --fix --cache",
 		"format": "prettier --write --cache .",
-		"test": "vitest --run --ui",
-		"test:watch": "vitest --ui",
+		"test": "vitest --run --coverage",
+		"test:watch": "vitest --ui --coverage",
 		"prepare": "husky"
 	},
 	"dependencies": {
@@ -41,10 +41,12 @@
 		"@types/react": "^19.0.2",
 		"@types/react-dom": "^19.0.2",
 		"@vitejs/plugin-react": "^4.3.4",
+		"@vitest/coverage-v8": "2.1.8",
 		"@vitest/ui": "^2.1.8",
 		"autoprefixer": "^10.4.20",
 		"eslint": "^9.17.0",
 		"husky": "^9.1.7",
+		"jsdom": "^25.0.1",
 		"postcss": "^8.4.49",
 		"prettier": "^3.4.2",
 		"prettier-plugin-jsdoc": "^1.3.0",

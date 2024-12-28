@@ -8,7 +8,7 @@ import type { ISVGRule, SVGSubElement } from "@/types.js";
  * @param classes The existing rules found.
  * @returns The SVG Rules.
  */
-export function getSVGRules(
+export function getCSSRules(
 	parent: SVGElement | SVGSubElement,
 	classes?: ISVGRule[],
 ): ISVGRule[] {
@@ -16,8 +16,8 @@ export function getSVGRules(
 		const stylesheet = parseCSS(styleElem.innerHTML);
 
 		return (
-			stylesheet?.stylesheet?.rules.map((rule, index) => {
-				return { rule, id: `${JSON.stringify(rule)}-${index}` };
+			stylesheet?.stylesheet?.rules.map((rule) => {
+				return { rule };
 			}) || []
 		);
 	};
@@ -38,13 +38,13 @@ export function getSVGRules(
 			return;
 		}
 		const styleElem = getStyleElement(child);
-		console.log({ styleElem });
+
 		if (styleElem && "style" === styleElem.nodeName) {
 			localClasses.push(...findRules(styleElem));
 		}
 
 		if (child.children.length) {
-			getSVGRules(child, localClasses);
+			getCSSRules(child, localClasses);
 		}
 	};
 	const localClasses = classes ?? [];
