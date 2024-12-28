@@ -18,7 +18,7 @@ const PathList: DependentPaneComponent<UseNodesResult> = (props) => {
 				<Path
 					key={`${path.name}-${i}`}
 					{...props}
-					additional={{ ...props.additional, ...path }}
+					additional={{ ...props.additional, node: path }}
 				/>
 			))}
 		</ul>
