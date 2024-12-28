@@ -3,13 +3,25 @@ import CSSParser from "css";
 
 import type { CSSContents, CSSTypes } from "@/types.js";
 
-/** @param value */
-export function assertIsRule(value: CSSContents): value is CSSParser.Rule {
+/**
+ * Type guard for CSSParser Rule
+ *
+ * @param value The value to check
+ * @returns Whether the value is a CSSParser Rule
+ */
+export function isRule(value: CSSContents): value is CSSParser.Rule {
 	return value.type === "rule";
 }
 
-/** @param stylesheetAsString */
-export function parseCSS(stylesheetAsString: string): Stylesheet | null {
+/**
+ * Parse a stylesheet string into a stylesheet object
+ *
+ * @param stylesheetAsString The stylesheet as a string
+ * @returns The parsed stylesheet or null if parsing failed.
+ */
+export function stringToStylesheet(
+	stylesheetAsString: string,
+): Stylesheet | null {
 	try {
 		return CSSParser.parse(stylesheetAsString);
 	} catch (e: unknown) {
@@ -18,22 +30,32 @@ export function parseCSS(stylesheetAsString: string): Stylesheet | null {
 	}
 }
 
-/** @param stylesheet */
-export function stylesheetToText(stylesheet: CSSTypes.Stylesheet): string {
+/**
+ * Convert a stylesheet object into a string
+ *
+ * @param stylesheet The stylesheet object
+ * @returns The stylesheet as a string.
+ */
+export function stylesheetToString(stylesheet: CSSTypes.Stylesheet): string {
 	return CSSParser.stringify(stylesheet);
 }
 
 /**
- * @param text
- * @param className
+ * Removes a CSS class from a stylesheet
+ *
+ * @param text The stylesheet as a string
+ * @param className The class name to remove
+ * @returns The stylesheet with the class removed
  */
 export function removeCSSClass(text: string, className: string): string {
-	const css = parseCSS(text);
+	const css = stringToStylesheet(text);
 	if (!css?.stylesheet) return "";
 
 	/**
-	 * @param rule
-	 * @param stylesheet
+	 * Process a rule to remove the class
+	 *
+	 * @param rule The rule to process
+	 * @param stylesheet The stylesheet to remove the rule from
 	 */
 	function processRule(rule: Rule, stylesheet: StyleRules) {
 		rule.selectors = rule.selectors?.filter((s) => !s.includes(className));
@@ -49,25 +71,32 @@ export function removeCSSClass(text: string, className: string): string {
 				break;
 		}
 	}
-	return stylesheetToText(css);
+	return stylesheetToString(css);
 }
 
 /**
- * @param text
- * @param oldClassName
- * @param newClassName
+ * Renames a CSS class in a stylesheet
+ *
+ * @param text The stylesheet as a string
+ * @param oldClassName The class name to replace
+ * @param newClassName The new class name
+ * @returns The stylesheet with the class name replaced
  */
 export function renameCSSClass(
 	text: string,
 	oldClassName: string,
 	newClassName: string,
 ): string {
-	const css = parseCSS(text);
+	const css = stringToStylesheet(text);
 	if (!css?.stylesheet) return "";
 
 	const pattern = new RegExp(`(.)${oldClassName}([. ,\\n{]|$)`, "ig");
 
-	/** @param rule */
+	/**
+	 * Process a rule to rename the class
+	 *
+	 * @param rule The rule to process
+	 */
 	function processRule(rule: Rule) {
 		rule.selectors = rule.selectors?.map((s) => {
 			return s.replace(pattern, "$1" + newClassName + "$2");
@@ -81,19 +110,25 @@ export function renameCSSClass(
 				break;
 		}
 	}
-	return stylesheetToText(css);
+	return stylesheetToString(css);
 }
 
 /**
- * @param svgElem
- * @param func
- * @param argsToPassOn
+ * Sets the content of a style tag
+ *
+ * @template T The type of the function
+ * @param svgElem The SVG element to set the style tag content for
+ * @param func The function to set the content with
+ * @param argsToPassOn The arguments to pass to the function
  */
-export function setShadowCSS(
+export function setShadowCSS<
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	T extends (text: string, ...args: any[]) => string,
+>(
 	svgElem: Element,
-	func: (text: string, ...args: any[]) => string,
-	...argsToPassOn: unknown[]
-) {
+	func: T,
+	...argsToPassOn: Parameters<T> extends [infer _, ...infer Rest] ? Rest : never
+): void {
 	const style = svgElem.querySelector("style");
 	if (!style) return;
 	style.innerHTML = func(style.innerHTML, ...argsToPassOn);

@@ -4,7 +4,7 @@ import DeclarationList from "./DeclarationList/DeclarationList.js";
 import SelectorList from "./SelectorList/SelectorList.js";
 
 import Group from "@/components/shared/Group.js";
-import { assertIsRule } from "@/helpers/css.js";
+import { isRule } from "@/helpers/css.js";
 import type { ISVGRule } from "@/types.js";
 
 type Props = ISVGRule;
@@ -17,7 +17,7 @@ type Props = ISVGRule;
  */
 function SVGRule(props: Props): ReactElement {
 	const { rule } = props;
-	if (!assertIsRule(rule)) return <span>Provided Value Was Not a Rule</span>;
+	if (!isRule(rule)) return <span>Provided Value Was Not a Rule</span>;
 	return (
 		<li>
 			<Group>

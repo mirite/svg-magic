@@ -1,4 +1,4 @@
-import { parseCSS } from "@/helpers/css.js";
+import { stringToStylesheet } from "@/helpers/css.js";
 import type { ISVGRule, SVGSubElement } from "@/types.js";
 
 /**
@@ -29,7 +29,7 @@ export function getCSSRules(
  * @returns The rules.
  */
 function findRules(styleElem: HTMLStyleElement): ISVGRule[] {
-	const stylesheet = parseCSS(styleElem.innerHTML)!;
+	const stylesheet = stringToStylesheet(styleElem.innerHTML)!;
 
 	return stylesheet.stylesheet!.rules.map((rule) => {
 		return { rule };

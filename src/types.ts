@@ -45,11 +45,6 @@ export interface IPrefixClassOptions {
 	prefix?: string;
 }
 
-export interface IClassOptions {
-	existingClassName: string;
-	newClassName?: string;
-}
-
 export interface IMovePointOptions {
 	element: SVGSubElement;
 	pointToMove: { x: number; y: number };

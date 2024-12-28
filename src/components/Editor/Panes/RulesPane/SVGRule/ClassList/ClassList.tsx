@@ -19,7 +19,11 @@ const ClassList: PaneSubComponent = (props) => {
 			<h2>Classes</h2>
 			<ul>
 				{classes.map((c) => (
-					<Class key={c} name={c} onChange={(e) => performChange(props, e)} />
+					<Class
+						key={c}
+						existingClassName={c}
+						onChange={(e) => performChange(props, e)}
+					/>
 				))}
 			</ul>
 		</div>

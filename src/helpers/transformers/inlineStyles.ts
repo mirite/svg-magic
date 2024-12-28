@@ -7,8 +7,13 @@ import type {
 	Comment,
 } from "css";
 
-import type { SVGSubElement } from "../../types.js";
-import { parseCSS, setShadowCSS, stylesheetToText } from "../css.js";
+import {
+	stringToStylesheet,
+	setShadowCSS,
+	stylesheetToString,
+} from "../css.js";
+
+import type { SVGSubElement } from "@/types.js";
 
 /**
  * A class that allows for CSS rules to be reassigned as attributes on the SVG
@@ -127,13 +132,13 @@ class CSSInliner {
 	 * @param declaration The declaration to remove.
 	 */
 	private removeInlinedDeclaration(declaration: Declaration) {
-		const removeRule = () => {
+		const removeRule = (_: string) => {
 			const parent = declaration.parent as Rule;
 			parent.declarations =
 				parent.declarations?.filter(
 					(d) => (d as Declaration).property !== declaration.property,
 				) || [];
-			return stylesheetToText(this.stylesheet).trim();
+			return stylesheetToString(this.stylesheet).trim();
 		};
 		setShadowCSS(this.svgElem, removeRule);
 	}
@@ -164,7 +169,9 @@ export function inlineStyles(
 	svgElem: SVGSVGElement,
 	options?: IInliningOptions,
 ): void {
-	const styles = parseCSS(svgElem.querySelector("style")?.textContent || "");
+	const styles = stringToStylesheet(
+		svgElem.querySelector("style")?.textContent || "",
+	);
 	if (!styles) return;
 	new CSSInliner(svgElem, styles, options);
 }

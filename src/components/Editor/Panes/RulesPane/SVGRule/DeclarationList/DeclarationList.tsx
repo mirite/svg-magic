@@ -2,7 +2,7 @@ import { type ReactElement, useEffect, useRef, useState } from "react";
 
 import Declaration from "./Declaration.js";
 
-import { stylesheetToText } from "@/helpers/css.js";
+import { stylesheetToString } from "@/helpers/css.js";
 import { setTagContent } from "@/helpers/dom.js";
 import type { CSSTypes } from "@/types.js";
 
@@ -37,7 +37,7 @@ function DeclarationList(props: IProps): ReactElement {
 			stylesheet: { rules: [newRule] },
 			type: "stylesheet",
 		};
-		setTagContent(ref, stylesheetToText(styleSheet));
+		setTagContent(ref, stylesheetToString(styleSheet));
 	};
 
 	const [toggledOff, setToggledOff] = useState<CSSTypes.Declaration[]>([]);
