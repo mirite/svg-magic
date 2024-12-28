@@ -15,9 +15,8 @@ import type { FileProps } from "@/types.js";
  * @returns The rendered component.
  */
 function Toolbar(props: FileProps): ReactElement {
-	const [state] = props.stateTuple;
-	const { file } = state;
-	const { title, contents } = file;
+	const { title, contents } = props.stateTuple[0].file;
+
 	return (
 		<menu
 			className={

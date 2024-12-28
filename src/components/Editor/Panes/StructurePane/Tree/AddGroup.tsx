@@ -2,7 +2,6 @@ import type { ReactElement } from "react";
 import React, { useState } from "react";
 
 import Button from "@/components/shared/Button.js";
-import Group from "@/components/shared/Group.js";
 import { Input } from "@/components/shared/Input.js";
 import { addGroup } from "@/helpers/transformers/index.js";
 import type { ChangeOperation, IPath } from "@/types.js";
@@ -39,15 +38,15 @@ function AddGroup(props: IProps): ReactElement {
 	}
 
 	return (
-		<Group element={"form"} onSubmit={(e) => handleSubmit(e)}>
-			<h3>Add Group:</h3>
+		<form className={"space-y-2"} onSubmit={(e) => handleSubmit(e)}>
+			<h4>Add Group:</h4>
 			<Input
 				label={"Class:"}
 				value={className}
 				onChange={(e) => setClassName(e.currentTarget.value)}
 			/>
 			<Button type="submit">Add</Button>
-		</Group>
+		</form>
 	);
 }
 

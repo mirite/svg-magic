@@ -1,18 +1,14 @@
-import type { FormEvent, ReactElement } from "react";
+import type { FormEvent } from "react";
 import { useState } from "react";
 
 import Button from "@/components/shared/Button.js";
 import Group from "@/components/shared/Group.js";
 import { Input } from "@/components/shared/Input.js";
+import { performChange } from "@/helpers/performChange.js";
 import { prefixClasses } from "@/helpers/transformers/index.js";
-import type { ChangeOperation, IPrefixClassOptions } from "@/types.js";
+import type { IPrefixClassOptions, PaneSubComponent } from "@/types.js";
 
-interface IProps {
-	onChange: (options: ChangeOperation) => void;
-}
-
-const PrefixClasses = (props: IProps): ReactElement => {
-	const { onChange } = props;
+const PrefixClasses: PaneSubComponent = (props) => {
 	const [prefix, setPrefix] = useState("");
 
 	const options: IPrefixClassOptions = {
@@ -21,7 +17,7 @@ const PrefixClasses = (props: IProps): ReactElement => {
 
 	const handleSubmit = (e: FormEvent) => {
 		e.preventDefault();
-		onChange((elem) => prefixClasses(elem, options));
+		performChange(props, (elem) => prefixClasses(elem, options));
 		setPrefix("");
 	};
 

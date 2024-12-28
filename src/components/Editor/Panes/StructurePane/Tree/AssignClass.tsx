@@ -3,7 +3,6 @@ import { useState } from "react";
 
 import Button from "@/components/shared/Button.js";
 import { Checkbox } from "@/components/shared/CheckBox.js";
-import Group from "@/components/shared/Group.js";
 import { Input } from "@/components/shared/Input.js";
 import { Select } from "@/components/shared/Select.js";
 import { assignClass } from "@/helpers/transformers/index.js";
@@ -37,8 +36,8 @@ function AssignClass(props: IProps): ReactElement {
 		setClassName("");
 	};
 	return (
-		<Group element={"form"} onSubmit={(e) => handleSubmit(e)}>
-			<h3>Assign Class:</h3>
+		<form className={"space-y-2"} onSubmit={(e) => handleSubmit(e)}>
+			<h4>Assign Class:</h4>
 			<Checkbox
 				checked={useExisting}
 				label="Existing?"
@@ -70,7 +69,7 @@ function AssignClass(props: IProps): ReactElement {
 			<Button disabled={selectedItems.length === 0 || className === ""}>
 				Assign
 			</Button>
-		</Group>
+		</form>
 	);
 }
 
