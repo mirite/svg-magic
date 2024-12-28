@@ -1,5 +1,6 @@
 import Class from "./Class.js";
 
+import Group from "@/components/shared/Group.js";
 import { getClasses } from "@/helpers/getClasses.js";
 import { getSVGElement } from "@/helpers/getSVGElement.js";
 import { performChange } from "@/helpers/performChange.js";
@@ -15,18 +16,19 @@ const ClassList: PaneSubComponent = (props) => {
 	const svg = getSVGElement(props);
 	const classes = getClasses(svg);
 	return (
-		<div>
-			<h2>Classes</h2>
-			<ul>
+		<Group>
+			<h3>Classes:</h3>
+			<ul className={"space-y-2 w-full"}>
 				{classes.map((c) => (
-					<Class
-						key={c}
-						existingClassName={c}
-						onChange={(e) => performChange(props, e)}
-					/>
+					<li key={c}>
+						<Class
+							existingClassName={c}
+							onChange={(e) => performChange(props, e)}
+						/>
+					</li>
 				))}
 			</ul>
-		</div>
+		</Group>
 	);
 };
 

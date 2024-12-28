@@ -22,7 +22,7 @@ import type { ChangeOperation, IPath, PaneComponent } from "@/types.js";
  * @param props The component props.
  * @returns The component.
  */
-const ElementsPane: PaneComponent = (props) => {
+const StructurePane: PaneComponent = (props) => {
 	const [selected, setSelected] = useState<IPath[]>([]);
 	const svgRoot = getSVGElement(props);
 	const children = getSVGChildren(svgRoot);
@@ -49,8 +49,7 @@ const ElementsPane: PaneComponent = (props) => {
 	};
 
 	return (
-		<Pane>
-			<h2>Elements</h2>
+		<Pane title={"Structure"}>
 			<Group>
 				<h3>Tree:</h3>
 				<DndProvider backend={HTML5Backend}>
@@ -76,4 +75,4 @@ const ElementsPane: PaneComponent = (props) => {
 	);
 };
 
-export default ElementsPane;
+export default StructurePane;

@@ -20,7 +20,7 @@ export default function Group<T extends "div" | "form" = "div">(
 ): ReactElement {
 	const { className: extendedClassName } = props;
 	const className = twMerge(
-		"flex flex-col items-start gap-4 border-2 border-black rounded-xl p-4 mb-4",
+		"flex flex-col items-start gap-2 border-2 border-black rounded-xl p-2 mb-4",
 		extendedClassName,
 	);
 

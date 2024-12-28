@@ -29,29 +29,27 @@ const PreviewPane: PaneComponent = (props) => {
 	return (
 		<Pane
 			style={{ "--background": isDark ? background : "#FFF" } as CSSProperties}
+			title={"Preview"}
 		>
-			<div>
-				<h2>Preview</h2>
-				<div className="flex gap-4">
-					<Checkbox
-						checked={isDark}
-						onChange={() => setIsDark((e) => !e)}
-						label="Dark:"
+			<div className="flex gap-4">
+				<Checkbox
+					checked={isDark}
+					onChange={() => setIsDark((e) => !e)}
+					label="Dark:"
+				/>
+				<Checkbox
+					checked={showOverlay}
+					onChange={() => setShowOverlay((e) => !e)}
+					label="Show Overlay:"
+				/>
+				{isDark && (
+					<Input
+						type="color"
+						value={background}
+						onChange={(e) => setBackground(e.currentTarget.value)}
+						label={"Background:"}
 					/>
-					<Checkbox
-						checked={showOverlay}
-						onChange={() => setShowOverlay((e) => !e)}
-						label="Show Overlay:"
-					/>
-					{isDark && (
-						<Input
-							type="color"
-							value={background}
-							onChange={(e) => setBackground(e.currentTarget.value)}
-							label={"Background:"}
-						/>
-					)}
-				</div>
+				)}
 			</div>
 			<h3>&lt;svg&gt;</h3>
 			<div className={"relative"}>

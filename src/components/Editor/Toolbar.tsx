@@ -1,41 +1,13 @@
 import { faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { ReactElement } from "react";
 
+import IconButton from "@/components/shared/IconButton.js";
 import ToolbarTool from "@/components/shared/ToolbarTool.js";
 import { saveFile } from "@/helpers/fileSaving.js";
 import { performChange } from "@/helpers/performChange.js";
-import {
-	prefixClasses,
-	stripData,
-	stripIDs,
-} from "@/helpers/transformers/index.js";
-import { inlineStyles } from "@/helpers/transformers/inlineStyles.js";
-import { stripClasses } from "@/helpers/transformers/stripClasses.js";
+import { tools } from "@/helpers/transformers/toolbarTools.js";
 import type { FileProps } from "@/types.js";
 
-const tools = [
-	{
-		name: "Inline Styles",
-		action: inlineStyles,
-	},
-	{
-		name: "Prefix Classes",
-		action: prefixClasses,
-	},
-	{
-		name: "Strip IDs",
-		action: stripIDs,
-	},
-	{
-		name: "Strip Classes",
-		action: stripClasses,
-	},
-	{
-		name: "Strip Data",
-		action: stripData,
-	},
-];
 /**
  * The header component for the editor.
  *
@@ -49,7 +21,7 @@ function Toolbar(props: FileProps): ReactElement {
 	return (
 		<menu
 			className={
-				"fixed top-[--nav-height] inset-x-0 bg-blue-200 p-2 h-[--header-height] shadow-lg flex gap-4 items-center grow justify-end"
+				"fixed top-[--nav-height] inset-x-0 bg-blue-200 px-2 h-[--header-height] shadow-lg flex gap-2 items-center grow justify-end"
 			}
 		>
 			{tools.map((tool) => (
@@ -60,9 +32,11 @@ function Toolbar(props: FileProps): ReactElement {
 				</li>
 			))}
 			<li>
-				<ToolbarTool onClick={() => saveFile(contents, title)}>
-					<FontAwesomeIcon icon={faFloppyDisk} />
-				</ToolbarTool>
+				<IconButton
+					icon={faFloppyDisk}
+					onClick={() => saveFile(contents, title)}
+					title={"Save"}
+				/>
 			</li>
 		</menu>
 	);

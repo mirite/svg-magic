@@ -1,6 +1,12 @@
+import {
+	faCancel,
+	faCheck,
+	faPen,
+	faTrash,
+} from "@fortawesome/free-solid-svg-icons";
 import { type ReactElement, useEffect, useState } from "react";
 
-import Button from "@/components/shared/Button.js";
+import IconButton from "@/components/shared/IconButton.js";
 import { Input } from "@/components/shared/Input.js";
 import { removeClass, renameClass } from "@/helpers/transformers/index.js";
 import type { ChangeOperation } from "@/types.js";
@@ -49,7 +55,7 @@ function Class(props: IProps): ReactElement {
 	useEffect(() => setRenaming(false), [existingClassName]);
 
 	return (
-		<li className={"flex justify-between gap-2 items-center"}>
+		<div className={"flex justify-between gap-2 items-center"}>
 			<span>
 				{renaming !== false ? (
 					<Input
@@ -63,25 +69,34 @@ function Class(props: IProps): ReactElement {
 			</span>
 			<div className="flex gap-2 items-center">
 				{renaming !== false ? (
-					<Button type="button" onClick={() => confirmRename()}>
-						Confirm
-					</Button>
+					<IconButton
+						icon={faCheck}
+						onClick={() => confirmRename()}
+						title={"Save"}
+					/>
 				) : (
-					<Button type="button" onClick={() => setRenaming("")}>
-						Rename
-					</Button>
+					<IconButton
+						icon={faPen}
+						onClick={() => setRenaming("")}
+						title={"Rename"}
+					/>
 				)}
 				{renaming !== false ? (
-					<Button type="button" onClick={() => cancelRename()}>
-						Cancel
-					</Button>
+					<IconButton
+						icon={faCancel}
+						onClick={() => cancelRename()}
+						title={"Cancel Renaming"}
+					/>
 				) : (
-					<Button type="button" onClick={() => deleteClass()}>
-						Delete
-					</Button>
+					<IconButton
+						icon={faTrash}
+						className={"bg-red-800"}
+						onClick={() => deleteClass()}
+						title={"Delete"}
+					/>
 				)}
 			</div>
-		</li>
+		</div>
 	);
 }
 

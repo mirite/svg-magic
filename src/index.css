@@ -11,9 +11,19 @@
 
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: subpixel-antialiased;
-	--nav-height: 48px;
-	--header-height: 64px;
 	--content-top: calc(var(--nav-height) + var(--header-height));
+}
+
+@property --nav-height {
+	syntax: '<length>';
+	initial-value: 48px;
+	inherits: false;
+}
+
+@property --header-height {
+	syntax: '<length>';
+	initial-value: 48px;
+	inherits: false;
 }
 
 body,

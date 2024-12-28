@@ -1,9 +1,10 @@
 import { faX } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { ComponentType } from "react";
 import { twMerge } from "tailwind-merge";
 
 import type { UseEditorResult } from "./helpers/useEditor.js";
+
+import IconButton from "@/components/shared/IconButton.js";
 
 export const Header: ComponentType<{
 	openFiles: UseEditorResult["openFiles"];
@@ -30,20 +31,15 @@ export const Header: ComponentType<{
 								"cursor-pointer hover:bg-gray-200",
 						)}
 					>
-						<button
-							type="button"
-							className="[all:unset]"
-							onClick={open.switchTo}
-						>
+						<button type="button" onClick={open.switchTo}>
 							{open.file.file.title}
 						</button>
-						<button
-							className="leading-[0] p-1 border-black hover:bg-white hover:text-black bg-black text-white border-2 rounded-full"
-							type="button"
+						<IconButton
+							className="text-[0.66rem] p-1"
+							title={"Close"}
 							onClick={open.close}
-						>
-							<FontAwesomeIcon size="sm" icon={faX} />
-						</button>
+							icon={faX}
+						/>
 					</li>
 				))}
 			</menu>

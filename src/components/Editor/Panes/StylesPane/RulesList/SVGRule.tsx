@@ -1,8 +1,7 @@
 import type { ReactElement } from "react";
 
-import DeclarationList from "./DeclarationList/DeclarationList.js";
-import SelectorList from "./SelectorList/SelectorList.js";
-
+import DeclarationList from "@/components/Editor/Panes/StylesPane/RulesList/DeclarationList/DeclarationList.js";
+import SelectorList from "@/components/Editor/Panes/StylesPane/RulesList/SelectorList/SelectorList.js";
 import Group from "@/components/shared/Group.js";
 import { isRule } from "@/helpers/css.js";
 import type { ISVGRule } from "@/types.js";

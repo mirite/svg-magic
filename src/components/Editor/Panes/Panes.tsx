@@ -1,10 +1,10 @@
 import { type ReactElement } from "react";
 
 import EditorPane from "./EditorPane/EditorPane.js";
-import ElementsPane from "./ElementsPane/ElementsPane.js";
 import PreviewPane from "./PreviewPane/PreviewPane.js";
-import RulesPane from "./RulesPane/RulesPane.js";
 
+import StructurePane from "@/components/Editor/Panes/StructurePane/StructurePane.js";
+import StylesPane from "@/components/Editor/Panes/StylesPane/StylesPane.js";
 import type { FileProps } from "@/types.js";
 
 type IProps = FileProps;
@@ -16,7 +16,7 @@ type IProps = FileProps;
  * @returns The rendered component.
  */
 function Panes(props: IProps): ReactElement {
-	const panes = [EditorPane, ElementsPane, RulesPane, PreviewPane];
+	const panes = [EditorPane, StructurePane, StylesPane, PreviewPane];
 	return (
 		<div
 			className={
