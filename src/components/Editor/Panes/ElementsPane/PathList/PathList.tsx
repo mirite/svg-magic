@@ -1,6 +1,6 @@
 import type { ReactElement } from "react";
 
-import Path, { type PathProps } from "./Path/Path.js";
+import Path, { type PathProps } from "./Path.js";
 
 import type { IPath } from "@/types.js";
 

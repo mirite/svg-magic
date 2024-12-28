@@ -10,7 +10,12 @@ interface IProps {
 	selected?: IPath[];
 }
 
-/** @param props */
+/**
+ * Add a group to the SVG
+ *
+ * @param props The component props.
+ * @returns The rendered component.
+ */
 function AddGroup(props: IProps): ReactElement {
 	const createOptions = (): IGroupOptions => {
 		return {
@@ -23,10 +28,14 @@ function AddGroup(props: IProps): ReactElement {
 	const [className, setClassName] = useState("");
 	const [options, setOptions] = useState<IGroupOptions>(createOptions());
 
-	//TODO The dpendencies here are off and likely doesn't need to be a useEffect in the first place.
+	//TODO The dependencies here are off and likely doesn't need to be a useEffect in the first place.
 	useEffect(() => setOptions(createOptions()), [props.selected, className]);
 
-	/** @param e */
+	/**
+	 * Handle the form submission
+	 *
+	 * @param e The form event.
+	 */
 	function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
 		onChange((elem) => addGroup(elem, options));

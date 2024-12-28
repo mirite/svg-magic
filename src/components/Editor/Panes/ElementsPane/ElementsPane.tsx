@@ -2,11 +2,11 @@ import { useState } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
-import AddGroup from "./AddGroup/AddGroup.js";
-import AssignClass from "./AssignClass/AssignClass.js";
-import type { PathProps } from "./PathList/Path/Path.js";
+import AddGroup from "./AddGroup.js";
+import AssignClass from "./AssignClass.js";
+import type { PathProps } from "./PathList/Path.js";
 import PathList from "./PathList/PathList.js";
-import PrefixClasses from "./PrefixClasses/PrefixClasses.js";
+import PrefixClasses from "./PrefixClasses.js";
 
 import { Pane } from "@/components/shared/Pane.js";
 import { getClasses } from "@/helpers/getClasses.js";

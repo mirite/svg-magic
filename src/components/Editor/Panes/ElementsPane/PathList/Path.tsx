@@ -2,7 +2,7 @@ import type { ChangeEvent, ReactElement } from "react";
 import React from "react";
 import { useDrag, useDrop } from "react-dnd";
 
-import PathList from "../PathList.js";
+import PathList from "./PathList.js";
 
 import { Checkbox } from "@/components/shared/CheckBox.js";
 import { moveElement } from "@/helpers/transformers/index.js";
