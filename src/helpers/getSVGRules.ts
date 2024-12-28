@@ -1,5 +1,5 @@
-import type { ISVGRule, SVGSubElement } from "@/types.js";
 import { parseCSS } from "@/helpers/css.js";
+import type { ISVGRule, SVGSubElement } from "@/types.js";
 
 /**
  * Finds SVG rules in the style-sheet

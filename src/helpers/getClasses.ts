@@ -5,10 +5,7 @@
  * @param existing The classes already found
  * @returns The classes found.
  */
-export function getClasses(
-	element: Element,
-	existing?: Set<string>
-): string[] {
+export function getClasses(element: Element, existing?: Set<string>): string[] {
 	const localExistingRef = existing ?? new Set<string>();
 	for (const c of element.classList) {
 		localExistingRef.add(c);

@@ -1,9 +1,9 @@
 import Class from "./Class/Class.js";
 
+import { getClasses } from "@/helpers/getClasses.js";
 import { getSVGElement } from "@/helpers/getSVGElement.js";
 import { performChange } from "@/helpers/transformer.js";
 import type { PaneSubComponent } from "@/types.js";
-import { getClasses } from "@/helpers/getClasses.js";
 
 /**
  * The list of classes in the SVG element

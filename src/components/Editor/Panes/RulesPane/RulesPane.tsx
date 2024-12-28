@@ -4,8 +4,8 @@ import SVGClass from "./SVGRule/SVGRule.js";
 
 import { Pane } from "@/components/shared/Pane.js";
 import { getSVGElement } from "@/helpers/getSVGElement.js";
-import type { PaneComponent } from "@/types.js";
 import { getSVGRules } from "@/helpers/getSVGRules.js";
+import type { PaneComponent } from "@/types.js";
 
 /**
  * The pane for displaying CSS rules and declarations.

@@ -9,11 +9,11 @@ import PathList from "./PathList/PathList.js";
 import PrefixClasses from "./PrefixClasses/PrefixClasses.js";
 
 import { Pane } from "@/components/shared/Pane.js";
+import { getClasses } from "@/helpers/getClasses.js";
+import { getSVGChildren } from "@/helpers/getSVGChildren.js";
 import { getSVGElement } from "@/helpers/getSVGElement.js";
 import { performChange } from "@/helpers/transformer.js";
 import type { ChangeOperation, IPath, PaneComponent } from "@/types.js";
-import { getSVGChildren } from "@/helpers/getSVGChildren.js";
-import { getClasses } from "@/helpers/getClasses.js";
 
 /**
  * The pane displaying the list of elements in the SVG.

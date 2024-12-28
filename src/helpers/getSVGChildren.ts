@@ -11,7 +11,7 @@ function foldClassList(d: DOMTokenList): string | null {
 	const classes = Array.from(d.entries());
 	return classes.reduce(
 		(prev, currentValue) => prev + "." + currentValue[1],
-		""
+		"",
 	);
 }
 
@@ -29,7 +29,7 @@ export function getSVGChildren(parent: SVGElement | SVGSubElement): IPath[] {
 		return {
 			elem: child,
 			name,
-			children: getSVGChildren(child)
+			children: getSVGChildren(child),
 		};
 	};
 
