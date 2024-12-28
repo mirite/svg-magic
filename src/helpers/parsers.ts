@@ -17,8 +17,8 @@ export function findSVGRules(
 		const stylesheet = parseCSS(styleElem.innerHTML);
 
 		return (
-			stylesheet?.stylesheet?.rules.map((rule) => {
-				return { rule };
+			stylesheet?.stylesheet?.rules.map((rule, index) => {
+				return { rule, id: `${JSON.stringify(rule)}-${index}` };
 			}) || []
 		);
 	};
@@ -128,26 +128,4 @@ export function findSVGPoints(
 		findSVGPoints(child as SVGSubElement, localExistingRef);
 	}
 	return Array.from(localExistingRef);
-}
-
-/**
- * Finds the componenents on an SVG
- *
- * @param svgContainer The container of the SVG.
- * @returns The components of the SVG.
- */
-export function evaluateSVG(svgContainer: HTMLDivElement | null): {
-	paths: IPath[];
-	rules: ISVGRule[];
-	classes: string[];
-	points: IPoint[];
-} | null {
-	if (!svgContainer) return null;
-	const svgElem = svgContainer.firstChild as SVGElement;
-	if (!svgElem) return null;
-	const paths = findSVGChildren(svgElem);
-	const rules = findSVGRules(svgElem);
-	const points = findSVGPoints(svgElem);
-	const classes = findClasses(svgElem);
-	return { paths, rules, classes, points };
 }

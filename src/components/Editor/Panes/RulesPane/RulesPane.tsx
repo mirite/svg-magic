@@ -21,8 +21,8 @@ const RulesPane: PaneComponent = (props) => {
 			<ClassList stateTuple={props.stateTuple} />
 			<h2>Rules</h2>
 			<ul className={styles.ruleList}>
-				{rules.map((c, i) => (
-					<SVGClass key={i} {...c} />
+				{rules.map((c) => (
+					<SVGClass key={c.id} {...c} />
 				))}
 			</ul>
 		</Pane>

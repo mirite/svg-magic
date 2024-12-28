@@ -23,8 +23,8 @@ function Panes(props: IProps): ReactElement {
 				"grid grid-cols-2 inset-x-0 xl:grid-cols-4 h-[calc(100dvh_-_var(--content-top))] top-[--content-top] fixed overflow-hidden"
 			}
 		>
-			{panes.map((Pane) => (
-				<Pane key={Pane.displayName || ""} {...props} />
+			{panes.map((Pane, index) => (
+				<Pane key={Pane.displayName || index} {...props} />
 			))}
 		</div>
 	);

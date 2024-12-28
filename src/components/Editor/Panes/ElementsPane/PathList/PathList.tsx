@@ -21,7 +21,7 @@ function PathList(props: PathListProps): ReactElement {
 		<ul>
 			{children.map((path, i) => (
 				<Path
-					key={i}
+					key={`${path.name}-${i}`}
 					onChange={props.onChange}
 					selected={props.selected}
 					onCheck={props.onCheck}

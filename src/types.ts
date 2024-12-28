@@ -22,6 +22,7 @@ export type CSSContents = CSSTypes.Rule | CSSTypes.AtRule | CSSTypes.Comment;
 
 export interface ISVGRule {
 	rule: CSSContents;
+	id: string;
 }
 
 export type ChangeOperation = (e: SVGSVGElement) => void;
@@ -83,5 +84,5 @@ export type FileProps = {
 
 export type PaneComponent = ComponentType<FileProps>;
 
-// Just to prepare for future divergance between the two.
+// Just to prepare for future divergence between the two.
 export type PaneSubComponent = ComponentType<FileProps>;

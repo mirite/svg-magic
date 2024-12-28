@@ -50,6 +50,7 @@ function DeclarationList(props: IProps): ReactElement {
 			<ul>
 				{declarations.map((declaration) => (
 					<Declaration
+						key={declaration.property}
 						onDeclarationToggle={handleDeclarationToggle}
 						dec={declaration}
 						toggledOff={toggledOff}

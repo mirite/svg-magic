@@ -60,7 +60,7 @@ const PreviewPane: PaneComponent = (props) => {
 						"bg-[--background] rounded-xl border-2 border-slate-500 border-dashed"
 					}
 					dangerouslySetInnerHTML={{ __html: svgHTML }}
-				></div>
+				/>
 				{showOverlay && <Overlay stateTuple={props.stateTuple} />}
 			</div>
 			<h3>&lt;img&gt;</h3>

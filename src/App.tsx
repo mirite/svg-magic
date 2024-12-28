@@ -19,6 +19,7 @@ function App(): ReactElement {
 		goHome,
 	} = useEditor();
 	const currentFile = getCurrentFile();
+
 	return (
 		<div>
 			<Header openFiles={openFiles} currentFile={currentFile} goHome={goHome} />
