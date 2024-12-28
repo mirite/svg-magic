@@ -1,6 +1,8 @@
 import type { FormEvent, ReactElement } from "react";
 import { useState } from "react";
 
+import Button from "@/components/shared/Button.js";
+import Group from "@/components/shared/Group.js";
 import { Input } from "@/components/shared/Input.js";
 import { prefixClasses } from "@/helpers/transformers/index.js";
 import type { ChangeOperation, IPrefixClassOptions } from "@/types.js";
@@ -24,7 +26,7 @@ const PrefixClasses = (props: IProps): ReactElement => {
 	};
 
 	return (
-		<form className="group" onSubmit={(e) => handleSubmit(e)}>
+		<Group onSubmit={(e) => handleSubmit(e)}>
 			<h3>Prefix Classes:</h3>
 			<Input
 				type="text"
@@ -33,10 +35,10 @@ const PrefixClasses = (props: IProps): ReactElement => {
 				value={prefix}
 				onChange={(e) => setPrefix(e.currentTarget.value)}
 			/>
-			<button type="submit" disabled={prefix === ""}>
+			<Button type="submit" disabled={prefix === ""}>
 				Add Prefix
-			</button>
-		</form>
+			</Button>
+		</Group>
 	);
 };
 

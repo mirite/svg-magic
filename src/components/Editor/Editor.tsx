@@ -1,7 +1,7 @@
 import type { ReactElement } from "react";
 
-import Header from "./Header.js";
 import Panes from "./Panes/Panes.js";
+import Toolbar from "./Toolbar.js";
 
 import type { FileProps } from "@/types.js";
 
@@ -14,7 +14,7 @@ import type { FileProps } from "@/types.js";
 function Editor(props: FileProps): ReactElement {
 	return (
 		<div className={"h-dvh"}>
-			<Header stateTuple={props.stateTuple} />
+			<Toolbar stateTuple={props.stateTuple} />
 			<Panes stateTuple={props.stateTuple} />
 		</div>
 	);

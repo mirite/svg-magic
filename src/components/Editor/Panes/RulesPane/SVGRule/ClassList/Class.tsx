@@ -1,5 +1,6 @@
 import { type ReactElement, useEffect, useState } from "react";
 
+import Button from "@/components/shared/Button.js";
 import { Input } from "@/components/shared/Input.js";
 import { removeClass, renameClass } from "@/helpers/transformers/index.js";
 import type { ChangeOperation, IClassOptions } from "@/types.js";
@@ -61,22 +62,22 @@ function Class(props: IProps): ReactElement {
 			</span>
 			<div className="flex gap-2 items-center">
 				{renaming ? (
-					<button type="button" onClick={() => confirmRename()}>
+					<Button type="button" onClick={() => confirmRename()}>
 						Confirm
-					</button>
+					</Button>
 				) : (
-					<button type="button" onClick={() => setRenaming(true)}>
+					<Button type="button" onClick={() => setRenaming(true)}>
 						Rename
-					</button>
+					</Button>
 				)}
 				{renaming ? (
-					<button type="button" onClick={() => cancelRename()}>
+					<Button type="button" onClick={() => cancelRename()}>
 						Cancel
-					</button>
+					</Button>
 				) : (
-					<button type="button" onClick={() => deleteClass()}>
+					<Button type="button" onClick={() => deleteClass()}>
 						Delete
-					</button>
+					</Button>
 				)}
 			</div>
 		</li>

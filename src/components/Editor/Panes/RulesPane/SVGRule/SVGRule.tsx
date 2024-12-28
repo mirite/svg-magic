@@ -3,6 +3,7 @@ import type { ReactElement } from "react";
 import DeclarationList from "./DeclarationList/DeclarationList.js";
 import SelectorList from "./SelectorList/SelectorList.js";
 
+import Group from "@/components/shared/Group.js";
 import { assertIsRule } from "@/helpers/css.js";
 import type { ISVGRule } from "@/types.js";
 
@@ -19,12 +20,12 @@ function SVGRule(props: Props): ReactElement {
 	if (!assertIsRule(rule)) return <span>Provided Value Was Not a Rule</span>;
 	return (
 		<li>
-			<div className="group">
+			<Group>
 				<h3>Selectors:</h3>
 				<SelectorList selectors={rule.selectors || []} />
 				<h3>Declarations:</h3>
 				<DeclarationList rule={rule} />
-			</div>
+			</Group>
 		</li>
 	);
 }

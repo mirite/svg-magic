@@ -1,3 +1,4 @@
+import Button from "@/components/shared/Button.js";
 import { Pane } from "@/components/shared/Pane.js";
 import { performChange } from "@/helpers/performChange.js";
 import { minify } from "@/helpers/transformers/minify.js";
@@ -23,9 +24,9 @@ const EditorPane: PaneComponent = (props) => {
 		<Pane className={"flex flex-col"}>
 			<div className={"flex justify-between gap-2 items-center mb-2"}>
 				<h2>Raw</h2>
-				<button onClick={() => performChange(props, minify)} type="button">
+				<Button onClick={() => performChange(props, minify)} type="button">
 					Minify
-				</button>
+				</Button>
 			</div>
 			<textarea
 				value={svgHTML}

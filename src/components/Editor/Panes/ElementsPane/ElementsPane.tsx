@@ -8,6 +8,7 @@ import type { PathProps } from "./PathList/Path.js";
 import PathList from "./PathList/PathList.js";
 import PrefixClasses from "./PrefixClasses.js";
 
+import Group from "@/components/shared/Group.js";
 import { Pane } from "@/components/shared/Pane.js";
 import { getClasses } from "@/helpers/getClasses.js";
 import { getSVGChildren } from "@/helpers/getSVGChildren.js";
@@ -50,7 +51,7 @@ const ElementsPane: PaneComponent = (props) => {
 	return (
 		<Pane>
 			<h2>Elements</h2>
-			<div className="group">
+			<Group>
 				<h3>Tree:</h3>
 				<DndProvider backend={HTML5Backend}>
 					<PathList
@@ -60,7 +61,7 @@ const ElementsPane: PaneComponent = (props) => {
 						selected={selected}
 					/>
 				</DndProvider>
-			</div>
+			</Group>
 			<AssignClass
 				selected={selected}
 				onChange={(e: ChangeOperation) => handleChangeOption(e)}

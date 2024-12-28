@@ -1,7 +1,9 @@
 import type { FormEvent, ReactElement } from "react";
 import { useState } from "react";
 
+import Button from "@/components/shared/Button.js";
 import { Checkbox } from "@/components/shared/CheckBox.js";
+import Group from "@/components/shared/Group.js";
 import { Input } from "@/components/shared/Input.js";
 import { Select } from "@/components/shared/Select.js";
 import { assignClass } from "@/helpers/transformers/index.js";
@@ -35,7 +37,7 @@ function AssignClass(props: IProps): ReactElement {
 		setClassName("");
 	};
 	return (
-		<form className="group" onSubmit={(e) => handleSubmit(e)}>
+		<Group element={"form"} onSubmit={(e) => handleSubmit(e)}>
 			<h3>Assign Class:</h3>
 			<Checkbox
 				checked={useExisting}
@@ -65,13 +67,10 @@ function AssignClass(props: IProps): ReactElement {
 					onChange={(e) => setClassName(e.currentTarget.value)}
 				/>
 			)}
-			<button
-				disabled={selectedItems.length === 0 || className === ""}
-				type="button"
-			>
+			<Button disabled={selectedItems.length === 0 || className === ""}>
 				Assign
-			</button>
-		</form>
+			</Button>
+		</Group>
 	);
 }
 
