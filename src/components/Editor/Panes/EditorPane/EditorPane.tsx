@@ -1,5 +1,5 @@
 import { Pane } from "@/components/shared/Pane.js";
-import { performChange } from "@/helpers/transformer.js";
+import { performChange } from "@/helpers/performChange.js";
 import { minify } from "@/helpers/transformers/minify.js";
 import type { PaneComponent } from "@/types.js";
 

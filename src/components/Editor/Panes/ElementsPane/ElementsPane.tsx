@@ -12,7 +12,7 @@ import { Pane } from "@/components/shared/Pane.js";
 import { getClasses } from "@/helpers/getClasses.js";
 import { getSVGChildren } from "@/helpers/getSVGChildren.js";
 import { getSVGElement } from "@/helpers/getSVGElement.js";
-import { performChange } from "@/helpers/transformer.js";
+import { performChange } from "@/helpers/performChange.js";
 import type { ChangeOperation, IPath, PaneComponent } from "@/types.js";
 
 /**

@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { ReactElement } from "react";
 
 import { saveFile } from "@/helpers/fileSaving.js";
-import { performChange } from "@/helpers/transformer.js";
+import { performChange } from "@/helpers/performChange.js";
 import {
 	prefixClasses,
 	stripData,

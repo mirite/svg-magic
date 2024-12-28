@@ -2,7 +2,7 @@ import Class from "./Class.js";
 
 import { getClasses } from "@/helpers/getClasses.js";
 import { getSVGElement } from "@/helpers/getSVGElement.js";
-import { performChange } from "@/helpers/transformer.js";
+import { performChange } from "@/helpers/performChange.js";
 import type { PaneSubComponent } from "@/types.js";
 
 /**

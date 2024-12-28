@@ -3,7 +3,7 @@ import { useState } from "react";
 import { getSVGElement } from "@/helpers/getSVGElement.js";
 import { getSVGPoints } from "@/helpers/getSVGPoints.js";
 import { drawOverlay, onMouseDown } from "@/helpers/overlay.js";
-import { performChange } from "@/helpers/transformer.js";
+import { performChange } from "@/helpers/performChange.js";
 import type { PaneSubComponent } from "@/types.js";
 
 /**
