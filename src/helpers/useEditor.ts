@@ -121,7 +121,7 @@ function goHome(
 ) {
 	setEditorState((previous) => {
 		const newState = { ...previous };
-		previous.currentFile = null;
+		newState.currentFile = null;
 		return newState;
 	});
 }
