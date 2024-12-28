@@ -1,4 +1,3 @@
-import styles from "./RulesPane.module.css";
 import ClassList from "./SVGRule/ClassList/ClassList.js";
 import SVGClass from "./SVGRule/SVGRule.js";
 
@@ -20,7 +19,7 @@ const RulesPane: PaneComponent = (props) => {
 		<Pane>
 			<ClassList stateTuple={props.stateTuple} />
 			<h2>Rules</h2>
-			<ul className={styles.ruleList}>
+			<ul className={"m-0 p-0"}>
 				{rules.map((c) => (
 					<SVGClass key={JSON.stringify(c)} {...c} />
 				))}

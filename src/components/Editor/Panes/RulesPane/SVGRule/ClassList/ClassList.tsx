@@ -1,4 +1,4 @@
-import Class from "./Class/Class.js";
+import Class from "./Class.js";
 
 import { getClasses } from "@/helpers/getClasses.js";
 import { getSVGElement } from "@/helpers/getSVGElement.js";

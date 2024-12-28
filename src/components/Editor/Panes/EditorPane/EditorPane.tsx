@@ -1,5 +1,3 @@
-import styles from "./EditorPane.module.css";
-
 import { Pane } from "@/components/shared/Pane.js";
 import { performChange } from "@/helpers/transformer.js";
 import { minify } from "@/helpers/transformers/minify.js";
@@ -22,7 +20,7 @@ const EditorPane: PaneComponent = (props) => {
 		});
 	};
 	return (
-		<Pane className={styles.editorPane}>
+		<Pane className={"flex flex-col"}>
 			<div className={"flex justify-between gap-2 items-center mb-2"}>
 				<h2>Raw</h2>
 				<button onClick={() => performChange(props, minify)} type="button">
@@ -31,10 +29,10 @@ const EditorPane: PaneComponent = (props) => {
 			</div>
 			<textarea
 				value={svgHTML}
-				className={styles.editor}
+				className={"grow overflow-auto"}
 				onChange={(e) => onManualEdit(e.currentTarget.value)}
 				rows={svgHTML.split("\n").length}
-			></textarea>
+			/>
 		</Pane>
 	);
 };

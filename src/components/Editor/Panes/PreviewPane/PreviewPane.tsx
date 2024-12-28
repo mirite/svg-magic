@@ -1,7 +1,7 @@
 import type { CSSProperties } from "react";
 import { useEffect, useState } from "react";
 
-import Overlay from "./Overlay/Overlay.js";
+import Overlay from "./Overlay.js";
 
 import { Checkbox } from "@/components/shared/CheckBox.js";
 import { Input } from "@/components/shared/Input.js";
