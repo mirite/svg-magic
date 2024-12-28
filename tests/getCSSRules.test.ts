@@ -34,4 +34,12 @@ describe("getCSSRules", () => {
 		const svg = div.querySelector("svg")!;
 		expect(getCSSRules(svg).length).toEqual(1);
 	});
+
+	it("Should work with empty stylesheets", () => {
+		const content = `<svg><style></style></svg>`;
+		const div = document.createElement("div");
+		div.innerHTML = content;
+		const svg = div.querySelector("svg")!;
+		expect(getCSSRules(svg).length).toEqual(0);
+	});
 });

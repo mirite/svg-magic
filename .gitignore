@@ -28,3 +28,4 @@ dist-ssr
 !.yarn/versions
 .pnp.*
 .eslintcache
+coverage
