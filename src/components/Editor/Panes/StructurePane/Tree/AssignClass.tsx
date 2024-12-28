@@ -1,18 +1,15 @@
-import type { FormEvent, ReactElement } from "react";
+import type { FormEvent } from "react";
 import { useState } from "react";
 
 import Button from "@/components/shared/Button.js";
 import { Checkbox } from "@/components/shared/CheckBox.js";
 import { Input } from "@/components/shared/Input.js";
 import { Select } from "@/components/shared/Select.js";
+import { getClasses } from "@/helpers/getClasses.js";
+import { getSVGElement } from "@/helpers/getSVGElement.js";
+import { performChange } from "@/helpers/performChange.js";
 import { assignClass } from "@/helpers/transformers/index.js";
-import type { ChangeOperation, IAssignClassOptions, IPath } from "@/types.js";
-
-interface IProps {
-	selected: IPath[];
-	onChange: (options: ChangeOperation) => void;
-	classes: string[];
-}
+import type { DependentPaneComponent, IPath } from "@/types.js";
 
 /**
  * Controls for assigning a new or existing class to the selected classes.
@@ -20,18 +17,21 @@ interface IProps {
  * @param props The component props.
  * @returns The component.
  */
-function AssignClass(props: IProps): ReactElement {
-	const { selected: selectedItems, classes, onChange } = props;
+const AssignClass: DependentPaneComponent<{ selected: IPath[] }> = (props) => {
+	const svgRoot = getSVGElement(props);
+	const classes = getClasses(svgRoot);
+	const { selected: selectedItems } = props;
 	const [useExisting, setUseExisting] = useState(true);
 	const [className, setClassName] = useState("");
-	const options: IAssignClassOptions = {
-		className,
-		selectedItems,
-	};
 
 	const handleSubmit = (e: FormEvent) => {
 		e.preventDefault();
-		onChange((elem) => assignClass(elem, options));
+		performChange(props, (elem) =>
+			assignClass(elem, {
+				className,
+				selectedItems,
+			}),
+		);
 		setUseExisting(true);
 		setClassName("");
 	};
@@ -71,6 +71,6 @@ function AssignClass(props: IProps): ReactElement {
 			</Button>
 		</form>
 	);
-}
+};
 
 export default AssignClass;

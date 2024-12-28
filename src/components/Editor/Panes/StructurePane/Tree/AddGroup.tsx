@@ -1,15 +1,10 @@
-import type { ReactElement } from "react";
 import React, { useState } from "react";
 
 import Button from "@/components/shared/Button.js";
 import { Input } from "@/components/shared/Input.js";
+import { performChange } from "@/helpers/performChange.js";
 import { addGroup } from "@/helpers/transformers/index.js";
-import type { ChangeOperation, IPath } from "@/types.js";
-
-interface IProps {
-	onChange: (changeOptions: ChangeOperation) => void;
-	selected?: IPath[];
-}
+import type { DependentPaneComponent, IPath } from "@/types.js";
 
 /**
  * Add a group to the SVG
@@ -17,8 +12,8 @@ interface IProps {
  * @param props The component props.
  * @returns The rendered component.
  */
-function AddGroup(props: IProps): ReactElement {
-	const { selected, onChange } = props;
+const AddGroup: DependentPaneComponent<{ selected?: IPath[] }> = (props) => {
+	const { selected } = props;
 	const [className, setClassName] = useState("");
 
 	/**
@@ -28,7 +23,7 @@ function AddGroup(props: IProps): ReactElement {
 	 */
 	function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
-		onChange((elem) =>
+		performChange(props, (elem) =>
 			addGroup(elem, {
 				className,
 				selectedItems: selected,
@@ -48,6 +43,6 @@ function AddGroup(props: IProps): ReactElement {
 			<Button type="submit">Add</Button>
 		</form>
 	);
-}
+};
 
 export default AddGroup;

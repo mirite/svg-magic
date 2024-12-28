@@ -80,3 +80,12 @@ export type PaneComponent = ComponentType<FileProps>;
 
 // Just to prepare for future divergence between the two.
 export type PaneSubComponent = ComponentType<FileProps>;
+/**
+ * A pane sub-component that requires additional props from a parent pane or
+ * sub-pane.
+ *
+ * @template T The additional props required.
+ */
+export type DependentPaneComponent<T extends object> = ComponentType<
+	FileProps & T
+>;

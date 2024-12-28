@@ -8,7 +8,6 @@ import type { PathProps } from "./PathList/Path.js";
 import PathList from "./PathList/PathList.js";
 
 import Group from "@/components/shared/Group.js";
-import { getClasses } from "@/helpers/getClasses.js";
 import { getSVGChildren } from "@/helpers/getSVGChildren.js";
 import { getSVGElement } from "@/helpers/getSVGElement.js";
 import { performChange } from "@/helpers/performChange.js";
@@ -24,7 +23,7 @@ export const Tree: PaneSubComponent = (props) => {
 	const [selected, setSelected] = useState<IPath[]>([]);
 	const svgRoot = getSVGElement(props);
 	const children = getSVGChildren(svgRoot);
-	const classes = getClasses(svgRoot);
+
 	const rootNode: IPath = { name: "root", elem: svgRoot, children };
 
 	/**
@@ -56,16 +55,9 @@ export const Tree: PaneSubComponent = (props) => {
 				/>
 			</DndProvider>
 			{selected.length > 0 && (
-				<AssignClass
-					selected={selected}
-					onChange={(e: ChangeOperation) => handleChangeOption(e)}
-					classes={classes}
-				/>
+				<AssignClass selected={selected} stateTuple={props.stateTuple} />
 			)}
-			<AddGroup
-				onChange={(e: ChangeOperation) => handleChangeOption(e)}
-				selected={selected}
-			/>
+			<AddGroup stateTuple={props.stateTuple} selected={selected} />
 		</Group>
 	);
 };
