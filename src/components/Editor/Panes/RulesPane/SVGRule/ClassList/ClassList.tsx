@@ -1,9 +1,9 @@
 import Class from "./Class/Class.js";
 
 import { getSVGElement } from "@/helpers/getSVGElement.js";
-import { findClasses } from "@/helpers/parsers.js";
 import { performChange } from "@/helpers/transformer.js";
 import type { PaneSubComponent } from "@/types.js";
+import { getClasses } from "@/helpers/getClasses.js";
 
 /**
  * The list of classes in the SVG element
@@ -13,7 +13,7 @@ import type { PaneSubComponent } from "@/types.js";
  */
 const ClassList: PaneSubComponent = (props) => {
 	const svg = getSVGElement(props);
-	const classes = findClasses(svg);
+	const classes = getClasses(svg);
 	return (
 		<div>
 			<h2>Classes</h2>

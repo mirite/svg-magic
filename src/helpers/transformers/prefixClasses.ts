@@ -1,8 +1,7 @@
-import { findClasses } from "../parsers.js";
-
 import { renameClass } from "./renameClass.js";
 
 import type { IPrefixClassOptions } from "@/types.js";
+import { getClasses } from "@/helpers/getClasses.js";
 
 /**
  * Create a random prefix for the class
@@ -24,7 +23,7 @@ export function prefixClasses(
 	svgElem: SVGSVGElement,
 	options?: IPrefixClassOptions,
 ): void {
-	const classes = findClasses(svgElem);
+	const classes = getClasses(svgElem);
 	const prefix = options?.prefix ?? createPrefix();
 	for (const existingClassName of classes) {
 		const newClassName = prefix + "-" + existingClassName;

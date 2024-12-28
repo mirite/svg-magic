@@ -4,8 +4,8 @@ import SVGClass from "./SVGRule/SVGRule.js";
 
 import { Pane } from "@/components/shared/Pane.js";
 import { getSVGElement } from "@/helpers/getSVGElement.js";
-import { findSVGRules } from "@/helpers/parsers.js";
 import type { PaneComponent } from "@/types.js";
+import { getSVGRules } from "@/helpers/getSVGRules.js";
 
 /**
  * The pane for displaying CSS rules and declarations.
@@ -15,7 +15,7 @@ import type { PaneComponent } from "@/types.js";
  */
 const RulesPane: PaneComponent = (props) => {
 	const svg = getSVGElement(props);
-	const rules = findSVGRules(svg);
+	const rules = getSVGRules(svg);
 	return (
 		<Pane>
 			<ClassList stateTuple={props.stateTuple} />

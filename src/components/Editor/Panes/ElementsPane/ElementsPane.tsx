@@ -10,9 +10,10 @@ import PrefixClasses from "./PrefixClasses/PrefixClasses.js";
 
 import { Pane } from "@/components/shared/Pane.js";
 import { getSVGElement } from "@/helpers/getSVGElement.js";
-import { findClasses, findSVGChildren } from "@/helpers/parsers.js";
 import { performChange } from "@/helpers/transformer.js";
 import type { ChangeOperation, IPath, PaneComponent } from "@/types.js";
+import { getSVGChildren } from "@/helpers/getSVGChildren.js";
+import { getClasses } from "@/helpers/getClasses.js";
 
 /**
  * The pane displaying the list of elements in the SVG.
@@ -23,8 +24,8 @@ import type { ChangeOperation, IPath, PaneComponent } from "@/types.js";
 const ElementsPane: PaneComponent = (props) => {
 	const [selected, setSelected] = useState<IPath[]>([]);
 	const svgRoot = getSVGElement(props);
-	const children = findSVGChildren(svgRoot);
-	const classes = findClasses(svgRoot);
+	const children = getSVGChildren(svgRoot);
+	const classes = getClasses(svgRoot);
 	const rootNode: IPath = { name: "root", elem: svgRoot, children };
 
 	/**
