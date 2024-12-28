@@ -15,13 +15,13 @@
 }
 
 @property --nav-height {
-	syntax: '<length>';
+	syntax: "<length>";
 	initial-value: 48px;
 	inherits: false;
 }
 
 @property --header-height {
-	syntax: '<length>';
+	syntax: "<length>";
 	initial-value: 48px;
 	inherits: false;
 }
