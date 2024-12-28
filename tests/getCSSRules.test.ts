@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+
 import { getCSSRules } from "@/helpers/getCSSRules.js";
 
 describe("getCSSRules", () => {

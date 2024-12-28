@@ -3,8 +3,8 @@ import ClassList from "./SVGRule/ClassList/ClassList.js";
 import SVGClass from "./SVGRule/SVGRule.js";
 
 import { Pane } from "@/components/shared/Pane.js";
-import { getSVGElement } from "@/helpers/getSVGElement.js";
 import { getCSSRules } from "@/helpers/getCSSRules.js";
+import { getSVGElement } from "@/helpers/getSVGElement.js";
 import type { PaneComponent } from "@/types.js";
 
 /**
