@@ -1,9 +1,9 @@
 import type { ReactElement } from "react";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import { Input } from "@/components/shared/Input.js";
 import { addGroup } from "@/helpers/transformers/index.js";
-import type { ChangeOperation, IGroupOptions, IPath } from "@/types.js";
+import type { ChangeOperation, IPath } from "@/types.js";
 
 interface IProps {
 	onChange: (changeOptions: ChangeOperation) => void;
@@ -17,19 +17,8 @@ interface IProps {
  * @returns The rendered component.
  */
 function AddGroup(props: IProps): ReactElement {
-	const createOptions = (): IGroupOptions => {
-		return {
-			className,
-			selectedItems: selected,
-		};
-	};
-
 	const { selected, onChange } = props;
 	const [className, setClassName] = useState("");
-	const [options, setOptions] = useState<IGroupOptions>(createOptions());
-
-	//TODO The dependencies here are off and likely doesn't need to be a useEffect in the first place.
-	useEffect(() => setOptions(createOptions()), [props.selected, className]);
 
 	/**
 	 * Handle the form submission
@@ -38,7 +27,12 @@ function AddGroup(props: IProps): ReactElement {
 	 */
 	function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
 		e.preventDefault();
-		onChange((elem) => addGroup(elem, options));
+		onChange((elem) =>
+			addGroup(elem, {
+				className,
+				selectedItems: selected,
+			}),
+		);
 		setClassName("");
 	}
 
