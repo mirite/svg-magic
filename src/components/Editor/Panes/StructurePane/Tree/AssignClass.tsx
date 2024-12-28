@@ -20,7 +20,7 @@ import type { DependentPaneComponent, IPath } from "@/types.js";
 const AssignClass: DependentPaneComponent<{ selected: IPath[] }> = (props) => {
 	const svgRoot = getSVGElement(props);
 	const classes = getClasses(svgRoot);
-	const { selected: selectedItems } = props;
+	const { selected: selectedItems } = props.additional;
 	const [useExisting, setUseExisting] = useState(true);
 	const [className, setClassName] = useState("");
 

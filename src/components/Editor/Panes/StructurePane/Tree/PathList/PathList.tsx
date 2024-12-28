@@ -1,12 +1,7 @@
-import type { ReactElement } from "react";
+import Path from "./Path.js";
 
-import Path, { type PathProps } from "./Path.js";
-
-import type { IPath } from "@/types.js";
-
-export type PathListProps = {
-	node: IPath;
-} & Pick<PathProps, "onChange" | "onCheck" | "selected">;
+import type { UseNodesResult } from "@/helpers/useNodes.js";
+import type { DependentPaneComponent } from "@/types.js";
 
 /**
  * A list of the elements in the SVG
@@ -14,22 +9,20 @@ export type PathListProps = {
  * @param props The component props.
  * @returns The component.
  */
-function PathList(props: PathListProps): ReactElement {
-	const { children } = props.node;
+const PathList: DependentPaneComponent<UseNodesResult> = (props) => {
+	const { children } = props.additional.node;
 
 	return (
 		<ul>
 			{children.map((path, i) => (
 				<Path
 					key={`${path.name}-${i}`}
-					onChange={props.onChange}
-					selected={props.selected}
-					onCheck={props.onCheck}
-					{...path}
+					{...props}
+					additional={{ ...props.additional, ...path }}
 				/>
 			))}
 		</ul>
 	);
-}
+};
 
 export default PathList;

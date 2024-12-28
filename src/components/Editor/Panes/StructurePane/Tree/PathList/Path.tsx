@@ -1,23 +1,18 @@
-import type { ChangeEvent, ReactElement } from "react";
 import React from "react";
 import { useDrag, useDrop } from "react-dnd";
 
 import PathList from "./PathList.js";
 
 import { Checkbox } from "@/components/shared/CheckBox.js";
+import { performChange } from "@/helpers/performChange.js";
 import { moveElement } from "@/helpers/transformers/index.js";
+import type { UseNodesResult } from "@/helpers/useNodes.js";
 import type {
-	ChangeOperation,
+	DependentPaneComponent,
 	IMoveOptions,
 	IPath,
 	SVGSubElement,
 } from "@/types.js";
-
-export type PathProps = IPath & {
-	onChange: (options: ChangeOperation) => void;
-	onCheck: (e: ChangeEvent<HTMLInputElement>, p: IPath) => void;
-	selected: IPath[];
-};
 
 /**
  * Displays a path in the elements list.
@@ -25,12 +20,15 @@ export type PathProps = IPath & {
  * @param props The data about the path.
  * @returns The component.
  */
-function Path(props: PathProps): ReactElement {
-	const { elem, name, children, selected } = props;
+const Path: DependentPaneComponent<UseNodesResult & { node: IPath }> = (
+	props,
+) => {
+	const { updateSelected, node, selected } = props.additional;
+	const { elem, name, children } = node;
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		elem.classList.toggle("active", e.currentTarget.checked);
-		props.onCheck(e, { elem, name, children });
+		updateSelected({ elem, name, children });
 	};
 
 	const [{ opacity }, drag] = useDrag(
@@ -57,10 +55,10 @@ function Path(props: PathProps): ReactElement {
 					element: elementBeingDropped,
 					target: currentElement,
 				};
-				props.onChange(() => moveElement(elem, options));
+				performChange(props, () => moveElement(elem, options));
 			},
 		}),
-		[props.elem],
+		[elem],
 	);
 
 	return (
@@ -79,15 +77,10 @@ function Path(props: PathProps): ReactElement {
 				),
 			)}
 			{children.length > 0 && (
-				<PathList
-					node={props}
-					onChange={(e) => props.onChange(e)}
-					onCheck={(e, p: IPath) => props.onCheck(e, p)}
-					selected={props.selected}
-				/>
+				<PathList {...props} additional={{ ...props.additional, node }} />
 			)}
 		</li>
 	);
-}
+};
 
 export default Path;

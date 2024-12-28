@@ -87,5 +87,5 @@ export type PaneSubComponent = ComponentType<FileProps>;
  * @template T The additional props required.
  */
 export type DependentPaneComponent<T extends object> = ComponentType<
-	FileProps & T
+	FileProps & { additional: T }
 >;

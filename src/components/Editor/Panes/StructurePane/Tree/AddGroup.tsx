@@ -13,7 +13,7 @@ import type { DependentPaneComponent, IPath } from "@/types.js";
  * @returns The rendered component.
  */
 const AddGroup: DependentPaneComponent<{ selected?: IPath[] }> = (props) => {
-	const { selected } = props;
+	const { selected } = props.additional;
 	const [className, setClassName] = useState("");
 
 	/**
