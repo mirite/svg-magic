@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { createSVG } from "./helpers.js";
+import { createSVG } from "../helpers.js";
 
 import { getCSSRules } from "@/helpers/getCSSRules.js";
 
