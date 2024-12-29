@@ -5,9 +5,8 @@ on:
     branches: ["main"]
 
 jobs:
-  deployment:
+  check-lint-format-and-test:
     runs-on: ubuntu-latest
-    environment: Production
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -22,8 +21,18 @@ jobs:
       - name: Test project
         run:
           yarn test
-          # Commit and Push Changes
+      - name: Check for Changes
+        id: check_changes
+        run: |
+            if [[ -n "$(git diff --exit-code)" ]]; then
+              echo "Changes detected."
+              echo "::set-output name=has_changes::true"
+            else
+              echo "No changes detected."
+              echo "::set-output name=has_changes::false"
+            fi
       - name: Commit and Push Changes
+        if: steps.check_changes.outputs.has_changes == 'true'
         run: |
           # configure user
           git config --global user.name "${{ github.actor }}"
@@ -33,7 +42,7 @@ jobs:
           git add .
 
           # make commit with staged changes
-          git commit -m 'chore: lint, format, type-check and test project'
+          git commit -m 'chore:check,  lint, format, and test project'
 
           # push the commit back up to source GitHub repository
           git push
