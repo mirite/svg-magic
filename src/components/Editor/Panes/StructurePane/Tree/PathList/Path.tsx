@@ -65,7 +65,7 @@ const Path: DependentPaneComponent<UseNodesResult & { node: IPath }> = (
 		<li style={{ opacity }}>
 			{drop(
 				drag(
-					<div>
+					<div data-testid={`node-${node.id}`}>
 						<Checkbox
 							label={name}
 							onChange={(e) => handleChange(e)}

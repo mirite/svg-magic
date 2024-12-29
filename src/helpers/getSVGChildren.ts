@@ -1,3 +1,4 @@
+import { generateID } from "@/helpers/generateID.js";
 import type { IPath, SVGSubElement } from "@/types.js";
 
 /**
@@ -19,22 +20,23 @@ function foldClassList(d: DOMTokenList): string | null {
  * Find the children of an SVG element
  *
  * @param parent The parent element
- * @param level
+ * @param parentID The ID of the parent element
  * @returns The children of the parent element.
  */
 export function getSVGChildren(
 	parent: SVGElement | SVGSubElement,
-	level = 0,
+	parentID = 0,
 ): IPath[] {
 	const processChild = (child: SVGSubElement, index: number): IPath => {
 		const name = `${child.nodeName}${child.id ? "#" + child.id : ""}${
 			foldClassList(child.classList) ?? ""
 		}`;
+		const id = generateID(index, parentID);
 		return {
 			elem: child,
 			name,
-			children: getSVGChildren(child, level + 1),
-			id: index + Math.pow(10, level) * 100,
+			children: getSVGChildren(child, id),
+			id,
 		};
 	};
 

@@ -14,9 +14,9 @@ const PathList: DependentPaneComponent<UseNodesResult> = (props) => {
 
 	return (
 		<ul data-testid={"path-list"}>
-			{children.map((path, i) => (
+			{children.map((path) => (
 				<Path
-					key={`${path.name}-${i}`}
+					key={`${path.id}`}
 					{...props}
 					additional={{ ...props.additional, node: path }}
 				/>
