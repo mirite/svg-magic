@@ -1,10 +1,8 @@
-import { faX } from "@fortawesome/free-solid-svg-icons";
 import type { ComponentType } from "react";
-import { twMerge } from "tailwind-merge";
 
 import type { UseEditorResult } from "./helpers/useEditor.js";
 
-import IconButton from "@/components/shared/IconButton.js";
+import { FileTab } from "@/FileTab.js";
 
 export const Header: ComponentType<{
 	openFiles: UseEditorResult["openFiles"];
@@ -21,29 +19,11 @@ export const Header: ComponentType<{
 				SVG Magic
 			</button>
 			<menu className="grow flex gap-2 items-center justify-end">
-				{props.openFiles.map((open) => (
-					<li
-						key={open.file.file.title}
-						data-testid={`open-file-${open.file.file.title}`}
-						className={twMerge(
-							"flex gap-2 items-center border-black border-2 border-b-0 px-2 py-1 rounded-t-xl",
-							props.currentFile === open.file && "bg-blue-200",
-							props.currentFile !== open.file &&
-								"cursor-pointer hover:bg-gray-200",
-						)}
-					>
-						<button
-							type="button"
-							disabled={props.currentFile === open.file}
-							onClick={open.switchTo}
-						>
-							{open.file.file.title}
-						</button>
-						<IconButton
-							className="text-[0.66rem] p-1"
-							title={"Close"}
-							onClick={open.close}
-							icon={faX}
+				{props.openFiles.map((open, index) => (
+					<li key={`${open.file.file.title}-${index}`}>
+						<FileTab
+							openFile={open}
+							isCurrent={props.currentFile === open.file}
 						/>
 					</li>
 				))}

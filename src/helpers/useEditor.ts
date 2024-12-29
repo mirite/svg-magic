@@ -37,7 +37,16 @@ function getOpenFiles(
 	for (let i = 0; i < editorState.files.length; i++) {
 		const file = editorState.files[i];
 		const close = () => {
-			// TODO: Implement this.
+			const newState = { ...editorState };
+			newState.files.splice(i, 1);
+			if (newState.currentFile) {
+				if (newState.currentFile === i) {
+					newState.currentFile = null;
+				} else if (newState.currentFile > i) {
+					newState.currentFile--;
+				}
+			}
+			setEditorState(newState);
 		};
 		const switchTo = () => {
 			const newState = { ...editorState };
