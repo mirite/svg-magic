@@ -1,6 +1,10 @@
 import { stripAttribute } from "./stripAttribute.js";
 
-/** @param svgElem */
-export function stripIDs(svgElem: Element) {
+/**
+ * Removes the ID attributes from elements in the SVG
+ *
+ * @param svgElem The SVG Element
+ */
+export function stripIDs(svgElem: Element): void {
 	stripAttribute(svgElem, "id");
 }

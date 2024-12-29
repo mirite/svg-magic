@@ -1,16 +1,8 @@
-import type { ReactElement } from "react";
-
-import styles from "./EditorPane.module.css";
-
+import Button from "@/components/shared/Button.js";
 import { Pane } from "@/components/shared/Pane.js";
+import { performChange } from "@/helpers/performChange.js";
 import { minify } from "@/helpers/transformers/minify.js";
-import type { ChangeOperation } from "@/types.js";
-
-interface IProps {
-	svgHTML: string;
-	onManualEdit: (newValue: string) => void;
-	onChange: (e: ChangeOperation) => void;
-}
+import type { PaneComponent } from "@/types.js";
 
 /**
  * The source editor pane
@@ -18,24 +10,31 @@ interface IProps {
  * @param props The source pane props.
  * @returns The component.
  */
-function EditorPane(props: IProps): ReactElement {
-	const { svgHTML, onManualEdit, onChange } = props;
+const EditorPane: PaneComponent = (props) => {
+	const { file } = props.stateTuple[0];
+	const svgHTML = file.contents;
+	const onManualEdit = (newContent: string) => {
+		props.stateTuple[1]((previousState) => {
+			const newState = { ...previousState };
+			newState.file.contents = newContent;
+			return newState;
+		});
+	};
 	return (
-		<Pane className={styles.editorPane}>
+		<Pane className={"flex flex-col"} title={"Raw"}>
 			<div className={"flex justify-between gap-2 items-center mb-2"}>
-				<h2>Raw</h2>
-				<button onClick={() => onChange(minify)} type="button">
+				<Button onClick={() => performChange(props, minify)} type="button">
 					Minify
-				</button>
+				</Button>
 			</div>
 			<textarea
 				value={svgHTML}
-				className={styles.editor}
+				className={"grow overflow-auto"}
 				onChange={(e) => onManualEdit(e.currentTarget.value)}
 				rows={svgHTML.split("\n").length}
-			></textarea>
+			/>
 		</Pane>
 	);
-}
+};
 
 export default EditorPane;

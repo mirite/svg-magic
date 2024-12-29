@@ -11,7 +11,19 @@
 
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: subpixel-antialiased;
-	--header-height: 95px;
+	--content-top: calc(var(--nav-height) + var(--header-height));
+}
+
+@property --nav-height {
+	syntax: "<length>";
+	initial-value: 48px;
+	inherits: false;
+}
+
+@property --header-height {
+	syntax: "<length>";
+	initial-value: 48px;
+	inherits: false;
 }
 
 body,
@@ -61,42 +73,10 @@ a {
 	@apply text-blue-700 underline hover:text-blue-900;
 }
 
-button {
-	@apply rounded-full border-gray-800 px-4 border-2 py-2 font-semibold bg-gray-800 text-white hover:bg-transparent hover:text-gray-800 transition-all;
-}
-
-ul {
-	list-style: none;
-	text-align: left;
-}
-
 svg {
 	max-width: 100%;
 	max-height: 100%;
 }
 svg .active {
 	stroke: red;
-}
-
-.spacer {
-	flex: 1;
-}
-
-.group {
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
-	gap: 1rem;
-	border: 2px solid black;
-	border-radius: 1rem;
-	padding: 1rem;
-	margin-bottom: 1rem;
-}
-
-.destructive {
-	background-color: red;
-}
-
-.positive {
-	background-color: green;
 }

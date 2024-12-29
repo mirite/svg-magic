@@ -1,6 +1,10 @@
 import { traverseTree } from "@/helpers/dom.js";
 
-/** @param svgElem */
+/**
+ * Removes the data attributes from HTML elements
+ *
+ * @param svgElem The SVG element.
+ */
 export function stripData(svgElem: SVGSVGElement): void {
 	const func = (elem: Element) => {
 		for (const [key] of Object.entries((elem as HTMLElement)?.dataset)) {

@@ -1,6 +1,7 @@
 import type { ChangeEvent, FormEvent, ReactElement } from "react";
 import React, { useState } from "react";
 
+import Button from "@/components/shared/Button.js";
 import type { IFile } from "@/types.js";
 
 type Props = {
@@ -48,7 +49,6 @@ function FileSelector(props: Props): ReactElement {
 
 	return (
 		<div className={"flex text-center flex-col gap-4 min-h-dvh justify-center"}>
-			<h1>SVG Magic</h1>
 			<p>Select an SVG file to get started.</p>
 			<form onSubmit={(e: React.FormEvent) => handleSubmit(e)}>
 				<label htmlFor="file-selector">File: </label>
@@ -60,7 +60,7 @@ function FileSelector(props: Props): ReactElement {
 					required
 					className={"cursor-pointer"}
 				/>
-				<button type={"submit"}>Load</button>
+				<Button type={"submit"}>Load</Button>
 			</form>
 			<a
 				href="https://github.com/mirite/svg-magic"

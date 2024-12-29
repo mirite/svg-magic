@@ -1,7 +1,9 @@
 import { removeCSSClass, setShadowCSS } from "@/helpers/css.js";
 import { traverseTree } from "@/helpers/dom.js";
-import type { IClassOptions } from "@/types.js";
 
+export type RemoveClassOptions = {
+	existingClassName: string;
+};
 /**
  * Removes a class from the svg.
  *
@@ -10,7 +12,7 @@ import type { IClassOptions } from "@/types.js";
  */
 export function removeClass(
 	svgElem: SVGSVGElement,
-	change: IClassOptions,
+	change: RemoveClassOptions,
 ): void {
 	const func = (elem: Element) => {
 		elem.classList.remove(change.existingClassName);

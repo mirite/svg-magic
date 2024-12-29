@@ -1,4 +1,3 @@
-# Stage 2: Serve the deploy tool using Nginx
 FROM alpine AS server
 
 RUN apk add brotli nginx nginx-mod-http-brotli
