@@ -29,7 +29,7 @@ const AssignClass: DependentPaneComponent<{ selected: IPath[] }> = (props) => {
 		performChange(props, (elem) =>
 			assignClass(elem, {
 				className,
-				selectedItems,
+				selectedItems: selectedItems.map((node) => node.id),
 			}),
 		);
 		setUseExisting(true);

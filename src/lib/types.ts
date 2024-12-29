@@ -37,11 +37,6 @@ export interface IMoveOptions {
 	target: SVGSubElement;
 }
 
-export interface IAssignClassOptions {
-	className: string;
-	selectedItems: IPath[];
-}
-
 export interface IPrefixClassOptions {
 	prefix?: string;
 }
