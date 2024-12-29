@@ -16,6 +16,7 @@ export interface IPath {
 	name: string;
 	elem: SVGSubElement;
 	children: IPath[];
+	id: number;
 }
 
 export type CSSContents = CSSTypes.Rule | CSSTypes.AtRule | CSSTypes.Comment;

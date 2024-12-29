@@ -19,7 +19,7 @@ export function Input(props: Props): ReactElement {
 	return (
 		<InputWrapper>
 			<label htmlFor={id}>{label}</label>
-			<input id={id} {...rest} />
+			<input id={id} type={"text"} {...rest} />
 		</InputWrapper>
 	);
 }

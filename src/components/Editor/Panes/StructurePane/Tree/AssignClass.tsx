@@ -36,7 +36,11 @@ const AssignClass: DependentPaneComponent<{ selected: IPath[] }> = (props) => {
 		setClassName("");
 	};
 	return (
-		<form className={"space-y-2"} onSubmit={(e) => handleSubmit(e)}>
+		<form
+			className={"space-y-2"}
+			data-testid={"assign-class"}
+			onSubmit={(e) => handleSubmit(e)}
+		>
 			<h4>Assign Class:</h4>
 			<Checkbox
 				checked={useExisting}

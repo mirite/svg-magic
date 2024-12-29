@@ -19,17 +19,22 @@ function foldClassList(d: DOMTokenList): string | null {
  * Find the children of an SVG element
  *
  * @param parent The parent element
+ * @param level
  * @returns The children of the parent element.
  */
-export function getSVGChildren(parent: SVGElement | SVGSubElement): IPath[] {
-	const processChild = (child: SVGSubElement): IPath => {
+export function getSVGChildren(
+	parent: SVGElement | SVGSubElement,
+	level = 0,
+): IPath[] {
+	const processChild = (child: SVGSubElement, index: number): IPath => {
 		const name = `${child.nodeName}${child.id ? "#" + child.id : ""}${
 			foldClassList(child.classList) ?? ""
 		}`;
 		return {
 			elem: child,
 			name,
-			children: getSVGChildren(child),
+			children: getSVGChildren(child, level + 1),
+			id: index + Math.pow(10, level) * 100,
 		};
 	};
 

@@ -22,7 +22,7 @@ export function useNodes(props: FileProps): UseNodesResult {
 	const svgRoot = getSVGElement(props);
 	const children = getSVGChildren(svgRoot);
 
-	const root: IPath = { name: "root", elem: svgRoot, children };
+	const root: IPath = { name: "root", elem: svgRoot, children, id: 0 };
 
 	/**
 	 * Update which elements are selected
@@ -31,8 +31,12 @@ export function useNodes(props: FileProps): UseNodesResult {
 	 */
 	const updateSelected: UseNodesResult["updateSelected"] = (clickedPath) => {
 		const newState = [...selected];
-		console.log({ clickedPath });
-		// TODO: Need a way to uniquely identify each node now that they aren't references to the original objects.
+		const existingIndex = newState.findIndex((p) => p.id === clickedPath.id);
+		if (existingIndex > -1) {
+			newState.splice(existingIndex, 1);
+		} else {
+			newState.push(clickedPath);
+		}
 		setSelected(newState);
 	};
 	return { selected, updateSelected, node: root };

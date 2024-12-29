@@ -28,7 +28,7 @@ const Path: DependentPaneComponent<UseNodesResult & { node: IPath }> = (
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		elem.classList.toggle("active", e.currentTarget.checked);
-		updateSelected({ elem, name, children });
+		updateSelected(node);
 	};
 
 	const [{ opacity }, drag] = useDrag(
@@ -69,9 +69,7 @@ const Path: DependentPaneComponent<UseNodesResult & { node: IPath }> = (
 						<Checkbox
 							label={name}
 							onChange={(e) => handleChange(e)}
-							checked={
-								!!selected.find((s) => s.elem.outerHTML === elem.outerHTML)
-							}
+							checked={!!selected.find((s) => s.id === node.id)}
 						/>
 					</div>,
 				),

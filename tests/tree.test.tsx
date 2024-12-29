@@ -1,4 +1,4 @@
-import { render, cleanup, act } from "@testing-library/react";
+import { render, cleanup, act, fireEvent } from "@testing-library/react";
 import { describe, it, expect, beforeEach } from "vitest";
 
 import { Tester } from "./TestEditor.js";
@@ -50,5 +50,57 @@ describe("<Tree>", () => {
 			checkbox?.click();
 		});
 		expect(checkbox?.checked).toBeTruthy();
+
+		await act(async () => {
+			checkbox?.click();
+		});
+		expect(checkbox?.checked).toBeFalsy();
+	});
+
+	it("Should allow for classes to be assigned", async () => {
+		const { getByTestId, getAllByTestId, queryByTestId } = render(
+			<Tester
+				testSVG={`<svg><g><line></line></g><line></line></svg>`}
+				Component={Tree}
+			/>,
+		);
+		expect(getByTestId("tester")).toBeTruthy();
+		const pathlists = getAllByTestId("path-list");
+		const line = pathlists[0].children[0];
+		const input = line.querySelector("input");
+		expect(queryByTestId("assign-class")).toBeFalsy();
+		await act(async () => {
+			input?.click();
+		});
+		const assignClassForm = queryByTestId("assign-class");
+		expect(assignClassForm).toBeTruthy();
+		const useExisting = assignClassForm?.querySelector(
+			"input[type=checkbox]",
+		) as HTMLInputElement;
+		expect(useExisting).toBeTruthy();
+		expect(useExisting.checked).toBeTruthy();
+		await act(async () => {
+			useExisting?.click();
+		});
+		expect(useExisting.checked).toBeFalsy();
+		const textInput = assignClassForm?.querySelector(
+			"input[type=text]",
+		) as HTMLInputElement;
+		expect(textInput).toBeTruthy();
+		await act(async () => {
+			fireEvent.input(textInput, {
+				target: {
+					value: "test",
+				},
+			});
+		});
+		expect(textInput.value).toEqual("test");
+		await act(async () => {
+			fireEvent.submit(assignClassForm as HTMLFormElement);
+		});
+		const pathlists2 = getAllByTestId("path-list");
+		const line2 = pathlists2[0].children[0];
+		expect(line2).toBeTruthy();
+		expect(line2.textContent).toContain("test");
 	});
 });
