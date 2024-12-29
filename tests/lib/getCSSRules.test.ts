@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import { createSVG } from "../helpers.js";
 
-import { getCSSRules } from "@/helpers/getCSSRules.js";
+import { getCSSRules } from "@/lib/getCSSRules.js";
 
 describe("getCSSRules", () => {
 	it("should find the stylesheet", () => {

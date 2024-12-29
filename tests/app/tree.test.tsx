@@ -3,7 +3,7 @@ import { describe, it, expect, beforeEach } from "vitest";
 
 import { Tester } from "./TestEditor.js";
 
-import { Tree } from "@/components/Editor/Panes/StructurePane/Tree/Tree.js";
+import { Tree } from "@/app/Editor/Panes/StructurePane/Tree/Tree.js";
 
 describe("<Tree>", () => {
 	beforeEach(() => {
