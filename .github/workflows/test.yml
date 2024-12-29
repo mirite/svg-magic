@@ -1,0 +1,38 @@
+name: Check, Lint, Format, Type-check and Test
+
+on:
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  deployment:
+    runs-on: ubuntu-latest
+    environment: Production
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Install dependencies
+        run: corepack enable && yarn install
+      - name: Type check project
+        run: yarn check
+      - name: Lint project
+        run: yarn lint
+      - name: Format project
+        run: yarn format
+      - name: Test project
+        run: yarn test
+          # Commit and Push Changes
+      -   name: Commit and Push Changes
+          run: |
+              # configure user
+              git config --global user.name "${{ github.actor }}"
+              git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+              
+              # stage any file changes to be committed
+              git add .
+              
+              # make commit with staged changes
+              git commit -m 'chore: lint, format, type-check and test project'
+              
+              # push the commit back up to source GitHub repository
+              git push
