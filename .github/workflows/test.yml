@@ -19,18 +19,17 @@ jobs:
       - name: Format project
         run: yarn format
       - name: Test project
-        run:
-          yarn test
+        run: yarn test
       - name: Check for Changes
         id: check_changes
         run: |
-            if [[ -n "$(git diff --exit-code)" ]]; then
-              echo "Changes detected."
-              echo "::set-output name=has_changes::true"
-            else
-              echo "No changes detected."
-              echo "::set-output name=has_changes::false"
-            fi
+          if [[ -n "$(git diff --exit-code)" ]]; then
+            echo "Changes detected."
+            echo "::set-output name=has_changes::true"
+          else
+            echo "No changes detected."
+            echo "::set-output name=has_changes::false"
+          fi
       - name: Commit and Push Changes
         if: steps.check_changes.outputs.has_changes == 'true'
         run: |
