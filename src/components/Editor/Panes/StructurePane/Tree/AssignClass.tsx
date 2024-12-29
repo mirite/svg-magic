@@ -70,7 +70,10 @@ const AssignClass: DependentPaneComponent<{ selected: IPath[] }> = (props) => {
 					onChange={(e) => setClassName(e.currentTarget.value)}
 				/>
 			)}
-			<Button disabled={selectedItems.length === 0 || className === ""}>
+			<Button
+				type={"submit"}
+				disabled={selectedItems.length === 0 || className === ""}
+			>
 				Assign
 			</Button>
 		</form>
