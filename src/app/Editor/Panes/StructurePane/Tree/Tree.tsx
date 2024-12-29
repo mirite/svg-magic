@@ -7,8 +7,8 @@ import AssignClass from "./AssignClass.js";
 import PathList from "./PathList/PathList.js";
 
 import Group from "@/app/shared/Group.js";
-import { useNodes } from "@/lib/useNodes.js";
 import type { PaneSubComponent } from "@/lib/types.js";
+import { useNodes } from "@/lib/useNodes.js";
 
 /**
  * The DOM tree of the SVG element

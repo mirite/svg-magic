@@ -4,13 +4,13 @@ import { useDrag, useDrop } from "react-dnd";
 import { Checkbox } from "@/app/shared/CheckBox.js";
 import { performChange } from "@/lib/performChange.js";
 import { moveElement } from "@/lib/transformers/index.js";
-import type { UseNodesResult } from "@/lib/useNodes.js";
 import type {
 	DependentPaneComponent,
 	IMoveOptions,
 	IPath,
 	SVGSubElement,
 } from "@/lib/types.js";
+import type { UseNodesResult } from "@/lib/useNodes.js";
 
 import PathList from "./PathList.js";
 
