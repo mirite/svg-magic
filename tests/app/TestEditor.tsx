@@ -1,8 +1,8 @@
 import type { ReactElement } from "react";
 import { useEffect } from "react";
 
-import { useEditor } from "@/helpers/useEditor.js";
-import type { PaneComponent, PaneSubComponent } from "@/types.js";
+import type { PaneComponent, PaneSubComponent } from "@/lib/types.js";
+import { useEditor } from "@/lib/useEditor.js";
 
 /**
  * A test component for panes and sub-panes.

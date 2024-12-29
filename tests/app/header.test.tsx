@@ -1,7 +1,7 @@
 import { act, fireEvent, render } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 
-import { Header } from "@/Header.js";
+import { Header } from "@/app/Header.js";
 
 describe("<Header />", () => {
 	it("should render the header", async () => {
