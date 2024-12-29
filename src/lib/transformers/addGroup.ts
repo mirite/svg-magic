@@ -1,5 +1,5 @@
-import type { IGroupOptions } from "../types.js";
 import { findShadowEquivalent } from "../dom.js";
+import type { IGroupOptions } from "../types.js";
 
 /**
  * @param shadowContainer
