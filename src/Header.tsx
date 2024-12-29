@@ -24,6 +24,7 @@ export const Header: ComponentType<{
 				{props.openFiles.map((open) => (
 					<li
 						key={open.file.file.title}
+						data-testid={`open-file-${open.file.file.title}`}
 						className={twMerge(
 							"flex gap-2 items-center border-black border-2 border-b-0 px-2 py-1 rounded-t-xl",
 							props.currentFile === open.file && "bg-blue-200",
@@ -31,7 +32,11 @@ export const Header: ComponentType<{
 								"cursor-pointer hover:bg-gray-200",
 						)}
 					>
-						<button type="button" onClick={open.switchTo}>
+						<button
+							type="button"
+							disabled={props.currentFile === open.file}
+							onClick={open.switchTo}
+						>
 							{open.file.file.title}
 						</button>
 						<IconButton
