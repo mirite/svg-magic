@@ -73,35 +73,81 @@ describe("<Tree>", () => {
 		await act(async () => {
 			input?.click();
 		});
-		const assignClassForm = queryByTestId("assign-class");
-		expect(assignClassForm).toBeTruthy();
-		const useExisting = assignClassForm?.querySelector(
-			"input[type=checkbox]",
-		) as HTMLInputElement;
-		expect(useExisting).toBeTruthy();
-		expect(useExisting.checked).toBeTruthy();
+		const assignClassForm = await assignNewClass(queryByTestId);
 		await act(async () => {
-			useExisting?.click();
-		});
-		expect(useExisting.checked).toBeFalsy();
-		const textInput = assignClassForm?.querySelector(
-			"input[type=text]",
-		) as HTMLInputElement;
-		expect(textInput).toBeTruthy();
-		await act(async () => {
-			fireEvent.input(textInput, {
-				target: {
-					value: "test",
-				},
-			});
-		});
-		expect(textInput.value).toEqual("test");
-		await act(async () => {
-			fireEvent.submit(assignClassForm as HTMLFormElement);
+			fireEvent.submit(assignClassForm);
 		});
 		const pathlists2 = getAllByTestId("path-list");
 		const line2 = pathlists2[0].children[0];
 		expect(line2).toBeTruthy();
 		expect(line2.textContent).toContain("test");
 	});
+
+	it("Should allow for classes to be assigned to parents and children", async () => {
+		const { getByTestId, queryByTestId } = render(
+			<Tester testSVG={`<svg><g><line></line></g></svg>`} Component={Tree} />,
+		);
+		expect(getByTestId("tester")).toBeTruthy();
+		const group = getByTestId("node-1");
+		expect(group).toBeTruthy();
+		const line = getByTestId("node-1001");
+		expect(line).toBeTruthy();
+		const lineCheckbox = line.querySelector("input");
+		await act(async () => {
+			lineCheckbox?.click();
+		});
+		const groupCheckbox = group.querySelector("input");
+		await act(async () => {
+			groupCheckbox?.click();
+		});
+		const assignClassForm = await assignNewClass(queryByTestId);
+		const submitButton = assignClassForm?.querySelector("button");
+		await act(async () => {
+			fireEvent.click(submitButton as HTMLButtonElement);
+		});
+		const line2 = getByTestId("node-1001");
+		expect(line2).toBeTruthy();
+		expect(line2.textContent).toContain("test");
+		const group2 = getByTestId("node-1");
+		expect(group2).toBeTruthy();
+		expect(group2.textContent).toContain("test");
+	});
 });
+
+/**
+ * Assign a new class to the selected elements.
+ *
+ * @param queryByTestId The queryByTestId function.
+ * @param className The class name to assign.
+ * @returns The form element to allow for different submission methods and
+ *   testing.
+ */
+async function assignNewClass(
+	queryByTestId: (testId: string) => HTMLElement | null,
+	className = "test",
+): Promise<HTMLFormElement> {
+	const assignClassForm = queryByTestId("assign-class");
+	expect(assignClassForm).toBeTruthy();
+	const useExisting = assignClassForm?.querySelector(
+		"input[type=checkbox]",
+	) as HTMLInputElement;
+	expect(useExisting).toBeTruthy();
+
+	await act(async () => {
+		useExisting?.click();
+	});
+	expect(useExisting.checked).toBeFalsy();
+	const textInput = assignClassForm?.querySelector(
+		"input[type=text]",
+	) as HTMLInputElement;
+	expect(textInput).toBeTruthy();
+	await act(async () => {
+		fireEvent.input(textInput, {
+			target: {
+				value: className,
+			},
+		});
+	});
+	expect(textInput.value).toEqual(className);
+	return assignClassForm as HTMLFormElement;
+}
