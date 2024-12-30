@@ -1,16 +1,19 @@
 import type { Rule } from "css";
 import CSSParser from "css";
-import React, { type ReactElement, useRef, useState } from "react";
+import React, { type ReactElement, useState } from "react";
 
 import Selector from "./Selector.js";
-
-import { setTagContent } from "@/lib/dom.js";
 
 interface IProps {
 	selectors: string[];
 }
 
-/** @param props */
+/**
+ * A list of the selectors pertaining to the SVG
+ *
+ * @param props The selectors in question
+ * @returns The component
+ */
 function SelectorList(props: IProps): ReactElement {
 	const handleSelectorToggle = (
 		e: React.ChangeEvent<HTMLInputElement>,
@@ -18,12 +21,17 @@ function SelectorList(props: IProps): ReactElement {
 	) => {
 		if (!e.currentTarget.checked) {
 			setCurrent("");
-			setTagContent(ref, "");
 			return;
 		}
+		setCurrent(s);
+	};
+
+	const [current, setCurrent] = useState<string>("");
+	let content = "";
+	if (current) {
 		const newRule: Rule = {
 			type: "rule",
-			selectors: [s],
+			selectors: [current],
 			declarations: [
 				{
 					type: "declaration",
@@ -36,12 +44,8 @@ function SelectorList(props: IProps): ReactElement {
 			stylesheet: { rules: [newRule] },
 			type: "stylesheet",
 		};
-		setTagContent(ref, CSSParser.stringify(styleSheet));
-		setCurrent(s);
-	};
-
-	const [current, setCurrent] = useState<string>("");
-	const ref = useRef(null);
+		content = CSSParser.stringify(styleSheet);
+	}
 	return (
 		<div>
 			<ul>
@@ -54,7 +58,7 @@ function SelectorList(props: IProps): ReactElement {
 					/>
 				))}
 			</ul>
-			<style ref={ref} />
+			<style dangerouslySetInnerHTML={{ __html: content }}></style>
 		</div>
 	);
 }
