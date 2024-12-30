@@ -1,5 +1,5 @@
+import { traverseTree } from "@/lib/dom.js";
 import { getSVGChildren } from "@/lib/getSVGChildren.js";
-import type { IPath } from "@/lib/types.js";
 
 export interface IGroupOptions {
 	className?: string;
@@ -21,21 +21,11 @@ export function addGroup(
 	newGroup.className = className || "";
 	if (selectedItems) {
 		const rootNode = getSVGChildren(shadowContainer);
-
-		/**
-		 * Processes a level of the tree.
-		 *
-		 * @param nodes The nodes to process.
-		 */
-		const processLevel = (nodes: IPath[]) => {
-			for (const node of nodes) {
-				if (selectedItems.includes(node.id)) {
-					newGroup.append(node.elem);
-				}
-				processLevel(node.children);
+		traverseTree(rootNode, (elem) => {
+			if (selectedItems.includes(elem.id)) {
+				newGroup.append(elem.elem);
 			}
-		};
-		processLevel(rootNode);
+		});
 	}
 	shadowContainer.append(newGroup);
 }
