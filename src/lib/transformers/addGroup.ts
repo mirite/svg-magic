@@ -2,8 +2,10 @@ import { findShadowEquivalent } from "../dom.js";
 import type { IGroupOptions } from "../types.js";
 
 /**
- * @param shadowContainer
- * @param change
+ * Adds a <g> to the SVG
+ *
+ * @param shadowContainer The SVG to add the group to.
+ * @param change The options for adding a group.
  */
 export function addGroup(
 	shadowContainer: SVGElement,

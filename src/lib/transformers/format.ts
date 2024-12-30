@@ -2,7 +2,11 @@ import { traverseTreeInsideOut } from "../dom.js";
 
 import { minify } from "./minify.js";
 
-/** @param svgElem */
+/**
+ * Formats the SVG
+ *
+ * @param svgElem A reference to the SVG to format
+ */
 export function format(svgElem: SVGSVGElement): void {
 	minify(svgElem);
 	const func = (elem: Element) => {
