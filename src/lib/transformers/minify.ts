@@ -1,7 +1,11 @@
 import { traverseTreeInsideOut } from "../dom.js";
 
-/** @param svgElem */
-export function minify(svgElem: SVGSVGElement) {
+/**
+ * Minifies the SVG content
+ *
+ * @param svgElem A reference to the SVG to minify
+ */
+export function minify(svgElem: SVGSVGElement): void {
 	const func = (elem: Element) => {
 		if (elem.nodeName === "style") return;
 		const html = elem.innerHTML;
