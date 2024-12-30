@@ -15,7 +15,8 @@ type FileSelectorState = {
 /**
  * Allows for the selection of an SVG file.
  *
- * @param props
+ * @param props The callback for file selection.
+ * @returns The component.
  */
 function FileSelector(props: Props): ReactElement {
 	const [state, setState] = useState<FileSelectorState>();
