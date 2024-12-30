@@ -1,5 +1,10 @@
-import { findShadowEquivalent } from "../dom.js";
-import type { IGroupOptions } from "../types.js";
+import { getSVGChildren } from "@/lib/getSVGChildren.js";
+import type { IPath } from "@/lib/types.js";
+
+export interface IGroupOptions {
+	className?: string;
+	selectedItems?: number[];
+}
 
 /**
  * Adds a <g> to the SVG
@@ -15,12 +20,22 @@ export function addGroup(
 	const newGroup = document.createElement("g");
 	newGroup.className = className || "";
 	if (selectedItems) {
-		for (const path of selectedItems) {
-			const elementEquiv = findShadowEquivalent(path.elem, shadowContainer);
-			if (elementEquiv) {
-				newGroup.append(elementEquiv);
+		const rootNode = getSVGChildren(shadowContainer);
+
+		/**
+		 * Processes a level of the tree.
+		 *
+		 * @param nodes The nodes to process.
+		 */
+		const processLevel = (nodes: IPath[]) => {
+			for (const node of nodes) {
+				if (selectedItems.includes(node.id)) {
+					newGroup.append(node.elem);
+				}
+				processLevel(node.children);
 			}
-		}
+		};
+		processLevel(rootNode);
 	}
 	shadowContainer.append(newGroup);
 }

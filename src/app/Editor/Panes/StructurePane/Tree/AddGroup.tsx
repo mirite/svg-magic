@@ -26,7 +26,7 @@ const AddGroup: DependentPaneComponent<{ selected?: IPath[] }> = (props) => {
 		performChange(props, (elem) =>
 			addGroup(elem, {
 				className,
-				selectedItems: selected,
+				selectedItems: selected?.map((node) => node.id),
 			}),
 		);
 		setClassName("");

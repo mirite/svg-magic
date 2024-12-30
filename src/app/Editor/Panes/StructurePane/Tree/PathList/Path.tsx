@@ -5,10 +5,10 @@ import PathList from "./PathList.js";
 
 import { Checkbox } from "@/app/shared/CheckBox.js";
 import { performChange } from "@/lib/performChange.js";
+import type { IMoveOptions } from "@/lib/transformers/index.js";
 import { moveElement } from "@/lib/transformers/index.js";
 import type {
 	DependentPaneComponent,
-	IMoveOptions,
 	IPath,
 	SVGSubElement,
 } from "@/lib/types.js";

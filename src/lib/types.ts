@@ -27,26 +27,6 @@ export interface ISVGRule {
 
 export type ChangeOperation = (e: SVGSVGElement) => void;
 
-export interface IGroupOptions {
-	className?: string;
-	selectedItems?: IPath[];
-}
-
-export interface IMoveOptions {
-	element: SVGSubElement;
-	target: SVGSubElement;
-}
-
-export interface IPrefixClassOptions {
-	prefix?: string;
-}
-
-export interface IMovePointOptions {
-	element: SVGSubElement;
-	pointToMove: { x: number; y: number };
-	newLocation: { x: number; y: number };
-}
-
 export interface IPoint {
 	x: number;
 	y: number;
