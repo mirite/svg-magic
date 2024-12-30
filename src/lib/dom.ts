@@ -1,4 +1,4 @@
-import type { SVGSubElement } from "@/lib/types.js";
+import type { IPath, SVGSubElement } from "@/lib/types.js";
 
 /**
  * Determine if two elements are equivalent
@@ -48,16 +48,20 @@ export function findShadowEquivalent(
 /**
  * Recursively traverse the tree and apply a function to each element
  *
+ * @template T The type of the element
  * @param elem The element to start traversing from
  * @param func The function to apply to each element
  */
-export function traverseTree(
-	elem: Element,
-	func: (e: Element) => unknown,
+export function traverseTree<T extends Element | IPath>(
+	elem: T | T[],
+	func: (e: T) => unknown,
 ): void {
-	func(elem);
-	for (const child of elem.children) {
-		traverseTree(child, func);
+	const iterable = Array.isArray(elem) ? elem : [elem];
+	for (const item of iterable) {
+		func(item);
+		for (const child of item.children) {
+			traverseTree(child as T, func);
+		}
 	}
 }
 
@@ -65,17 +69,21 @@ export function traverseTree(
  * Recursively traverse the tree and apply a function to each element, starting
  * from the inside out.
  *
+ * @template T The type of the element.
  * @param elem The root element.
  * @param func The function to apply to each element.
  */
-export function traverseTreeInsideOut(
-	elem: Element,
-	func: (e: Element) => unknown,
+export function traverseTreeInsideOut<T extends Element | IPath>(
+	elem: T | T[],
+	func: (e: T) => unknown,
 ): void {
-	for (const child of elem.children) {
-		traverseTreeInsideOut(child, func);
+	const iterable = Array.isArray(elem) ? elem : [elem];
+	for (const item of iterable) {
+		for (const child of item.children) {
+			traverseTreeInsideOut(child as T, func);
+		}
+		func(item);
 	}
-	func(elem);
 }
 
 /**

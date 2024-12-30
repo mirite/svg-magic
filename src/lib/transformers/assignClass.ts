@@ -1,5 +1,5 @@
+import { traverseTree } from "@/lib/dom.js";
 import { getSVGChildren } from "@/lib/getSVGChildren.js";
-import type { IPath } from "@/lib/types.js";
 
 export interface IAssignClassOptions {
 	/** The new class name. */
@@ -19,23 +19,13 @@ export function assignClass(
 	change: IAssignClassOptions,
 ): void {
 	const rootNode = getSVGChildren(svgElem);
-
-	/**
-	 * Processes a level of the tree.
-	 *
-	 * @param nodes The nodes to process.
-	 */
-	function processLevel(nodes: IPath[]) {
-		for (const node of nodes) {
-			if (change.selectedItems.includes(node.id)) {
-				if (node.elem.classList.length) {
-					node.elem.classList.add(change.className);
-				} else {
-					node.elem.setAttribute("class", change.className);
-				}
-				processLevel(node.children);
+	traverseTree(rootNode, ({ elem, id }) => {
+		if (change.selectedItems.includes(id)) {
+			if (elem.classList.length) {
+				elem.classList.add(change.className);
+			} else {
+				elem.setAttribute("class", change.className);
 			}
 		}
-	}
-	processLevel(rootNode);
+	});
 }
