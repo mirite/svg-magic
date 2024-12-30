@@ -1,8 +1,13 @@
 /**
- * @param workingSVG
- * @param fileName
+ * Save the SVG content to a file.
+ *
+ * @param workingSVG The SVG content to save.
+ * @param fileName The name of the file to save.
  */
-export function saveFile(workingSVG: string, fileName: string = "magic.svg") {
+export function saveFile(
+	workingSVG: string,
+	fileName: string = "magic.svg",
+): void {
 	const element = document.createElement("a");
 	element.setAttribute(
 		"href",
