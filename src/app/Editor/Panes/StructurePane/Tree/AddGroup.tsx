@@ -33,7 +33,11 @@ const AddGroup: DependentPaneComponent<{ selected?: IPath[] }> = (props) => {
 	}
 
 	return (
-		<form className={"space-y-2"} onSubmit={(e) => handleSubmit(e)}>
+		<form
+			data-testid={"add-group"}
+			className={"space-y-2"}
+			onSubmit={(e) => handleSubmit(e)}
+		>
 			<h4>Add Group:</h4>
 			<Input
 				label={"Class:"}
