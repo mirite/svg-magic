@@ -18,17 +18,15 @@ import { useNodes } from "@/lib/useNodes.js";
  */
 export const Tree: PaneSubComponent = (props) => {
 	const useNodesResult = useNodes(props);
-	const { selected } = useNodesResult;
+
 	return (
 		<Group>
 			<h3>Tree:</h3>
 			<DndProvider backend={HTML5Backend}>
 				<PathList {...props} additional={useNodesResult} />
 			</DndProvider>
-			{selected.length > 0 && (
-				<AssignClass {...props} additional={{ selected }} />
-			)}
-			<AddGroup {...props} additional={{ selected }} />
+			{props.stateTuple[0].selected.length > 0 && <AssignClass {...props} />}
+			<AddGroup {...props} />
 		</Group>
 	);
 };

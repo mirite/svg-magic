@@ -9,7 +9,7 @@ import { getClasses } from "@/lib/getClasses.js";
 import { getSVGElement } from "@/lib/getSVGElement.js";
 import { performChange } from "@/lib/performChange.js";
 import { assignClass } from "@/lib/transformers/index.js";
-import type { DependentPaneComponent, IPath } from "@/lib/types.js";
+import type { PaneSubComponent } from "@/lib/types.js";
 
 /**
  * Controls for assigning a new or existing class to the selected classes.
@@ -17,10 +17,11 @@ import type { DependentPaneComponent, IPath } from "@/lib/types.js";
  * @param props The component props.
  * @returns The component.
  */
-const AssignClass: DependentPaneComponent<{ selected: IPath[] }> = (props) => {
+const AssignClass: PaneSubComponent = (props) => {
 	const svgRoot = getSVGElement(props);
+	const selectedItems = props.stateTuple[0].selected;
 	const classes = getClasses(svgRoot);
-	const { selected: selectedItems } = props.additional;
+
 	const [useExisting, setUseExisting] = useState(true);
 	const [className, setClassName] = useState("");
 
@@ -29,7 +30,7 @@ const AssignClass: DependentPaneComponent<{ selected: IPath[] }> = (props) => {
 		performChange(props, (elem) =>
 			assignClass(elem, {
 				className,
-				selectedItems: selectedItems.map((node) => node.id),
+				selectedItems,
 			}),
 		);
 		setUseExisting(true);
