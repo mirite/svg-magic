@@ -1,23 +1,28 @@
-import type React from "react";
+import type { RefObject } from "react";
 
 import type { SVGSubElement } from "@/lib/types.js";
 
 /**
- * @param ref
- * @param content
+ * Set the content of an element.
+ *
+ * @param ref The reference to the element
+ * @param content The content to set
  */
 export function setTagContent(
-	ref: React.MutableRefObject<HTMLElement | null>,
+	ref: RefObject<HTMLElement | null>,
 	content: string,
-) {
+): void {
 	if (ref?.current) {
 		ref.current.innerHTML = content;
 	}
 }
 
 /**
- * @param a
- * @param b
+ * Determine if two elements are equivalent
+ *
+ * @param a The first element
+ * @param b The second element
+ * @returns True if the elements are equivalent
  */
 export function isEquivalentElement(
 	a: HTMLElement | SVGElement,
@@ -32,8 +37,11 @@ export function isEquivalentElement(
 }
 
 /**
- * @param realElementToFind
- * @param shadowElement
+ * Find the shadow equivalent of a real element
+ *
+ * @param realElementToFind The real element to find
+ * @param shadowElement The shadow element to search in
+ * @returns The shadow equivalent or null if not found
  */
 export function findShadowEquivalent(
 	realElementToFind: SVGSubElement,
@@ -55,10 +63,15 @@ export function findShadowEquivalent(
 }
 
 /**
- * @param elem
- * @param func
+ * Recursively traverse the tree and apply a function to each element
+ *
+ * @param elem The element to start traversing from
+ * @param func The function to apply to each element
  */
-export function traverseTree(elem: Element, func: (e: Element) => unknown) {
+export function traverseTree(
+	elem: Element,
+	func: (e: Element) => unknown,
+): void {
 	func(elem);
 	for (const child of elem.children) {
 		traverseTree(child, func);
@@ -66,20 +79,27 @@ export function traverseTree(elem: Element, func: (e: Element) => unknown) {
 }
 
 /**
- * @param elem
- * @param func
+ * Recursively traverse the tree and apply a function to each element, starting
+ * from the inside out.
+ *
+ * @param elem The root element.
+ * @param func The function to apply to each element.
  */
 export function traverseTreeInsideOut(
 	elem: Element,
 	func: (e: Element) => unknown,
-) {
+): void {
 	for (const child of elem.children) {
 		traverseTreeInsideOut(child, func);
 	}
 	func(elem);
 }
 
-/** @param elem */
+/**
+ * Remove the active class from an element
+ *
+ * @param elem The element to remove the active class from
+ */
 function removeActiveClass(elem: Element) {
 	elem.classList.remove("active");
 	if (!elem.classList.length) {
