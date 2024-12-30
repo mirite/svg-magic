@@ -1,17 +1,22 @@
-import { type ReactElement, useEffect, useRef, useState } from "react";
+import { type ReactElement, useState } from "react";
 
 import Declaration from "./Declaration.js";
 
 import { stylesheetToString } from "@/lib/css.js";
-import { setTagContent } from "@/lib/dom.js";
 import type { CSSTypes } from "@/lib/types.js";
 
 interface IProps {
 	rule: CSSTypes.Rule;
 }
 
-/** @param props */
+/**
+ * A list of the CSS declarations affecting the SVG
+ *
+ * @param props The rule the declaration resides in.
+ * @returns The component.
+ */
 function DeclarationList(props: IProps): ReactElement {
+	const [toggledOff, setToggledOff] = useState<CSSTypes.Declaration[]>([]);
 	const handleDeclarationToggle = (
 		previouslyOn: boolean,
 		dec: CSSTypes.Declaration,
@@ -23,28 +28,21 @@ function DeclarationList(props: IProps): ReactElement {
 		setToggledOff(newDeclarations);
 	};
 
-	const buildStylesheet = () => {
-		setTagContent(ref, "");
-
-		const newRule = { ...props.rule };
-		newRule.declarations = [];
-		toggledOff.forEach((d) => {
-			const newDeclaration = { ...d };
-			newDeclaration.value = "unset !important";
-			newRule.declarations?.push(newDeclaration);
-		});
-		const styleSheet: CSSTypes.Stylesheet = {
-			stylesheet: { rules: [newRule] },
-			type: "stylesheet",
-		};
-		setTagContent(ref, stylesheetToString(styleSheet));
+	const newRule = { ...props.rule };
+	newRule.declarations = [];
+	toggledOff.forEach((d) => {
+		const newDeclaration = { ...d };
+		newDeclaration.value = "unset !important";
+		newRule.declarations?.push(newDeclaration);
+	});
+	const styleSheet: CSSTypes.Stylesheet = {
+		stylesheet: { rules: [newRule] },
+		type: "stylesheet",
 	};
+	const tagContent = stylesheetToString(styleSheet);
 
-	const [toggledOff, setToggledOff] = useState<CSSTypes.Declaration[]>([]);
-	const ref = useRef(null);
 	const declarations =
 		(props.rule?.declarations as CSSTypes.Declaration[]) || [];
-	useEffect(buildStylesheet, [toggledOff]);
 	return (
 		<div>
 			<ul>
@@ -57,7 +55,7 @@ function DeclarationList(props: IProps): ReactElement {
 					/>
 				))}
 			</ul>
-			<style ref={ref}></style>
+			<style dangerouslySetInnerHTML={{ __html: tagContent }} />
 		</div>
 	);
 }
