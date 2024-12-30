@@ -7,11 +7,7 @@ import { Checkbox } from "@/app/shared/CheckBox.js";
 import { performChange } from "@/lib/performChange.js";
 import type { IMoveOptions } from "@/lib/transformers/index.js";
 import { moveElement } from "@/lib/transformers/index.js";
-import type {
-	DependentPaneComponent,
-	IPath,
-	SVGSubElement,
-} from "@/lib/types.js";
+import type { DependentPaneComponent, IPath } from "@/lib/types.js";
 import type { UseNodesResult } from "@/lib/useNodes.js";
 
 /**
@@ -24,17 +20,16 @@ const Path: DependentPaneComponent<UseNodesResult & { node: IPath }> = (
 	props,
 ) => {
 	const { updateSelected, node, selected } = props.additional;
-	const { elem, name, children } = node;
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		elem.classList.toggle("active", e.currentTarget.checked);
+		node.elem.classList.toggle("active", e.currentTarget.checked);
 		updateSelected(node);
 	};
 
-	const [{ opacity }, drag] = useDrag(
+	const [, drag] = useDrag<IPath>(
 		() => ({
 			type: "element",
-			item: { elem },
+			item: node,
 			collect: (monitor) => ({
 				opacity: monitor.isDragging() ? 0.5 : 1,
 			}),
@@ -42,39 +37,38 @@ const Path: DependentPaneComponent<UseNodesResult & { node: IPath }> = (
 		[],
 	);
 
-	const [, drop] = useDrop(
+	const [, drop] = useDrop<IPath>(
 		() => ({
 			accept: "element",
-			drop(_item: { elem: SVGSubElement }) {
-				const { elem: elementBeingDropped } = _item;
-				const currentElement = elem;
+			drop(item) {
+				const { id: elementBeingDropped } = item;
 
-				if (elementBeingDropped === currentElement) return;
+				if (elementBeingDropped === node.id) return;
 
 				const options: IMoveOptions = {
 					element: elementBeingDropped,
-					target: currentElement,
+					target: node.id,
 				};
-				performChange(props, () => moveElement(elem, options));
+				performChange(props, (elem) => moveElement(elem, options));
 			},
 		}),
-		[elem],
+		[],
 	);
 
 	return (
-		<li style={{ opacity }}>
+		<li>
 			{drop(
 				drag(
 					<div data-testid={`node-${node.id}`}>
 						<Checkbox
-							label={name}
+							label={node.name}
 							onChange={(e) => handleChange(e)}
 							checked={!!selected.find((s) => s.id === node.id)}
 						/>
 					</div>,
 				),
 			)}
-			{children.length > 0 && (
+			{node.children.length > 0 && (
 				<PathList {...props} additional={{ ...props.additional, node }} />
 			)}
 		</li>
