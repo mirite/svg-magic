@@ -1,21 +1,4 @@
-import type { RefObject } from "react";
-
 import type { SVGSubElement } from "@/lib/types.js";
-
-/**
- * Set the content of an element.
- *
- * @param ref The reference to the element
- * @param content The content to set
- */
-export function setTagContent(
-	ref: RefObject<HTMLElement | null>,
-	content: string,
-): void {
-	if (ref?.current) {
-		ref.current.innerHTML = content;
-	}
-}
 
 /**
  * Determine if two elements are equivalent

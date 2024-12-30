@@ -1,6 +1,11 @@
 import { findShadowEquivalent } from "../dom.js";
 
-import type { IMoveOptions } from "@/lib/types.js";
+import type { SVGSubElement } from "@/lib/types.js";
+
+export interface IMoveOptions {
+	element: SVGSubElement;
+	target: SVGSubElement;
+}
 
 /**
  * Moves an element in the tree.

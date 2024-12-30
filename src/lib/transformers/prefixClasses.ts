@@ -1,5 +1,4 @@
 import { getClasses } from "@/lib/getClasses.js";
-import type { IPrefixClassOptions } from "@/lib/types.js";
 
 import { renameClass } from "./renameClass.js";
 
@@ -10,6 +9,10 @@ import { renameClass } from "./renameClass.js";
  */
 function createPrefix(): string {
 	return "svg-magic-" + Date.now().toString(36);
+}
+
+export interface IPrefixClassOptions {
+	prefix?: string;
 }
 
 /**

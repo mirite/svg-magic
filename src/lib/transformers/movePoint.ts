@@ -1,5 +1,6 @@
 import { findShadowEquivalent } from "../dom.js";
-import type { IMovePointOptions, SVGSubElement } from "@/lib/types.js";
+
+import type { SVGSubElement } from "@/lib/types.js";
 
 /**
  * Moves a point in a line.
@@ -60,6 +61,12 @@ function checkPolyPoint(
 			return true;
 		}
 	}
+}
+
+export interface IMovePointOptions {
+	element: SVGSubElement;
+	pointToMove: { x: number; y: number };
+	newLocation: { x: number; y: number };
 }
 
 /**
