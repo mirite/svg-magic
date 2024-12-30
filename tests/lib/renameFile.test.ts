@@ -7,6 +7,7 @@ describe("renameFile", () => {
 		const file = {
 			file: { title: "test-1", contents: "test-1" },
 			previous: [],
+			selected: [],
 		};
 		const setState = vi.fn();
 		renameFile("test-2", { stateTuple: [file, setState] });

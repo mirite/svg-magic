@@ -1,13 +1,10 @@
-import { useState } from "react";
-
 import { getSVGChildren } from "./getSVGChildren.js";
 import { getSVGElement } from "./getSVGElement.js";
 
 import type { FileProps, IPath } from "@/lib/types.js";
 
 export type UseNodesResult = {
-	selected: IPath[];
-	updateSelected: (clickedPath: IPath) => void;
+	updateSelected: (clickedPath: number) => void;
 	node: IPath;
 };
 
@@ -18,7 +15,6 @@ export type UseNodesResult = {
  * @returns The nodes with selected state.
  */
 export function useNodes(props: FileProps): UseNodesResult {
-	const [selected, setSelected] = useState<IPath[]>([]);
 	const svgRoot = getSVGElement(props);
 	const children = getSVGChildren(svgRoot);
 
@@ -30,14 +26,15 @@ export function useNodes(props: FileProps): UseNodesResult {
 	 * @param clickedPath Which path was clicked.
 	 */
 	const updateSelected: UseNodesResult["updateSelected"] = (clickedPath) => {
-		const newState = [...selected];
-		const existingIndex = newState.findIndex((p) => p.id === clickedPath.id);
+		// Note: Since the setState here is wrapped in useEditor, we don't need the newState here to be a new reference
+		const [newState, setState] = props.stateTuple;
+		const existingIndex = newState.selected.findIndex((p) => p === clickedPath);
 		if (existingIndex > -1) {
-			newState.splice(existingIndex, 1);
+			newState.selected.splice(existingIndex, 1);
 		} else {
-			newState.push(clickedPath);
+			newState.selected.push(clickedPath);
 		}
-		setSelected(newState);
+		setState(newState);
 	};
-	return { selected, updateSelected, node: root };
+	return { updateSelected, node: root };
 }

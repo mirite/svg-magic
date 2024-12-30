@@ -19,11 +19,13 @@ import PathList from "./PathList.js";
 const Path: DependentPaneComponent<UseNodesResult & { node: IPath }> = (
 	props,
 ) => {
-	const { updateSelected, node, selected } = props.additional;
+	const { additional, stateTuple } = props;
+	const { updateSelected, node } = additional;
+	const { selected } = stateTuple[0];
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		node.elem.classList.toggle("active", e.currentTarget.checked);
-		updateSelected(node);
+		updateSelected(node.id);
 	};
 
 	const [, drag] = useDrag<IPath>(
@@ -63,7 +65,7 @@ const Path: DependentPaneComponent<UseNodesResult & { node: IPath }> = (
 						<Checkbox
 							label={node.name}
 							onChange={(e) => handleChange(e)}
-							checked={!!selected.find((s) => s.id === node.id)}
+							checked={!!selected.find((s) => s === node.id)}
 						/>
 					</div>,
 				),

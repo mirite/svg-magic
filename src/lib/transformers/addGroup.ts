@@ -19,7 +19,7 @@ export function addGroup(
 	const { className, selectedItems } = change;
 	const newGroup = document.createElement("g");
 	newGroup.className = className || "";
-	if (selectedItems) {
+	if (selectedItems?.length) {
 		const rootNode = getSVGChildren(shadowContainer);
 		traverseTree(rootNode, (elem) => {
 			if (selectedItems.includes(elem.id)) {

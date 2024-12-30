@@ -13,6 +13,7 @@ describe("<Header />", () => {
 		const openFile = {
 			file: { title: "test", contents: "test" },
 			previous: [],
+			selected: [],
 		};
 		const { getByText, getByTestId } = render(
 			<Header
@@ -23,7 +24,11 @@ describe("<Header />", () => {
 						switchTo: switchTo1,
 					},
 					{
-						file: { file: { title: "test2", contents: "test" }, previous: [] },
+						file: {
+							file: { title: "test2", contents: "test" },
+							previous: [],
+							selected: [],
+						},
 						close: close2,
 						switchTo: switchTo2,
 					},

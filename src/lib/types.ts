@@ -41,6 +41,7 @@ export interface IFile {
 export type FileState = {
 	file: IFile;
 	previous: IFile["contents"][];
+	selected: number[];
 };
 
 export type EditorState = {

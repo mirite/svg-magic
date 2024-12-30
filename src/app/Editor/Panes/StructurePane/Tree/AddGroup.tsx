@@ -4,7 +4,7 @@ import Button from "@/app/shared/Button.js";
 import { Input } from "@/app/shared/Input.js";
 import { performChange } from "@/lib/performChange.js";
 import { addGroup } from "@/lib/transformers/index.js";
-import type { DependentPaneComponent, IPath } from "@/lib/types.js";
+import type { PaneSubComponent } from "@/lib/types.js";
 
 /**
  * Add a group to the SVG
@@ -12,8 +12,8 @@ import type { DependentPaneComponent, IPath } from "@/lib/types.js";
  * @param props The component props.
  * @returns The rendered component.
  */
-const AddGroup: DependentPaneComponent<{ selected?: IPath[] }> = (props) => {
-	const { selected } = props.additional;
+const AddGroup: PaneSubComponent = (props) => {
+	const { selected } = props.stateTuple[0];
 	const [className, setClassName] = useState("");
 
 	/**
@@ -26,7 +26,7 @@ const AddGroup: DependentPaneComponent<{ selected?: IPath[] }> = (props) => {
 		performChange(props, (elem) =>
 			addGroup(elem, {
 				className,
-				selectedItems: selected?.map((node) => node.id),
+				selectedItems: selected,
 			}),
 		);
 		setClassName("");

@@ -110,6 +110,7 @@ const handleFileOpen = (
 			title: e.title,
 			contents,
 		},
+		selected: [],
 		previous: [],
 	};
 	const newEditorState = { ...editorState };
