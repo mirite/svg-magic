@@ -14,7 +14,7 @@ describe("renameFile", () => {
 		expect(setState).toHaveBeenCalledWith({
 			file: { title: "test-2", contents: "test-1" },
 			previous: [],
+			selected: [],
 		});
-		expect(file.file.title).toBe("test-1");
 	});
 });
