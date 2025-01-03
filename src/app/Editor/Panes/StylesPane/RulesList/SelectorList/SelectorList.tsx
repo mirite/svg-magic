@@ -49,16 +49,16 @@ function SelectorList(props: IProps): ReactElement {
 	return (
 		<div>
 			<ul>
-				{props.selectors.map((selector, index) => (
+				{props.selectors.map((selector) => (
 					<Selector
-						key={index}
+						key={selector}
 						onSelectorToggle={handleSelectorToggle}
 						selector={selector}
 						isChecked={selector === current}
 					/>
 				))}
 			</ul>
-			<style dangerouslySetInnerHTML={{ __html: content }}></style>
+			<style dangerouslySetInnerHTML={{ __html: content }} />
 		</div>
 	);
 }
