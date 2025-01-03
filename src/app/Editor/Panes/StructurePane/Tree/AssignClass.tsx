@@ -58,8 +58,8 @@ const AssignClass: PaneSubComponent = (props) => {
 					value={className}
 				>
 					<option value="">Select an Existing Class</option>
-					{classes.map((c, i) => (
-						<option key={i} value={c}>
+					{classes.map((c) => (
+						<option key={c} value={c}>
 							{c}
 						</option>
 					))}

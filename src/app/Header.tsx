@@ -19,6 +19,7 @@ export const Header: ComponentType<{
 			</button>
 			<menu className="grow flex gap-2 items-center justify-end">
 				{props.openFiles.map((open, index) => (
+					// eslint-disable-next-line react/no-array-index-key
 					<li key={`${open.file.file.title}-${index}`}>
 						<FileTab
 							openFile={open}

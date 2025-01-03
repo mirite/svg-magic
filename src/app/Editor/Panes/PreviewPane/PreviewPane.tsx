@@ -42,14 +42,12 @@ const PreviewPane: PaneComponent = (props) => {
 					onChange={() => setShowOverlay((e) => !e)}
 					label="Show Overlay:"
 				/>
-				{isDark && (
-					<Input
+				{isDark ? <Input
 						type="color"
 						value={background}
 						onChange={(e) => setBackground(e.currentTarget.value)}
 						label={"Background:"}
-					/>
-				)}
+					/> : null}
 			</div>
 			<h3>&lt;svg&gt;</h3>
 			<div className={"relative"}>
@@ -59,7 +57,7 @@ const PreviewPane: PaneComponent = (props) => {
 					}
 					dangerouslySetInnerHTML={{ __html: svgHTML }}
 				/>
-				{showOverlay && <Overlay stateTuple={props.stateTuple} />}
+				{showOverlay ? <Overlay stateTuple={props.stateTuple} /> : null}
 			</div>
 			<h3>&lt;img&gt;</h3>
 			<div

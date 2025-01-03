@@ -25,13 +25,17 @@ export const FileTab: ComponentType<{
 				!props.isCurrent && "cursor-pointer hover:bg-gray-200",
 			)}
 		>
-			<button type="button" disabled={props.isCurrent} onClick={open.switchTo}>
+			<button
+				type="button"
+				disabled={props.isCurrent}
+				onClick={() => open.switchTo()}
+			>
 				{open.file.file.title}
 			</button>
 			<IconButton
 				className="text-[0.66rem] p-1"
 				title={"Close"}
-				onClick={open.close}
+				onClick={() => open.close()}
 				icon={faX}
 			/>
 		</div>
