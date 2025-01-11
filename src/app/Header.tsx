@@ -20,7 +20,6 @@ export const Header: ComponentType<{
 			</button>
 			<menu className="grow flex gap-2 items-center justify-end">
 				{props.openFiles.map((open, index) => (
-					 
 					<li key={`${open.file.file.title}-${index}`}>
 						<FileTab
 							openFile={open}

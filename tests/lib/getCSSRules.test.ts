@@ -4,7 +4,6 @@ import { getCSSRules } from "@/lib/getCSSRules.js";
 
 import { createSVG } from "../helpers.js";
 
-
 describe("getCSSRules", () => {
 	it("should find the stylesheet", () => {
 		const svg = createSVG(`<svg><style>.a{fill:#fff}</style></svg>`);

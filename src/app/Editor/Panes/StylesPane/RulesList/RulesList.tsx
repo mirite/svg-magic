@@ -1,6 +1,5 @@
 import React from "react";
 
-
 import { getCSSRules } from "@/lib/getCSSRules.js";
 import { getSVGElement } from "@/lib/getSVGElement.js";
 import type { PaneSubComponent } from "@/lib/types.js";

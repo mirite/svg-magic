@@ -2,7 +2,6 @@ import { getClasses } from "@/lib/getClasses.js";
 
 import { renameClass } from "./renameClass.js";
 
-
 /**
  * Create a random prefix for the class
  *
