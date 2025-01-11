@@ -1,8 +1,9 @@
-import Button from "@/app/shared/Button.js";
-import { Pane } from "@/app/shared/Pane.js";
 import { performChange } from "@/lib/performChange.js";
 import { minify } from "@/lib/transformers/minify.js";
 import type { PaneComponent } from "@/lib/types.js";
+
+import Button from "@/app/shared/Button.js";
+import { Pane } from "@/app/shared/Pane.js";
 
 /**
  * The source editor pane

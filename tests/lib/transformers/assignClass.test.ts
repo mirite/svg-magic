@@ -1,9 +1,10 @@
 import { describe, it, expect } from "vitest";
 
-import { createSVG } from "../../helpers.js";
 
 import { getSVGChildren } from "@/lib/getSVGChildren.js";
 import { assignClass } from "@/lib/transformers/index.js";
+
+import { createSVG } from "../../helpers.js";
 
 describe("assignClass", () => {
 	it("Should assign a class to selected elements", () => {

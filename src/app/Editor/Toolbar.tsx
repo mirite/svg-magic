@@ -1,12 +1,13 @@
 import { faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
 import type { ReactElement } from "react";
 
-import IconButton from "@/app/shared/IconButton.js";
-import ToolbarTool from "@/app/shared/ToolbarTool.js";
 import { saveFile } from "@/lib/fileSaving.js";
 import { performChange } from "@/lib/performChange.js";
 import { tools } from "@/lib/transformers/toolbarTools.js";
 import type { FileProps } from "@/lib/types.js";
+
+import IconButton from "@/app/shared/IconButton.js";
+import ToolbarTool from "@/app/shared/ToolbarTool.js";
 
 /**
  * The header component for the editor.

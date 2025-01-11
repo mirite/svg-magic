@@ -2,8 +2,9 @@ import { faX } from "@fortawesome/free-solid-svg-icons";
 import React, { type ComponentType } from "react";
 import { twMerge } from "tailwind-merge";
 
-import IconButton from "@/app/shared/IconButton.js";
 import type { UseEditorResult } from "@/lib/useEditor.js";
+
+import IconButton from "@/app/shared/IconButton.js";
 
 /**
  * A tab for an open file.

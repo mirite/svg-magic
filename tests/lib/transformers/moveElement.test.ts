@@ -1,9 +1,10 @@
 import { describe, it, expect } from "vitest";
 
-import { createSVG } from "../../helpers.js";
 
 import { moveElement } from "@/lib/transformers/index.js";
 import type { SVGSubElement } from "@/lib/types.js";
+
+import { createSVG } from "../../helpers.js";
 
 describe("moveElement", () => {
 	it("should move an element to a new parent", () => {

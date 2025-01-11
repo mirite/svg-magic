@@ -1,15 +1,16 @@
 import type { FormEvent } from "react";
 import { useState } from "react";
 
-import Button from "@/app/shared/Button.js";
-import { Checkbox } from "@/app/shared/CheckBox.js";
-import { Input } from "@/app/shared/Input.js";
-import { Select } from "@/app/shared/Select.js";
 import { getClasses } from "@/lib/getClasses.js";
 import { getSVGElement } from "@/lib/getSVGElement.js";
 import { performChange } from "@/lib/performChange.js";
 import { assignClass } from "@/lib/transformers/index.js";
 import type { PaneSubComponent } from "@/lib/types.js";
+
+import Button from "@/app/shared/Button.js";
+import { Checkbox } from "@/app/shared/CheckBox.js";
+import { Input } from "@/app/shared/Input.js";
+import { Select } from "@/app/shared/Select.js";
 
 /**
  * Controls for assigning a new or existing class to the selected classes.

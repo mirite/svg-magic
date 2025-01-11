@@ -1,10 +1,12 @@
-import Class from "./Class.js";
 
-import Group from "@/app/shared/Group.js";
 import { getClasses } from "@/lib/getClasses.js";
 import { getSVGElement } from "@/lib/getSVGElement.js";
 import { performChange } from "@/lib/performChange.js";
 import type { PaneSubComponent } from "@/lib/types.js";
+
+import Class from "./Class.js";
+
+import Group from "@/app/shared/Group.js";
 
 /**
  * The list of classes in the SVG element

@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 
-import Button from "@/app/shared/Button.js";
-import { Input } from "@/app/shared/Input.js";
 import { performChange } from "@/lib/performChange.js";
 import { addGroup } from "@/lib/transformers/index.js";
 import type { PaneSubComponent } from "@/lib/types.js";
+
+import Button from "@/app/shared/Button.js";
+import { Input } from "@/app/shared/Input.js";
 
 /**
  * Add a group to the SVG

@@ -7,13 +7,14 @@ import type {
 	Comment,
 } from "css";
 
+import type { SVGSubElement } from "@/lib/types.js";
+
 import {
 	stringToStylesheet,
 	setShadowCSS,
 	stylesheetToString,
 } from "../css.js";
 
-import type { SVGSubElement } from "@/lib/types.js";
 
 /**
  * A class that allows for CSS rules to be reassigned as attributes on the SVG

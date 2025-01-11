@@ -1,9 +1,10 @@
 import { type ReactElement, useState } from "react";
 
-import Declaration from "./Declaration.js";
 
 import { stylesheetToString } from "@/lib/css.js";
 import type { CSSTypes } from "@/lib/types.js";
+
+import Declaration from "./Declaration.js";
 
 interface IProps {
 	rule: CSSTypes.Rule;

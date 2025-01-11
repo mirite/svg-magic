@@ -59,5 +59,8 @@
 		"vite-tsconfig-paths": "^5.1.4",
 		"vitest": "^2.1.8"
 	},
-	"packageManager": "yarn@4.6.0"
+	"packageManager": "yarn@4.6.0",
+	"resolutions": {
+		"@mirite/eslint-config-mirite": "portal:/home/jesse/eslint-config-mirite"
+	}
 }
