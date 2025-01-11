@@ -1,7 +1,8 @@
 import { type ReactElement } from "react";
 
-import { Checkbox } from "@/app/shared/CheckBox.js";
 import type { CSSTypes } from "@/lib/types.js";
+
+import { Checkbox } from "@/app/shared/CheckBox.js";
 
 type Props = {
 	onDeclarationToggle: (

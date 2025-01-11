@@ -1,3 +1,4 @@
+/* eslint-disable*/
 import type { ReactElement } from "react";
 import { useEffect } from "react";
 
@@ -21,7 +22,6 @@ export function Tester(props: {
 		useEditor();
 	useEffect(() => {
 		handleFileOpen({ title: "test.svg", contents: testSVG });
-		// eslint-disable-next-line react-hooks/exhaustive-deps -- Only run once
 	}, []);
 	const currentFile = getCurrentFile();
 	if (!currentFile) return null;

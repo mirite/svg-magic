@@ -1,7 +1,8 @@
-import { traverseTree } from "../dom.js";
 
 import { getSVGChildren } from "@/lib/getSVGChildren.js";
 import type { SVGSubElement } from "@/lib/types.js";
+
+import { traverseTree } from "../dom.js";
 
 export interface IMoveOptions {
 	element: number;

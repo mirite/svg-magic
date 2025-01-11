@@ -6,10 +6,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { type ReactElement, useEffect, useState } from "react";
 
-import IconButton from "@/app/shared/IconButton.js";
-import { Input } from "@/app/shared/Input.js";
 import { removeClass, renameClass } from "@/lib/transformers/index.js";
 import type { ChangeOperation } from "@/lib/types.js";
+
+import IconButton from "@/app/shared/IconButton.js";
+import { Input } from "@/app/shared/Input.js";
 
 interface IProps {
 	existingClassName: string;

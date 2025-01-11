@@ -1,9 +1,10 @@
 import type { ReactElement } from "react";
 
+import type { FileProps } from "@/lib/types.js";
+
 import Panes from "./Panes/Panes.js";
 import Toolbar from "./Toolbar.js";
 
-import type { FileProps } from "@/lib/types.js";
 
 /**
  * The main editor component.

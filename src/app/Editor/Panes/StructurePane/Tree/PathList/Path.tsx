@@ -1,7 +1,6 @@
 import React from "react";
 import { useDrag, useDrop } from "react-dnd";
 
-import { Checkbox } from "@/app/shared/CheckBox.js";
 import { performChange } from "@/lib/performChange.js";
 import type { IMoveOptions } from "@/lib/transformers/index.js";
 import { moveElement } from "@/lib/transformers/index.js";
@@ -9,6 +8,8 @@ import type { DependentPaneComponent, IPath } from "@/lib/types.js";
 import type { UseNodesResult } from "@/lib/useNodes.js";
 
 import PathList from "./PathList.js";
+
+import { Checkbox } from "@/app/shared/CheckBox.js";
 
 /**
  * Displays a path in the elements list.
