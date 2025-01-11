@@ -15,7 +15,6 @@ import {
 	stylesheetToString,
 } from "../css.js";
 
-
 /**
  * A class that allows for CSS rules to be reassigned as attributes on the SVG
  * elements.

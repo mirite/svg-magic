@@ -5,7 +5,6 @@ import type { FileProps } from "@/lib/types.js";
 import Panes from "./Panes/Panes.js";
 import Toolbar from "./Toolbar.js";
 
-
 /**
  * The main editor component.
  *

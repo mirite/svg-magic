@@ -1,4 +1,3 @@
-
 import { getSVGChildren } from "@/lib/getSVGChildren.js";
 import type { SVGSubElement } from "@/lib/types.js";
 

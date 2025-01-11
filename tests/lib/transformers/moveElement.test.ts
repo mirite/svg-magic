@@ -1,6 +1,5 @@
 import { describe, it, expect } from "vitest";
 
-
 import { moveElement } from "@/lib/transformers/index.js";
 import type { SVGSubElement } from "@/lib/types.js";
 

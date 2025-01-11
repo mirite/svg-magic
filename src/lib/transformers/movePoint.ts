@@ -2,7 +2,6 @@ import type { SVGSubElement } from "@/lib/types.js";
 
 import { findShadowEquivalent } from "../dom.js";
 
-
 /**
  * Moves a point in a line.
  *
