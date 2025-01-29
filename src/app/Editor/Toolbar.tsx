@@ -21,7 +21,7 @@ function Toolbar(props: FileProps): ReactElement {
 	return (
 		<menu
 			className={
-				"fixed top-[--nav-height] inset-x-0 bg-blue-200 px-2 h-[--header-height] shadow-lg flex gap-2 items-center grow justify-end"
+				"fixed top-(--nav-height) inset-x-0 bg-blue-200 px-2 h-(--header-height) shadow-lg flex gap-2 items-center grow justify-end"
 			}
 		>
 			{tools.map((tool) => (
