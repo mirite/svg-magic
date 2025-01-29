@@ -841,7 +841,7 @@ __metadata:
     "@fortawesome/react-fontawesome": "npm:^0.2.2"
     "@mirite/eslint-config-mirite": "npm:^0.3.2"
     "@tailwindcss/forms": "npm:^0.5.10"
-    "@tailwindcss/postcss": "npm:4.0.0"
+    "@tailwindcss/postcss": "npm:4.0.1"
     "@tailwindcss/typography": "npm:^0.5.16"
     "@testing-library/dom": "npm:^10.4.0"
     "@testing-library/react": "npm:^16.2.0"
@@ -852,7 +852,7 @@ __metadata:
     "@types/react": "npm:^19.0.8"
     "@types/react-dom": "npm:^19.0.3"
     "@vitejs/plugin-react": "npm:^4.3.4"
-    "@vitest/coverage-v8": "npm:3.0.4"
+    "@vitest/coverage-v8": "npm:^3.0.4"
     "@vitest/ui": "npm:^3.0.4"
     css: "npm:^3.0.0"
     eslint: "npm:^9.19.0"
@@ -867,7 +867,7 @@ __metadata:
     react-dnd-html5-backend: "npm:^16.0.1"
     react-dom: "npm:^19.0.0"
     tailwind-merge: "npm:^2.6.0"
-    tailwindcss: "npm:4.0.0"
+    tailwindcss: "npm:^4.0.1"
     typescript: "npm:^5.7.3"
     vite: "npm:^6.0.11"
     vite-tsconfig-paths: "npm:^5.1.4"
@@ -1124,7 +1124,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tailwindcss/node@npm:^4.0.0":
+"@tailwindcss/node@npm:^4.0.1":
   version: 4.0.1
   resolution: "@tailwindcss/node@npm:4.0.1"
   dependencies:
@@ -1212,7 +1212,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tailwindcss/oxide@npm:^4.0.0":
+"@tailwindcss/oxide@npm:^4.0.1":
   version: 4.0.1
   resolution: "@tailwindcss/oxide@npm:4.0.1"
   dependencies:
@@ -1254,17 +1254,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tailwindcss/postcss@npm:4.0.0":
-  version: 4.0.0
-  resolution: "@tailwindcss/postcss@npm:4.0.0"
+"@tailwindcss/postcss@npm:4.0.1":
+  version: 4.0.1
+  resolution: "@tailwindcss/postcss@npm:4.0.1"
   dependencies:
     "@alloc/quick-lru": "npm:^5.2.0"
-    "@tailwindcss/node": "npm:^4.0.0"
-    "@tailwindcss/oxide": "npm:^4.0.0"
+    "@tailwindcss/node": "npm:^4.0.1"
+    "@tailwindcss/oxide": "npm:^4.0.1"
     lightningcss: "npm:^1.29.1"
     postcss: "npm:^8.4.41"
-    tailwindcss: "npm:4.0.0"
-  checksum: 10/76a232425ae75053ab501b404d3689e14f8d3ca15168fb3d0f88b3709b3b59e8c2d5a6ad5eeb88cc5f239376ba904b9fcf6424735807766f9c0e9c3a6ddeb67e
+    tailwindcss: "npm:4.0.1"
+  checksum: 10/453f3340aa70250993d4032e1a6cc69768df47945baa0502d1c2356b526598660a8e7f7c76348e7a4a287920a1cd44f58cb3a720a7b7161ab12f5857750acadc
   languageName: node
   linkType: hard
 
@@ -1609,7 +1609,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vitest/coverage-v8@npm:3.0.4":
+"@vitest/coverage-v8@npm:^3.0.4":
   version: 3.0.4
   resolution: "@vitest/coverage-v8@npm:3.0.4"
   dependencies:
@@ -5959,13 +5959,6 @@ __metadata:
   version: 2.6.0
   resolution: "tailwind-merge@npm:2.6.0"
   checksum: 10/a84f49d6f2cfb18ba06dc51b446b69f6b42cedcb9c9fa4e7c5f931b56e739870e513339e02b348b43f44011fa4852f02f72658a3f3e066e5101b09fc28644210
-  languageName: node
-  linkType: hard
-
-"tailwindcss@npm:4.0.0":
-  version: 4.0.0
-  resolution: "tailwindcss@npm:4.0.0"
-  checksum: 10/3491d86a7c3ad08209eb988fcf36d893e5f5a4c48c63da706a8788f6111e141386e1b5c8fa46f2650b08200c1b8011251d97b6d65514bdc14aa06597871d1f7d
   languageName: node
   linkType: hard
 
