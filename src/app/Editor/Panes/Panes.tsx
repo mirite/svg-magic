@@ -21,7 +21,7 @@ function Panes(props: IProps): ReactElement {
 	return (
 		<div
 			className={
-				"grid grid-cols-2 inset-x-0 xl:grid-cols-4 h-[calc(100dvh_-_var(--content-top))] top-[--content-top] fixed overflow-hidden"
+				"grid grid-cols-2 inset-x-0 xl:grid-cols-4 h-[calc(100dvh_-_var(--content-top))] top-(--content-top) fixed overflow-hidden"
 			}
 		>
 			{panes.map((Pane, index) => (
