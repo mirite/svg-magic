@@ -1,13 +1,12 @@
 import type { CSSProperties } from "react";
 import { useEffect, useState } from "react";
 
-import type { PaneComponent } from "@/lib/types.js";
-
-import Overlay from "./Overlay.js";
-
 import { Checkbox } from "@/app/shared/CheckBox.js";
 import { Input } from "@/app/shared/Input.js";
 import { Pane } from "@/app/shared/Pane.js";
+import type { PaneComponent } from "@/lib/types.js";
+
+import Overlay from "./Overlay.js";
 
 /**
  * The rendered previews.

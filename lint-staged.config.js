@@ -1,6 +1,4 @@
-/**
- * @filename: lint-staged.config.js
- */
+/** @filename: lint-staged.config.js */
 export default {
 	"*": ["prettier . --write --cache"],
 	"*.{ts,tsx,json}": ["sh -c 'tsc --noEmit'"],
