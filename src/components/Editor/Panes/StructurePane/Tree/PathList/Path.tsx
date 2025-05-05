@@ -1,7 +1,6 @@
 import React from "react";
 import { useDrag, useDrop } from "react-dnd";
 
-import PathList from "./PathList.js";
 
 import { Checkbox } from "@/components/shared/CheckBox.js";
 import { performChange } from "@/helpers/performChange.js";
@@ -13,6 +12,8 @@ import type {
 	IPath,
 	SVGSubElement,
 } from "@/types.js";
+
+import PathList from "./PathList.js";
 
 /**
  * Displays a path in the elements list.

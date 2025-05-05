@@ -1,10 +1,11 @@
 import { type ReactElement, useEffect, useRef, useState } from "react";
 
-import Declaration from "./Declaration.js";
 
 import { stylesheetToString } from "@/helpers/css.js";
 import { setTagContent } from "@/helpers/dom.js";
 import type { CSSTypes } from "@/types.js";
+
+import Declaration from "./Declaration.js";
 
 interface IProps {
 	rule: CSSTypes.Rule;
@@ -57,7 +58,7 @@ function DeclarationList(props: IProps): ReactElement {
 					/>
 				))}
 			</ul>
-			<style ref={ref}></style>
+			<style ref={ref} />
 		</div>
 	);
 }

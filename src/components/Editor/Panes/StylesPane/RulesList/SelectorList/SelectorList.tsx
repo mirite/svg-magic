@@ -2,9 +2,10 @@ import type { Rule } from "css";
 import CSSParser from "css";
 import React, { type ReactElement, useRef, useState } from "react";
 
+import { setTagContent } from "@/helpers/dom.js";
+
 import Selector from "./Selector.js";
 
-import { setTagContent } from "@/helpers/dom.js";
 
 interface IProps {
 	selectors: string[];
@@ -54,7 +55,7 @@ function SelectorList(props: IProps): ReactElement {
 					/>
 				))}
 			</ul>
-			<style ref={ref}></style>
+			<style ref={ref} />
 		</div>
 	);
 }

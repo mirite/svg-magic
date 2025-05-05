@@ -1,6 +1,7 @@
+import type { IMovePointOptions, SVGSubElement } from "@/types.js";
+
 import { findShadowEquivalent } from "../dom.js";
 
-import type { IMovePointOptions, SVGSubElement } from "@/types.js";
 
 /**
  * Moves a point in a line.

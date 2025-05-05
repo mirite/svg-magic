@@ -1,10 +1,11 @@
 import type { ReactElement } from "react";
 
+import Editor from "@/components/Editor/Editor.js";
+import FileSelector from "@/components/FileSelector.js";
+
 import { Header } from "./Header.js";
 import { useEditor } from "./helpers/useEditor.js";
 
-import Editor from "@/components/Editor/Editor.js";
-import FileSelector from "@/components/FileSelector.js";
 /**
  * The main application component.
  *

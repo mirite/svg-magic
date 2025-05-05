@@ -1,6 +1,7 @@
+import type { IAssignClassOptions } from "@/types.js";
+
 import { findShadowEquivalent } from "../dom.js";
 
-import type { IAssignClassOptions } from "@/types.js";
 
 /**
  * @param svgElem

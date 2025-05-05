@@ -2,13 +2,14 @@ import React from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
+import Group from "@/components/shared/Group.js";
+import { useNodes } from "@/helpers/useNodes.js";
+import type { PaneSubComponent } from "@/types.js";
+
 import AddGroup from "./AddGroup.js";
 import AssignClass from "./AssignClass.js";
 import PathList from "./PathList/PathList.js";
 
-import Group from "@/components/shared/Group.js";
-import { useNodes } from "@/helpers/useNodes.js";
-import type { PaneSubComponent } from "@/types.js";
 
 /**
  * The DOM tree of the SVG element

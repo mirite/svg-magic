@@ -1,11 +1,12 @@
 import React from "react";
 
-import SVGClass from "./SVGRule.js";
 
 import Group from "@/components/shared/Group.js";
 import { getCSSRules } from "@/helpers/getCSSRules.js";
 import { getSVGElement } from "@/helpers/getSVGElement.js";
 import type { PaneSubComponent } from "@/types.js";
+
+import SVGClass from "./SVGRule.js";
 
 /**
  *

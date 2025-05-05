@@ -1,8 +1,9 @@
 import type { ComponentType } from "react";
 
+import { FileTab } from "@/FileTab.js";
+
 import type { UseEditorResult } from "./helpers/useEditor.js";
 
-import { FileTab } from "@/FileTab.js";
 
 export const Header: ComponentType<{
 	openFiles: UseEditorResult["openFiles"];

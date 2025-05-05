@@ -1,12 +1,13 @@
 import type { CSSProperties } from "react";
 import { useEffect, useState } from "react";
 
-import Overlay from "./Overlay.js";
 
 import { Checkbox } from "@/components/shared/CheckBox.js";
 import { Input } from "@/components/shared/Input.js";
 import { Pane } from "@/components/shared/Pane.js";
 import type { PaneComponent } from "@/types.js";
+
+import Overlay from "./Overlay.js";
 
 /**
  * The rendered previews.
@@ -42,14 +43,12 @@ const PreviewPane: PaneComponent = (props) => {
 					onChange={() => setShowOverlay((e) => !e)}
 					label="Show Overlay:"
 				/>
-				{isDark && (
-					<Input
+				{isDark ? <Input
 						type="color"
 						value={background}
 						onChange={(e) => setBackground(e.currentTarget.value)}
 						label={"Background:"}
-					/>
-				)}
+					/> : null}
 			</div>
 			<h3>&lt;svg&gt;</h3>
 			<div className={"relative"}>
@@ -59,7 +58,7 @@ const PreviewPane: PaneComponent = (props) => {
 					}
 					dangerouslySetInnerHTML={{ __html: svgHTML }}
 				/>
-				{showOverlay && <Overlay stateTuple={props.stateTuple} />}
+				{showOverlay ? <Overlay stateTuple={props.stateTuple} /> : null}
 			</div>
 			<h3>&lt;img&gt;</h3>
 			<div

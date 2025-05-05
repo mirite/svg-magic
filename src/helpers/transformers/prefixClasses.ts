@@ -1,7 +1,8 @@
-import { renameClass } from "./renameClass.js";
 
 import { getClasses } from "@/helpers/getClasses.js";
 import type { IPrefixClassOptions } from "@/types.js";
+
+import { renameClass } from "./renameClass.js";
 
 /**
  * Create a random prefix for the class

@@ -1,8 +1,9 @@
+import { Pane } from "@/components/shared/Pane.js";
+import type { PaneComponent } from "@/types.js";
+
 import ClassList from "./ClassList/ClassList.js";
 import { RulesList } from "./RulesList/RulesList.js";
 
-import { Pane } from "@/components/shared/Pane.js";
-import type { PaneComponent } from "@/types.js";
 
 /**
  * The pane for displaying CSS rules and declarations.

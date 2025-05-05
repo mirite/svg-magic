@@ -1,11 +1,12 @@
 import { type ReactElement } from "react";
 
-import EditorPane from "./EditorPane/EditorPane.js";
-import PreviewPane from "./PreviewPane/PreviewPane.js";
 
 import StructurePane from "@/components/Editor/Panes/StructurePane/StructurePane.js";
 import StylesPane from "@/components/Editor/Panes/StylesPane/StylesPane.js";
 import type { FileProps } from "@/types.js";
+
+import EditorPane from "./EditorPane/EditorPane.js";
+import PreviewPane from "./PreviewPane/PreviewPane.js";
 
 type IProps = FileProps;
 

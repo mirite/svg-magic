@@ -1,9 +1,10 @@
 import { useState } from "react";
 
+import type { FileProps, IPath } from "@/types.js";
+
 import { getSVGChildren } from "./getSVGChildren.js";
 import { getSVGElement } from "./getSVGElement.js";
 
-import type { FileProps, IPath } from "@/types.js";
 
 export type UseNodesResult = {
 	selected: IPath[];

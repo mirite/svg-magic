@@ -1,7 +1,8 @@
-import Path from "./Path.js";
 
 import type { UseNodesResult } from "@/helpers/useNodes.js";
 import type { DependentPaneComponent } from "@/types.js";
+
+import Path from "./Path.js";
 
 /**
  * A list of the elements in the SVG
