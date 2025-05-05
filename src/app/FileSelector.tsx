@@ -1,9 +1,8 @@
 import type { ChangeEvent, FormEvent, ReactElement } from "react";
 import React, { useState } from "react";
 
-import type { IFile } from "@/lib/types.js";
-
 import Button from "@/app/shared/Button.js";
+import type { IFile } from "@/lib/types.js";
 
 type Props = {
 	onSelect: (file: IFile) => void;
