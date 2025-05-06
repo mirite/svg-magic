@@ -4,9 +4,9 @@ import type { FileProps } from "@/lib/types.js";
 
 import EditorPane from "./EditorPane/EditorPane.js";
 import PreviewPane from "./PreviewPane/PreviewPane.js";
-
 import StructurePane from "./StructurePane/StructurePane.js";
 import StylesPane from "./StylesPane/StylesPane.js";
+
 type IProps = FileProps;
 
 /**
