@@ -6,10 +6,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { type ReactElement, useEffect, useState } from "react";
 
+import type { ChangeOperation } from "@/lib/types.js";
+
 import IconButton from "@/app/shared/IconButton.js";
 import { Input } from "@/app/shared/Input.js";
 import { removeClass, renameClass } from "@/lib/transformers/index.js";
-import type { ChangeOperation } from "@/lib/types.js";
 
 interface IProps {
 	existingClassName: string;
@@ -60,8 +61,8 @@ function Class(props: IProps): ReactElement {
 				{renaming !== false ? (
 					<Input
 						label="New Name:"
-						value={renaming}
 						onChange={(e) => setRenaming(e.currentTarget.value)}
+						value={renaming}
 					/>
 				) : (
 					existingClassName
@@ -89,8 +90,8 @@ function Class(props: IProps): ReactElement {
 					/>
 				) : (
 					<IconButton
-						icon={faTrash}
 						className={"bg-red-800"}
+						icon={faTrash}
 						onClick={() => deleteClass()}
 						title={"Delete"}
 					/>

@@ -1,10 +1,12 @@
 import type { CSSProperties } from "react";
+
 import { useEffect, useState } from "react";
+
+import type { PaneComponent } from "@/lib/types.js";
 
 import { Checkbox } from "@/app/shared/CheckBox.js";
 import { Input } from "@/app/shared/Input.js";
 import { Pane } from "@/app/shared/Pane.js";
-import type { PaneComponent } from "@/lib/types.js";
 
 import Overlay from "./Overlay.js";
 
@@ -34,20 +36,20 @@ const PreviewPane: PaneComponent = (props) => {
 			<div className="flex gap-4">
 				<Checkbox
 					checked={isDark}
-					onChange={() => setIsDark((e) => !e)}
 					label="Dark:"
+					onChange={() => setIsDark((e) => !e)}
 				/>
 				<Checkbox
 					checked={showOverlay}
-					onChange={() => setShowOverlay((e) => !e)}
 					label="Show Overlay:"
+					onChange={() => setShowOverlay((e) => !e)}
 				/>
 				{isDark ? (
 					<Input
+						label={"Background:"}
+						onChange={(e) => setBackground(e.currentTarget.value)}
 						type="color"
 						value={background}
-						onChange={(e) => setBackground(e.currentTarget.value)}
-						label={"Background:"}
 					/>
 				) : null}
 			</div>
@@ -67,7 +69,7 @@ const PreviewPane: PaneComponent = (props) => {
 					"bg-(--background) rounded-xl border-2 border-slate-500 border-dashed"
 				}
 			>
-				<img src={"data:image/svg+xml;base64," + base64} alt="preview" />
+				<img alt="preview" src={"data:image/svg+xml;base64," + base64} />
 			</div>
 		</Pane>
 	);

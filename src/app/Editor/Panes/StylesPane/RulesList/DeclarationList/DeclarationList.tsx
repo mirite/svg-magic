@@ -1,7 +1,8 @@
 import { type ReactElement, useState } from "react";
 
-import { stylesheetToString } from "@/lib/css.js";
 import type { CSSTypes } from "@/lib/types.js";
+
+import { stylesheetToString } from "@/lib/css.js";
 
 import Declaration from "./Declaration.js";
 
@@ -48,9 +49,9 @@ function DeclarationList(props: IProps): ReactElement {
 			<ul>
 				{declarations.map((declaration) => (
 					<Declaration
+						dec={declaration}
 						key={declaration.property}
 						onDeclarationToggle={handleDeclarationToggle}
-						dec={declaration}
 						toggledOff={toggledOff}
 					/>
 				))}

@@ -6,23 +6,23 @@ import { stripIDs } from "./stripID.js";
 
 export const tools = [
 	{
-		name: "Inline Styles",
 		action: inlineStyles,
+		name: "Inline Styles",
 	},
 	{
-		name: "Prefix Classes",
 		action: prefixClasses,
+		name: "Prefix Classes",
 	},
 	{
-		name: "Strip IDs",
 		action: stripIDs,
+		name: "Strip IDs",
 	},
 	{
-		name: "Strip Classes",
 		action: stripClasses,
+		name: "Strip Classes",
 	},
 	{
-		name: "Strip Data",
 		action: stripData,
+		name: "Strip Data",
 	},
 ];

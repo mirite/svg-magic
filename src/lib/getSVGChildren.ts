@@ -1,20 +1,6 @@
-import { generateID } from "@/lib/generateID.js";
 import type { IPath, SVGSubElement } from "@/lib/types.js";
 
-/**
- * Fold the class list into a string
- *
- * @param d The class list
- * @returns The class list as a string.
- */
-function foldClassList(d: DOMTokenList): string | null {
-	if (!d) return null;
-	const classes = Array.from(d.entries());
-	return classes.reduce(
-		(prev, currentValue) => prev + "." + currentValue[1],
-		"",
-	);
-}
+import { generateID } from "@/lib/generateID.js";
 
 /**
  * Find the children of an SVG element
@@ -33,13 +19,28 @@ export function getSVGChildren(
 		}`;
 		const id = generateID(index, parentID);
 		return {
-			elem: child,
-			name,
 			children: getSVGChildren(child, id),
+			elem: child,
 			id,
+			name,
 		};
 	};
 
 	const children = Array.from(parent.children) as SVGSubElement[];
 	return children.map(processChild);
+}
+
+/**
+ * Fold the class list into a string
+ *
+ * @param d The class list
+ * @returns The class list as a string.
+ */
+function foldClassList(d: DOMTokenList): null | string {
+	if (!d) return null;
+	const classes = Array.from(d.entries());
+	return classes.reduce(
+		(prev, currentValue) => prev + "." + currentValue[1],
+		"",
+	);
 }

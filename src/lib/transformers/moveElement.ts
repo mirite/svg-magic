@@ -1,5 +1,6 @@
-import { getSVGChildren } from "@/lib/getSVGChildren.js";
 import type { SVGSubElement } from "@/lib/types.js";
+
+import { getSVGChildren } from "@/lib/getSVGChildren.js";
 
 import { traverseTree } from "../dom.js";
 
@@ -19,8 +20,8 @@ export function moveElement(
 	change: IMoveOptions,
 ): void {
 	const rootNode = getSVGChildren(svgElement);
-	let targetEquiv: SVGSubElement | null = null;
-	let elementEquiv: SVGSubElement | null = null;
+	let targetEquiv: null | SVGSubElement = null;
+	let elementEquiv: null | SVGSubElement = null;
 
 	traverseTree(rootNode, ({ elem, id }) => {
 		if (change.target === id) {

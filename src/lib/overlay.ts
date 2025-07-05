@@ -3,6 +3,7 @@ import type React from "react";
 import type { ChangeOperation, IPoint, SVGSubElement } from "@/lib/types.js";
 
 import type { IMovePointOptions } from "./transformers/index.js";
+
 import { movePoint } from "./transformers/index.js";
 
 /** The pixel width/height of the marker that shows on points. */
@@ -72,32 +73,6 @@ export function drawOverlay(
 }
 
 /**
- * Retrieves the-coordinates of a mouse even relative to the canvas element.
- *
- * @param canvas The canvas element to get the-coordinates for.
- * @param event The mouse event to get the-coordinates from.
- * @returns The-coordinates of the mouse event relative to the canvas.
- */
-function getCursorPosition(
-	canvas: HTMLCanvasElement,
-	event: React.MouseEvent,
-): { x: number; y: number } {
-	const rect = canvas.getBoundingClientRect();
-	const x = event.clientX - rect.left;
-	const y = event.clientY - rect.top;
-	return { x, y };
-}
-
-/**
- * Gets the distance around a point where the marker exists.
- *
- * @returns The distance around a point where the marker exists.
- */
-function getTolerance(): number {
-	return markerSize / 2;
-}
-
-/**
  * Finds the point that matches with where the mouse was clicked.
  *
  * @param mouseDownX The x-coordinate of the mouse down event.
@@ -123,83 +98,6 @@ export function findPoint(
 		if (evaluatePoint(point)) return point;
 	}
 	return null;
-}
-
-/**
- * Gets the SVG:Actual display size ratio from the svg viewBox and the actual
- * element size.
- *
- * @param svg The SVG element to get the scale for.
- * @returns The x and y scale of the SVG element.
- */
-function getScale(svg: SVGElement): { xScale: number; yScale: number } {
-	const viewBox = svg.getAttribute("viewBox") || "0 0 100 100";
-	const [x1, y1, x2, y2] = viewBox.split(" ").map(Number.parseFloat);
-	const { clientWidth: actualWidth, clientHeight: actualHeight } = svg;
-	const xScale = actualWidth / (x2 - x1);
-	const yScale = actualHeight / (y2 - y1);
-	return { xScale, yScale };
-}
-
-/**
- * Returns the cursor-coordinates relative to the SVG viewBox.
- *
- * @param x The x-coordinate of the cursor.
- * @param y The y-coordinate of the cursor.
- * @param svg The SVG element to get the scale from.
- * @returns The scaled x and y-coordinates.
- */
-function scaleCursor(
-	x: number,
-	y: number,
-	svg: SVGElement,
-): { scaledX: number; scaledY: number } {
-	const { xScale, yScale } = getScale(svg);
-	return { scaledX: x / xScale, scaledY: y / yScale };
-}
-
-/**
- * Creates the options object to tell the transformer to transform.
- *
- * @param point The point to move.
- * @param newX The new x-coordinate of the point.
- * @param newY The new y-coordinate of the point.
- * @returns The options object to move the point.
- */
-function createMovePointOptions(
-	point: IPoint,
-	newX: number,
-	newY: number,
-): IMovePointOptions {
-	const { x, y, owner } = point;
-	return {
-		element: owner as SVGSubElement,
-		pointToMove: { x, y },
-		newLocation: { x: newX, y: newY },
-	};
-}
-
-/**
- * Handles the mouse up event for moving points.
- *
- * @param e The mouse event.
- * @param point The point to move.
- * @param canvas The canvas element.
- * @param callback The callback to change the SVG.
- * @param svg The SVG element.
- */
-function onMouseUp(
-	e: React.MouseEvent,
-	point: IPoint,
-	canvas: HTMLCanvasElement,
-	callback: (changeOptions: ChangeOperation) => void,
-	svg: SVGElement,
-) {
-	const { x, y } = getCursorPosition(canvas, e);
-	const { scaledX, scaledY } = scaleCursor(x, y, svg);
-	const options = createMovePointOptions(point, scaledX, scaledY);
-	callback((elem) => movePoint(elem, options));
-	point.owner.classList.remove("active");
 }
 
 /**
@@ -235,4 +133,107 @@ export function onMouseDown(
 			),
 		{ once: true },
 	);
+}
+
+/**
+ * Creates the options object to tell the transformer to transform.
+ *
+ * @param point The point to move.
+ * @param newX The new x-coordinate of the point.
+ * @param newY The new y-coordinate of the point.
+ * @returns The options object to move the point.
+ */
+function createMovePointOptions(
+	point: IPoint,
+	newX: number,
+	newY: number,
+): IMovePointOptions {
+	const { owner, x, y } = point;
+	return {
+		element: owner as SVGSubElement,
+		newLocation: { x: newX, y: newY },
+		pointToMove: { x, y },
+	};
+}
+
+/**
+ * Retrieves the-coordinates of a mouse even relative to the canvas element.
+ *
+ * @param canvas The canvas element to get the-coordinates for.
+ * @param event The mouse event to get the-coordinates from.
+ * @returns The-coordinates of the mouse event relative to the canvas.
+ */
+function getCursorPosition(
+	canvas: HTMLCanvasElement,
+	event: React.MouseEvent,
+): { x: number; y: number } {
+	const rect = canvas.getBoundingClientRect();
+	const x = event.clientX - rect.left;
+	const y = event.clientY - rect.top;
+	return { x, y };
+}
+
+/**
+ * Gets the SVG:Actual display size ratio from the svg viewBox and the actual
+ * element size.
+ *
+ * @param svg The SVG element to get the scale for.
+ * @returns The x and y scale of the SVG element.
+ */
+function getScale(svg: SVGElement): { xScale: number; yScale: number } {
+	const viewBox = svg.getAttribute("viewBox") || "0 0 100 100";
+	const [x1, y1, x2, y2] = viewBox.split(" ").map(Number.parseFloat);
+	const { clientHeight: actualHeight, clientWidth: actualWidth } = svg;
+	const xScale = actualWidth / (x2 - x1);
+	const yScale = actualHeight / (y2 - y1);
+	return { xScale, yScale };
+}
+
+/**
+ * Gets the distance around a point where the marker exists.
+ *
+ * @returns The distance around a point where the marker exists.
+ */
+function getTolerance(): number {
+	return markerSize / 2;
+}
+
+/**
+ * Handles the mouse up event for moving points.
+ *
+ * @param e The mouse event.
+ * @param point The point to move.
+ * @param canvas The canvas element.
+ * @param callback The callback to change the SVG.
+ * @param svg The SVG element.
+ */
+function onMouseUp(
+	e: React.MouseEvent,
+	point: IPoint,
+	canvas: HTMLCanvasElement,
+	callback: (changeOptions: ChangeOperation) => void,
+	svg: SVGElement,
+) {
+	const { x, y } = getCursorPosition(canvas, e);
+	const { scaledX, scaledY } = scaleCursor(x, y, svg);
+	const options = createMovePointOptions(point, scaledX, scaledY);
+	callback((elem) => movePoint(elem, options));
+	point.owner.classList.remove("active");
+}
+
+/**
+ * Returns the cursor-coordinates relative to the SVG viewBox.
+ *
+ * @param x The x-coordinate of the cursor.
+ * @param y The y-coordinate of the cursor.
+ * @param svg The SVG element to get the scale from.
+ * @returns The scaled x and y-coordinates.
+ */
+function scaleCursor(
+	x: number,
+	y: number,
+	svg: SVGElement,
+): { scaledX: number; scaledY: number } {
+	const { xScale, yScale } = getScale(svg);
+	return { scaledX: x / xScale, scaledY: y / yScale };
 }

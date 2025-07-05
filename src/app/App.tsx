@@ -13,17 +13,17 @@ import { Header } from "./Header.js";
  */
 function App(): ReactElement {
 	const {
+		getCurrentFile,
+		goHome,
 		handleCurrentFileUpdate,
 		handleFileOpen,
-		getCurrentFile,
 		openFiles,
-		goHome,
 	} = useEditor();
 	const currentFile = getCurrentFile();
 
 	return (
 		<div>
-			<Header openFiles={openFiles} currentFile={currentFile} goHome={goHome} />
+			<Header currentFile={currentFile} goHome={goHome} openFiles={openFiles} />
 			{currentFile ? (
 				<Editor stateTuple={[currentFile, handleCurrentFileUpdate]} />
 			) : (

@@ -18,7 +18,7 @@ export function getSVGPoints(
 			const x = Number.parseFloat(element.getAttribute("x" + portion) || "0");
 			const y = Number.parseFloat(element.getAttribute("y" + portion) || "0");
 			if ((x || x === 0) && (y || y === 0)) {
-				localExistingRef.add({ x, y, owner: element });
+				localExistingRef.add({ owner: element, x, y });
 			}
 		} else if (c === "points") {
 			const pointsList = element.getAttribute("points") || "";
@@ -26,7 +26,7 @@ export function getSVGPoints(
 			for (let i = 0; i < values.length; i += 2) {
 				const x = Number.parseFloat(values[i]);
 				const y = Number.parseFloat(values[i + 1]);
-				localExistingRef.add({ x, y, owner: element });
+				localExistingRef.add({ owner: element, x, y });
 			}
 		}
 	}

@@ -1,4 +1,4 @@
-import { useId, type ReactElement, type SelectHTMLAttributes } from "react";
+import { type ReactElement, type SelectHTMLAttributes, useId } from "react";
 
 import { InputWrapper } from "./InputWrapper.js";
 
@@ -11,7 +11,7 @@ type Props = SelectHTMLAttributes<HTMLSelectElement> & { label: string };
  * @returns The component
  */
 export function Select(props: Props): ReactElement {
-	const { label, children, ...rest } = props;
+	const { children, label, ...rest } = props;
 	const id = useId();
 	return (
 		<InputWrapper>

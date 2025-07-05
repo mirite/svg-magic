@@ -1,7 +1,8 @@
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
+
+import type { SVGSubElement } from "@/lib/types.js";
 
 import { moveElement } from "@/lib/transformers/index.js";
-import type { SVGSubElement } from "@/lib/types.js";
 
 import { createSVG } from "../../helpers.js";
 

@@ -1,12 +1,13 @@
 import type { ComponentType } from "react";
 
-import { FileTab } from "@/app/FileTab.js";
 import type { UseEditorResult } from "@/lib/useEditor.js";
 
+import { FileTab } from "@/app/FileTab.js";
+
 export const Header: ComponentType<{
-	openFiles: UseEditorResult["openFiles"];
 	currentFile: ReturnType<UseEditorResult["getCurrentFile"]>;
 	goHome: () => void;
+	openFiles: UseEditorResult["openFiles"];
 }> = (props) => {
 	return (
 		<header className="flex gap-2 items-center m-2 mb-0 fixed top-0 inset-x-0 h-(--nav-height)">
@@ -21,8 +22,8 @@ export const Header: ComponentType<{
 				{props.openFiles.map((open, index) => (
 					<li key={`${open.file.file.title}-${index}`}>
 						<FileTab
-							openFile={open}
 							isCurrent={props.currentFile === open.file}
+							openFile={open}
 						/>
 					</li>
 				))}

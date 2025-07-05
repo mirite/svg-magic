@@ -1,6 +1,7 @@
 import type { FontAwesomeIconProps } from "@fortawesome/react-fontawesome";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { ButtonHTMLAttributes, ReactElement } from "react";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { twMerge } from "tailwind-merge";
 
 type Props = Omit<ButtonHTMLAttributes<HTMLButtonElement>, "children"> & {

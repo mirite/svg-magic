@@ -1,14 +1,15 @@
 import { type ReactElement } from "react";
 
-import { Checkbox } from "@/app/shared/CheckBox.js";
 import type { CSSTypes } from "@/lib/types.js";
 
+import { Checkbox } from "@/app/shared/CheckBox.js";
+
 type Props = {
+	dec: CSSTypes.Declaration;
 	onDeclarationToggle: (
 		previouslyOn: boolean,
 		dec: CSSTypes.Declaration,
 	) => void;
-	dec: CSSTypes.Declaration;
 	toggledOff: CSSTypes.Declaration[];
 };
 
@@ -19,14 +20,14 @@ type Props = {
  * @returns The component.
  */
 export default function Declaration(props: Props): ReactElement {
-	const { onDeclarationToggle, dec, toggledOff } = props;
+	const { dec, onDeclarationToggle, toggledOff } = props;
 	const isOn = !toggledOff.find((d) => d === dec);
 	return (
 		<li>
 			<Checkbox
 				checked={isOn}
-				onChange={() => onDeclarationToggle(isOn, dec)}
 				label={`${dec.property} : ${dec.value}`}
+				onChange={() => onDeclarationToggle(isOn, dec)}
 			/>
 		</li>
 	);

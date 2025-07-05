@@ -1,5 +1,6 @@
-import { stringToStylesheet } from "@/lib/css.js";
 import type { ISVGRule, SVGSubElement } from "@/lib/types.js";
+
+import { stringToStylesheet } from "@/lib/css.js";
 
 /**
  * Finds SVG rules in the style-sheet

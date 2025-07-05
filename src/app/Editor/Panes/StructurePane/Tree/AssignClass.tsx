@@ -1,5 +1,8 @@
 import type { FormEvent } from "react";
+
 import { useState } from "react";
+
+import type { PaneSubComponent } from "@/lib/types.js";
 
 import Button from "@/app/shared/Button.js";
 import { Checkbox } from "@/app/shared/CheckBox.js";
@@ -9,7 +12,6 @@ import { getClasses } from "@/lib/getClasses.js";
 import { getSVGElement } from "@/lib/getSVGElement.js";
 import { performChange } from "@/lib/performChange.js";
 import { assignClass } from "@/lib/transformers/index.js";
-import type { PaneSubComponent } from "@/lib/types.js";
 
 /**
  * Controls for assigning a new or existing class to the selected classes.
@@ -67,13 +69,13 @@ const AssignClass: PaneSubComponent = (props) => {
 			) : (
 				<Input
 					label="Class:"
-					value={className}
 					onChange={(e) => setClassName(e.currentTarget.value)}
+					value={className}
 				/>
 			)}
 			<Button
-				type={"submit"}
 				disabled={selectedItems.length === 0 || className === ""}
+				type={"submit"}
 			>
 				Assign
 			</Button>
