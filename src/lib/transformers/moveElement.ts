@@ -32,7 +32,6 @@ export function moveElement(
 	});
 
 	if (targetEquiv && elementEquiv) {
-		// @ts-expect-error TS2339 TypeScript doesn't recognize that these can be set in the traverseTree callback.
-		targetEquiv.append(elementEquiv);
+		(targetEquiv as SVGSubElement).append(elementEquiv);
 	}
 }

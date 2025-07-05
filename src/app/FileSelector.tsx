@@ -59,7 +59,10 @@ function FileSelector(props: Props): ReactElement {
 					accept="image/svg+xml"
 					className={"cursor-pointer"}
 					id="file-selector"
-					onChange={(e) => handleChange(e)}
+					onChange={(e) => {
+						// eslint-disable-next-line @typescript-eslint/no-floating-promises
+						handleChange(e);
+					}}
 					required
 					type="file"
 				/>
