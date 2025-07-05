@@ -1,4 +1,5 @@
 import type { Rule, StyleRules, Stylesheet } from "css";
+
 import CSSParser from "css";
 
 import type { CSSContents, CSSTypes } from "@/lib/types.js";
@@ -11,33 +12,6 @@ import type { CSSContents, CSSTypes } from "@/lib/types.js";
  */
 export function isRule(value: CSSContents): value is CSSParser.Rule {
 	return value.type === "rule";
-}
-
-/**
- * Parse a stylesheet string into a stylesheet object
- *
- * @param stylesheetAsString The stylesheet as a string
- * @returns The parsed stylesheet or null if parsing failed.
- */
-export function stringToStylesheet(
-	stylesheetAsString: string,
-): Stylesheet | null {
-	try {
-		return CSSParser.parse(stylesheetAsString);
-	} catch (e: unknown) {
-		console.error(e);
-		return null;
-	}
-}
-
-/**
- * Convert a stylesheet object into a string
- *
- * @param stylesheet The stylesheet object
- * @returns The stylesheet as a string.
- */
-export function stylesheetToString(stylesheet: CSSTypes.Stylesheet): string {
-	return CSSParser.stringify(stylesheet);
 }
 
 /**
@@ -132,4 +106,31 @@ export function setShadowCSS<
 	const style = svgElem.querySelector("style");
 	if (!style) return;
 	style.innerHTML = func(style.innerHTML, ...argsToPassOn);
+}
+
+/**
+ * Parse a stylesheet string into a stylesheet object
+ *
+ * @param stylesheetAsString The stylesheet as a string
+ * @returns The parsed stylesheet or null if parsing failed.
+ */
+export function stringToStylesheet(
+	stylesheetAsString: string,
+): null | Stylesheet {
+	try {
+		return CSSParser.parse(stylesheetAsString);
+	} catch (e: unknown) {
+		console.error(e);
+		return null;
+	}
+}
+
+/**
+ * Convert a stylesheet object into a string
+ *
+ * @param stylesheet The stylesheet object
+ * @returns The stylesheet as a string.
+ */
+export function stylesheetToString(stylesheet: CSSTypes.Stylesheet): string {
+	return CSSParser.stringify(stylesheet);
 }

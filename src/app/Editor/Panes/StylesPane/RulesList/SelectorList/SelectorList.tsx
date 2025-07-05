@@ -1,4 +1,5 @@
 import type { Rule } from "css";
+
 import CSSParser from "css";
 import React, { type ReactElement, useState } from "react";
 
@@ -30,15 +31,15 @@ function SelectorList(props: IProps): ReactElement {
 	let content = "";
 	if (current) {
 		const newRule: Rule = {
-			type: "rule",
-			selectors: [current],
 			declarations: [
 				{
+					property: "stroke",
 					type: "declaration",
 					value: "red !important",
-					property: "stroke",
 				},
 			],
+			selectors: [current],
+			type: "rule",
 		};
 		const styleSheet: CSSParser.Stylesheet = {
 			stylesheet: { rules: [newRule] },
@@ -51,10 +52,10 @@ function SelectorList(props: IProps): ReactElement {
 			<ul>
 				{props.selectors.map((selector) => (
 					<Selector
+						isChecked={selector === current}
 						key={selector}
 						onSelectorToggle={handleSelectorToggle}
 						selector={selector}
-						isChecked={selector === current}
 					/>
 				))}
 			</ul>

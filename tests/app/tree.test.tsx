@@ -1,5 +1,5 @@
-import { render, cleanup, act, fireEvent } from "@testing-library/react";
-import { describe, it, expect, beforeEach } from "vitest";
+import { act, cleanup, fireEvent, render } from "@testing-library/react";
+import { beforeEach, describe, expect, it } from "vitest";
 
 import { Tree } from "@/app/Editor/Panes/StructurePane/Tree/Tree.js";
 
@@ -11,7 +11,7 @@ describe("<Tree>", () => {
 	});
 	it("should handle an empty tree", () => {
 		const { getByTestId } = render(
-			<Tester testSVG={`<svg></svg>`} Component={Tree} />,
+			<Tester Component={Tree} testSVG={`<svg></svg>`} />,
 		);
 		expect(getByTestId("tester")).toBeTruthy();
 		const pathlist = getByTestId("path-list");
@@ -21,8 +21,8 @@ describe("<Tree>", () => {
 	it("should handle a flat tree", () => {
 		const { getByTestId } = render(
 			<Tester
-				testSVG={`<svg><line></line><line></line></svg>`}
 				Component={Tree}
+				testSVG={`<svg><line></line><line></line></svg>`}
 			/>,
 		);
 		expect(getByTestId("tester")).toBeTruthy();
@@ -31,10 +31,10 @@ describe("<Tree>", () => {
 	});
 
 	it("should handle a mixed tree", async () => {
-		const { getByTestId, getAllByTestId } = render(
+		const { getAllByTestId, getByTestId } = render(
 			<Tester
-				testSVG={`<svg><g><line></line></g><line></line></svg>`}
 				Component={Tree}
+				testSVG={`<svg><g><line></line></g><line></line></svg>`}
 			/>,
 		);
 		expect(getByTestId("tester")).toBeTruthy();
@@ -58,10 +58,10 @@ describe("<Tree>", () => {
 	});
 
 	it("Should allow for classes to be assigned", async () => {
-		const { getByTestId, getAllByTestId, queryByTestId } = render(
+		const { getAllByTestId, getByTestId, queryByTestId } = render(
 			<Tester
-				testSVG={`<svg><g><line></line></g><line></line></svg>`}
 				Component={Tree}
+				testSVG={`<svg><g><line></line></g><line></line></svg>`}
 			/>,
 		);
 		expect(getByTestId("tester")).toBeTruthy();
@@ -84,7 +84,7 @@ describe("<Tree>", () => {
 
 	it("Should allow for classes to be assigned to parents and children", async () => {
 		const { getByTestId, queryByTestId } = render(
-			<Tester testSVG={`<svg><g><line></line></g></svg>`} Component={Tree} />,
+			<Tester Component={Tree} testSVG={`<svg><g><line></line></g></svg>`} />,
 		);
 		expect(getByTestId("tester")).toBeTruthy();
 		await checkNode(getByTestId, 1001);
@@ -105,8 +105,8 @@ describe("<Tree>", () => {
 	it("Should allow for selected elements to be grouped", async () => {
 		const { getByTestId } = render(
 			<Tester
-				testSVG={`<svg><line></line><line></line></svg>`}
 				Component={Tree}
+				testSVG={`<svg><line></line><line></line></svg>`}
 			/>,
 		);
 		expect(getByTestId("tester")).toBeTruthy();
@@ -138,7 +138,7 @@ describe("<Tree>", () => {
 
 	it("Should allow an empty group to be created", async () => {
 		const { getByTestId } = render(
-			<Tester testSVG={`<svg></svg>`} Component={Tree} />,
+			<Tester Component={Tree} testSVG={`<svg></svg>`} />,
 		);
 		expect(getByTestId("tester")).toBeTruthy();
 		const groupForm = getByTestId("add-group");

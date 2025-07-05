@@ -1,12 +1,13 @@
 import React from "react";
 import { useDrag, useDrop } from "react-dnd";
 
-import { Checkbox } from "@/app/shared/CheckBox.js";
-import { performChange } from "@/lib/performChange.js";
 import type { IMoveOptions } from "@/lib/transformers/index.js";
-import { moveElement } from "@/lib/transformers/index.js";
 import type { DependentPaneComponent, IPath } from "@/lib/types.js";
 import type { UseNodesResult } from "@/lib/useNodes.js";
+
+import { Checkbox } from "@/app/shared/CheckBox.js";
+import { performChange } from "@/lib/performChange.js";
+import { moveElement } from "@/lib/transformers/index.js";
 
 import PathList from "./PathList.js";
 
@@ -20,7 +21,7 @@ const Path: DependentPaneComponent<UseNodesResult & { node: IPath }> = (
 	props,
 ) => {
 	const { additional, stateTuple } = props;
-	const { updateSelected, node } = additional;
+	const { node, updateSelected } = additional;
 	const { selected } = stateTuple[0];
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,11 +31,11 @@ const Path: DependentPaneComponent<UseNodesResult & { node: IPath }> = (
 
 	const [, drag] = useDrag<IPath>(
 		() => ({
-			type: "element",
-			item: node,
 			collect: (monitor) => ({
 				opacity: monitor.isDragging() ? 0.5 : 1,
 			}),
+			item: node,
+			type: "element",
 		}),
 		[],
 	);
@@ -63,9 +64,9 @@ const Path: DependentPaneComponent<UseNodesResult & { node: IPath }> = (
 				drag(
 					<div data-testid={`node-${node.id}`}>
 						<Checkbox
+							checked={!!selected.find((s) => s === node.id)}
 							label={node.name}
 							onChange={(e) => handleChange(e)}
-							checked={!!selected.find((s) => s === node.id)}
 						/>
 					</div>,
 				),

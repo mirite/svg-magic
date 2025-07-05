@@ -2,8 +2,9 @@ import React from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
-import Group from "@/app/shared/Group.js";
 import type { PaneSubComponent } from "@/lib/types.js";
+
+import Group from "@/app/shared/Group.js";
 import { useNodes } from "@/lib/useNodes.js";
 
 import AddGroup from "./AddGroup.js";

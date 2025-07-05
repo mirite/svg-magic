@@ -1,42 +1,44 @@
 import type {
 	AtRule,
+	Comment,
 	Declaration,
 	Rule,
 	Stylesheet,
 	Supports,
-	Comment,
 } from "css";
 
 import type { SVGSubElement } from "@/lib/types.js";
 
 import {
-	stringToStylesheet,
 	setShadowCSS,
+	stringToStylesheet,
 	stylesheetToString,
 } from "../css.js";
+
+export type IInliningOptions = object;
 
 /**
  * A class that allows for CSS rules to be reassigned as attributes on the SVG
  * elements.
  */
 class CSSInliner {
-	private readonly rules: Array<Rule | Comment | AtRule | Supports>;
 	private cssPropToHtmlAttributeMap = {
-		stroke: "stroke",
-		"stroke-linecap": "stroke-linecap",
-		"stroke-linejoin": "stroke-linejoin",
 		fill: "fill",
-		"stroke-width": "stroke-width",
 		"fill-opacity": "stroke-opacity",
-		"letter-spacing": "letter-spacing",
 		"font-family": "font-family",
 		"font-size": "font-size",
 		"font-style": "font-style",
 		"font-variant": "font-variant",
 		"font-weight": "font-weight",
+		"letter-spacing": "letter-spacing",
 		opacity: "opacity",
 		rotate: "rotate",
+		stroke: "stroke",
+		"stroke-linecap": "stroke-linecap",
+		"stroke-linejoin": "stroke-linejoin",
+		"stroke-width": "stroke-width",
 	} as const;
+	private readonly rules: Array<AtRule | Comment | Rule | Supports>;
 
 	/**
 	 * Creates a new CSSInliner
@@ -54,28 +56,24 @@ class CSSInliner {
 
 		for (const rule of this.rules) {
 			if ("type" in rule && rule.type === "rule") {
-				this.processRule(rule as Rule);
+				this.processRule(rule);
 			}
 		}
 	}
 
 	/**
-	 * Translate an individual CSS rule to an attribute on the SVG
+	 * Converts a selector array from the parsed CSS to a string representation.
 	 *
-	 * @param rule The rule to translate
+	 * @param rule The rule to get a string selector for.
+	 * @returns The selector.
 	 */
-	private processRule(rule: Rule) {
-		const flattenedSelector = this.flattenSelector(rule);
-		if (!rule.selectors || !flattenedSelector) return;
-		const applicableElements = this.getApplicableElements(flattenedSelector);
-		const removedDeclarations = new Set<Declaration>();
-		for (const element of applicableElements) {
-			const removed = this.processElement(element, rule);
-			removed.forEach((declaration) => {
-				removedDeclarations.add(declaration);
-			});
-		}
-		this.removeInlinedDeclarations(removedDeclarations);
+	private flattenSelector(rule: Rule) {
+		if (!rule.selectors) return "";
+		const combinedSelectors = rule.selectors.reduce(
+			(acc, selector) => acc + selector + ", ",
+			"",
+		);
+		return combinedSelectors.slice(0, -2) || "";
 	}
 
 	/**
@@ -85,9 +83,7 @@ class CSSInliner {
 	 * @returns The elements selected.
 	 */
 	private getApplicableElements(flattenedSelector: string) {
-		return Array.from(
-			this.svgElem.querySelectorAll(flattenedSelector),
-		) as SVGSubElement[];
+		return Array.from(this.svgElem.querySelectorAll(flattenedSelector));
 	}
 
 	/**
@@ -116,14 +112,22 @@ class CSSInliner {
 	}
 
 	/**
-	 * Removed the declarations from the stylesheet that were inlined.
+	 * Translate an individual CSS rule to an attribute on the SVG
 	 *
-	 * @param removedDeclarations The declarations that were inlined.
+	 * @param rule The rule to translate
 	 */
-	private removeInlinedDeclarations(removedDeclarations: Set<Declaration>) {
-		removedDeclarations.forEach((declaration) =>
-			this.removeInlinedDeclaration(declaration),
-		);
+	private processRule(rule: Rule) {
+		const flattenedSelector = this.flattenSelector(rule);
+		if (!rule.selectors || !flattenedSelector) return;
+		const applicableElements = this.getApplicableElements(flattenedSelector);
+		const removedDeclarations = new Set<Declaration>();
+		for (const element of applicableElements) {
+			const removed = this.processElement(element as SVGSubElement, rule);
+			removed.forEach((declaration) => {
+				removedDeclarations.add(declaration);
+			});
+		}
+		this.removeInlinedDeclarations(removedDeclarations);
 	}
 
 	/**
@@ -144,18 +148,14 @@ class CSSInliner {
 	}
 
 	/**
-	 * Converts a selector array from the parsed CSS to a string representation.
+	 * Removed the declarations from the stylesheet that were inlined.
 	 *
-	 * @param rule The rule to get a string selector for.
-	 * @returns The selector.
+	 * @param removedDeclarations The declarations that were inlined.
 	 */
-	private flattenSelector(rule: Rule) {
-		if (!rule.selectors) return "";
-		const combinedSelectors = rule.selectors.reduce(
-			(acc, selector) => acc + selector + ", ",
-			"",
+	private removeInlinedDeclarations(removedDeclarations: Set<Declaration>) {
+		removedDeclarations.forEach((declaration) =>
+			this.removeInlinedDeclaration(declaration),
 		);
-		return combinedSelectors.slice(0, -2) || "";
 	}
 }
 
@@ -175,5 +175,3 @@ export function inlineStyles(
 	if (!styles) return;
 	new CSSInliner(svgElem, styles, options);
 }
-
-export type IInliningOptions = object;

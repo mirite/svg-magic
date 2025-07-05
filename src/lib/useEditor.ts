@@ -1,23 +1,24 @@
 import { useState } from "react";
 
+import type { EditorState, FileState, IFile } from "@/lib/types.js";
+
 import { stripXMLDeclaration } from "@/lib/transformers/stripXMLDeclaration.js";
-import type { EditorState, IFile, FileState } from "@/lib/types.js";
 
 export type UseEditorResult = {
 	/** The overall state of the editor */
 	editorState: EditorState;
-	/** A callback for loading a new file into the state. */
-	handleFileOpen: (file: IFile) => void;
-	/** A wrapper for updating the state of the currently open file. */
-	handleCurrentFileUpdate: (
-		newState: FileState | ((prev: FileState) => FileState),
-	) => void;
 	/** A helper for accessing the currently open file */
 	getCurrentFile: () => FileState | null;
-	/** Tools for dealing with the open files */
-	openFiles: { file: FileState; switchTo: () => void; close: () => void }[];
 	/** Clear the current file */
 	goHome: () => void;
+	/** A wrapper for updating the state of the currently open file. */
+	handleCurrentFileUpdate: (
+		newState: ((prev: FileState) => FileState) | FileState,
+	) => void;
+	/** A callback for loading a new file into the state. */
+	handleFileOpen: (file: IFile) => void;
+	/** Tools for dealing with the open files */
+	openFiles: { close: () => void; file: FileState; switchTo: () => void }[];
 };
 
 /**
@@ -53,7 +54,7 @@ function getOpenFiles(
 			newState.currentFile = i;
 			setEditorState(newState);
 		};
-		openFiles.push({ file, close, switchTo });
+		openFiles.push({ close, file, switchTo });
 	}
 	return openFiles;
 }
@@ -68,7 +69,7 @@ function getOpenFiles(
  * @throws Error if the current file isn't set and this function is called.
  */
 function handleCurrentFileUpdate(
-	newState: FileState | ((prev: FileState) => FileState),
+	newState: ((prev: FileState) => FileState) | FileState,
 	editorState: EditorState,
 	setEditorState: (
 		value: ((prevState: EditorState) => EditorState) | EditorState,
@@ -107,11 +108,11 @@ const handleFileOpen = (
 	const contents = stripXMLDeclaration(e.contents);
 	const fileState: FileState = {
 		file: {
-			title: e.title,
 			contents,
+			title: e.title,
 		},
-		selected: [],
 		previous: [],
+		selected: [],
 	};
 	const newEditorState = { ...editorState };
 	newEditorState.files.push(fileState);
@@ -154,20 +155,20 @@ const getCurrentFile = (editorState: EditorState) =>
  */
 export function useEditor(): UseEditorResult {
 	const [editorState, setEditorState] = useState<EditorState>({
-		files: [],
 		currentFile: null,
+		files: [],
 	});
 
 	const openFiles = getOpenFiles(editorState, setEditorState);
 
 	return {
 		editorState,
-		handleFileOpen: (file: IFile) =>
-			handleFileOpen(file, editorState, setEditorState),
+		getCurrentFile: () => getCurrentFile(editorState),
+		goHome: () => goHome(setEditorState),
 		handleCurrentFileUpdate: (newState) =>
 			handleCurrentFileUpdate(newState, editorState, setEditorState),
-		getCurrentFile: () => getCurrentFile(editorState),
+		handleFileOpen: (file: IFile) =>
+			handleFileOpen(file, editorState, setEditorState),
 		openFiles,
-		goHome: () => goHome(setEditorState),
 	};
 }

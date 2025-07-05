@@ -1,10 +1,11 @@
 import type { ReactElement } from "react";
 
+import type { ISVGRule } from "@/lib/types.js";
+
 import DeclarationList from "@/app/Editor/Panes/StylesPane/RulesList/DeclarationList/DeclarationList.js";
 import SelectorList from "@/app/Editor/Panes/StylesPane/RulesList/SelectorList/SelectorList.js";
 import Group from "@/app/shared/Group.js";
 import { isRule } from "@/lib/css.js";
-import type { ISVGRule } from "@/lib/types.js";
 
 type Props = ISVGRule;
 

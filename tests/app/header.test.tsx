@@ -1,5 +1,5 @@
 import { act, fireEvent, render } from "@testing-library/react";
-import { describe, it, expect, vi } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
 import { Header } from "@/app/Header.js";
 
@@ -11,30 +11,30 @@ describe("<Header />", () => {
 		const switchTo2 = vi.fn();
 		const goHome = vi.fn();
 		const openFile = {
-			file: { title: "test", contents: "test" },
+			file: { contents: "test", title: "test" },
 			previous: [],
 			selected: [],
 		};
-		const { getByText, getByTestId } = render(
+		const { getByTestId, getByText } = render(
 			<Header
+				currentFile={openFile}
+				goHome={goHome}
 				openFiles={[
 					{
-						file: openFile,
 						close: close1,
+						file: openFile,
 						switchTo: switchTo1,
 					},
 					{
+						close: close2,
 						file: {
-							file: { title: "test2", contents: "test" },
+							file: { contents: "test", title: "test2" },
 							previous: [],
 							selected: [],
 						},
-						close: close2,
 						switchTo: switchTo2,
 					},
 				]}
-				currentFile={openFile}
-				goHome={goHome}
 			/>,
 		);
 		const title = getByText("SVG Magic");

@@ -1,13 +1,15 @@
 import type { FormEvent } from "react";
+
 import { useState } from "react";
+
+import type { IPrefixClassOptions } from "@/lib/transformers/index.js";
+import type { PaneSubComponent } from "@/lib/types.js";
 
 import Button from "@/app/shared/Button.js";
 import Group from "@/app/shared/Group.js";
 import { Input } from "@/app/shared/Input.js";
 import { performChange } from "@/lib/performChange.js";
-import type { IPrefixClassOptions } from "@/lib/transformers/index.js";
 import { prefixClasses } from "@/lib/transformers/index.js";
-import type { PaneSubComponent } from "@/lib/types.js";
 
 const PrefixClasses: PaneSubComponent = (props) => {
 	const [prefix, setPrefix] = useState("");
@@ -26,13 +28,13 @@ const PrefixClasses: PaneSubComponent = (props) => {
 		<Group onSubmit={(e) => handleSubmit(e)}>
 			<h3>Prefix Classes:</h3>
 			<Input
-				type="text"
 				label="Prefix:"
-				required
-				value={prefix}
 				onChange={(e) => setPrefix(e.currentTarget.value)}
+				required
+				type="text"
+				value={prefix}
 			/>
-			<Button type="submit" disabled={prefix === ""}>
+			<Button disabled={prefix === ""} type="submit">
 				Add Prefix
 			</Button>
 		</Group>

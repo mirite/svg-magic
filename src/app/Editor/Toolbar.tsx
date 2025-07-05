@@ -1,12 +1,14 @@
-import { faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
 import type { ReactElement } from "react";
+
+import { faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
+
+import type { FileProps } from "@/lib/types.js";
 
 import IconButton from "@/app/shared/IconButton.js";
 import ToolbarTool from "@/app/shared/ToolbarTool.js";
 import { saveFile } from "@/lib/fileSaving.js";
 import { performChange } from "@/lib/performChange.js";
 import { tools } from "@/lib/transformers/toolbarTools.js";
-import type { FileProps } from "@/lib/types.js";
 
 /**
  * The header component for the editor.
@@ -15,12 +17,12 @@ import type { FileProps } from "@/lib/types.js";
  * @returns The rendered component.
  */
 function Toolbar(props: FileProps): ReactElement {
-	const { title, contents } = props.stateTuple[0].file;
+	const { contents, title } = props.stateTuple[0].file;
 
 	return (
 		<menu
 			className={
-				"fixed top-(--nav-height) inset-x-0 bg-blue-200 px-2 h-(--header-height) shadow-lg flex gap-2 items-center grow justify-end"
+				"fixed inset-x-0 top-(--nav-height) flex h-(--header-height) grow items-center justify-end gap-2 bg-blue-200 px-2 shadow-lg"
 			}
 		>
 			{tools.map((tool) => (

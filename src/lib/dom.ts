@@ -1,6 +1,32 @@
 import type { IPath, SVGSubElement } from "@/lib/types.js";
 
 /**
+ * Find the shadow equivalent of a real element
+ *
+ * @param realElementToFind The real element to find
+ * @param shadowElement The shadow element to search in
+ * @returns The shadow equivalent or null if not found
+ */
+export function findShadowEquivalent(
+	realElementToFind: SVGSubElement,
+	shadowElement: SVGSubElement,
+): null | SVGSubElement {
+	if (isEquivalentElement(realElementToFind, shadowElement)) {
+		return shadowElement;
+	}
+	const children = Array.from(shadowElement.children) as SVGSubElement[];
+
+	for (const child of children) {
+		const match = findShadowEquivalent(realElementToFind, child);
+		if (match) {
+			return match;
+		}
+	}
+
+	return null;
+}
+
+/**
  * Determine if two elements are equivalent
  *
  * @param a The first element
@@ -17,32 +43,6 @@ export function isEquivalentElement(
 		return clone.outerHTML;
 	};
 	return clean(a) === clean(b);
-}
-
-/**
- * Find the shadow equivalent of a real element
- *
- * @param realElementToFind The real element to find
- * @param shadowElement The shadow element to search in
- * @returns The shadow equivalent or null if not found
- */
-export function findShadowEquivalent(
-	realElementToFind: SVGSubElement,
-	shadowElement: SVGSubElement,
-): SVGSubElement | null {
-	if (isEquivalentElement(realElementToFind, shadowElement)) {
-		return shadowElement;
-	}
-	const children = Array.from(shadowElement.children) as SVGSubElement[];
-
-	for (const child of children) {
-		const match = findShadowEquivalent(realElementToFind, child);
-		if (match) {
-			return match;
-		}
-	}
-
-	return null;
 }
 
 /**

@@ -2,6 +2,36 @@ import type { SVGSubElement } from "@/lib/types.js";
 
 import { findShadowEquivalent } from "../dom.js";
 
+export interface IMovePointOptions {
+	element: SVGSubElement;
+	newLocation: { x: number; y: number };
+	pointToMove: { x: number; y: number };
+}
+
+/**
+ * Moves a point within an SVG
+ *
+ * @param svgElem The SVG element
+ * @param change The change operation
+ */
+export function movePoint(
+	svgElem: SVGSVGElement,
+	change: IMovePointOptions,
+): void {
+	const { element: lightWorldElem, newLocation, pointToMove } = change;
+	const element = findShadowEquivalent(lightWorldElem, svgElem);
+	if (!element) {
+		return;
+	}
+	for (const c of element.getAttributeNames()) {
+		if (c.startsWith("x")) {
+			if (checkLinePoint(c, element, pointToMove, newLocation)) return;
+		} else if (c === "points") {
+			if (checkPolyPoint(element, pointToMove, newLocation)) return;
+		}
+	}
+}
+
 /**
  * Moves a point in a line.
  *
@@ -59,36 +89,6 @@ function checkPolyPoint(
 			const newList = values.join(" ");
 			element.setAttribute("points", newList);
 			return true;
-		}
-	}
-}
-
-export interface IMovePointOptions {
-	element: SVGSubElement;
-	pointToMove: { x: number; y: number };
-	newLocation: { x: number; y: number };
-}
-
-/**
- * Moves a point within an SVG
- *
- * @param svgElem The SVG element
- * @param change The change operation
- */
-export function movePoint(
-	svgElem: SVGSVGElement,
-	change: IMovePointOptions,
-): void {
-	const { element: lightWorldElem, pointToMove, newLocation } = change;
-	const element = findShadowEquivalent(lightWorldElem, svgElem);
-	if (!element) {
-		return;
-	}
-	for (const c of element.getAttributeNames()) {
-		if (c.startsWith("x")) {
-			if (checkLinePoint(c, element, pointToMove, newLocation)) return;
-		} else if (c === "points") {
-			if (checkPolyPoint(element, pointToMove, newLocation)) return;
 		}
 	}
 }

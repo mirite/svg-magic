@@ -1,15 +1,17 @@
 import type { ChangeEvent, FormEvent, ReactElement } from "react";
+
 import React, { useState } from "react";
 
-import Button from "@/app/shared/Button.js";
 import type { IFile } from "@/lib/types.js";
 
-type Props = {
-	onSelect: (file: IFile) => void;
-};
+import Button from "@/app/shared/Button.js";
 
 type FileSelectorState = {
 	file: IFile;
+};
+
+type Props = {
+	onSelect: (file: IFile) => void;
 };
 
 /**
@@ -49,24 +51,24 @@ function FileSelector(props: Props): ReactElement {
 	};
 
 	return (
-		<div className={"flex text-center flex-col gap-4 min-h-dvh justify-center"}>
+		<div className={"flex min-h-dvh flex-col justify-center gap-4 text-center"}>
 			<p>Select an SVG file to get started.</p>
 			<form onSubmit={(e: React.FormEvent) => handleSubmit(e)}>
 				<label htmlFor="file-selector">File: </label>
 				<input
-					type="file"
-					onChange={(e) => handleChange(e)}
-					id="file-selector"
 					accept="image/svg+xml"
-					required
 					className={"cursor-pointer"}
+					id="file-selector"
+					onChange={(e) => handleChange(e)}
+					required
+					type="file"
 				/>
 				<Button type={"submit"}>Load</Button>
 			</form>
 			<a
 				href="https://github.com/mirite/svg-magic"
-				target="_blank"
 				rel="noreferrer"
+				target="_blank"
 			>
 				View On GitHub
 			</a>

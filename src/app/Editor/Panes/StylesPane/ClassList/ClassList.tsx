@@ -1,8 +1,9 @@
+import type { PaneSubComponent } from "@/lib/types.js";
+
 import Group from "@/app/shared/Group.js";
 import { getClasses } from "@/lib/getClasses.js";
 import { getSVGElement } from "@/lib/getSVGElement.js";
 import { performChange } from "@/lib/performChange.js";
-import type { PaneSubComponent } from "@/lib/types.js";
 
 import Class from "./Class.js";
 
@@ -18,7 +19,7 @@ const ClassList: PaneSubComponent = (props) => {
 	return (
 		<Group>
 			<h3>Classes:</h3>
-			<ul className={"space-y-2 w-full"}>
+			<ul className={"w-full space-y-2"}>
 				{classes.map((c) => (
 					<li key={c}>
 						<Class

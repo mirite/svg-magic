@@ -9,5 +9,5 @@ type Props = PropsWithChildren;
  * @returns The component
  */
 export function InputWrapper(props: Props): ReactElement {
-	return <div className="flex gap-2 items-center">{props.children}</div>;
+	return <div className="flex items-center gap-2">{props.children}</div>;
 }

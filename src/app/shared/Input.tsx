@@ -1,4 +1,4 @@
-import { type ReactElement, useId, type InputHTMLAttributes } from "react";
+import { type InputHTMLAttributes, type ReactElement, useId } from "react";
 
 import { InputWrapper } from "./InputWrapper.js";
 

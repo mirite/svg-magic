@@ -1,5 +1,4 @@
 import { traverseTreeInsideOut } from "../dom.js";
-
 import { minify } from "./minify.js";
 
 /**

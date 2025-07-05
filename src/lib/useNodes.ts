@@ -4,8 +4,8 @@ import { getSVGChildren } from "./getSVGChildren.js";
 import { getSVGElement } from "./getSVGElement.js";
 
 export type UseNodesResult = {
-	updateSelected: (clickedPath: number) => void;
 	node: IPath;
+	updateSelected: (clickedPath: number) => void;
 };
 
 /**
@@ -18,7 +18,7 @@ export function useNodes(props: FileProps): UseNodesResult {
 	const svgRoot = getSVGElement(props);
 	const children = getSVGChildren(svgRoot);
 
-	const root: IPath = { name: "root", elem: svgRoot, children, id: 0 };
+	const root: IPath = { children, elem: svgRoot, id: 0, name: "root" };
 
 	/**
 	 * Update which elements are selected
@@ -36,5 +36,5 @@ export function useNodes(props: FileProps): UseNodesResult {
 		}
 		setState(newState);
 	};
-	return { updateSelected, node: root };
+	return { node: root, updateSelected };
 }
