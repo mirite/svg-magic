@@ -18,7 +18,7 @@ type Props = Omit<ButtonHTMLAttributes<HTMLButtonElement>, "children"> & {
 export default function IconButton(props: Props): ReactElement {
 	const { className: extendedClassName, icon, ...rest } = props;
 	const className = twMerge(
-		"rounded-full border-gray-800 flex p-2 border-2 leading-0 font-semibold bg-gray-800 text-white hover:bg-transparent hover:text-gray-800 transition-all",
+		"flex rounded-full border-2 border-gray-800 bg-gray-800 p-2 leading-0 font-semibold text-white transition-all hover:bg-transparent hover:text-gray-800",
 		extendedClassName,
 	);
 	return (

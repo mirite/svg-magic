@@ -56,7 +56,7 @@ function Class(props: IProps): ReactElement {
 	useEffect(() => setRenaming(false), [existingClassName]);
 
 	return (
-		<div className={"flex justify-between gap-2 items-center"}>
+		<div className={"flex items-center justify-between gap-2"}>
 			<span>
 				{renaming !== false ? (
 					<Input
@@ -68,7 +68,7 @@ function Class(props: IProps): ReactElement {
 					existingClassName
 				)}
 			</span>
-			<div className="flex gap-2 items-center">
+			<div className="flex items-center gap-2">
 				{renaming !== false ? (
 					<IconButton
 						icon={faCheck}

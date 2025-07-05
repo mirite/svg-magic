@@ -51,7 +51,7 @@ function FileSelector(props: Props): ReactElement {
 	};
 
 	return (
-		<div className={"flex text-center flex-col gap-4 min-h-dvh justify-center"}>
+		<div className={"flex min-h-dvh flex-col justify-center gap-4 text-center"}>
 			<p>Select an SVG file to get started.</p>
 			<form onSubmit={(e: React.FormEvent) => handleSubmit(e)}>
 				<label htmlFor="file-selector">File: </label>
@@ -59,7 +59,10 @@ function FileSelector(props: Props): ReactElement {
 					accept="image/svg+xml"
 					className={"cursor-pointer"}
 					id="file-selector"
-					onChange={(e) => handleChange(e)}
+					onChange={(e) => {
+						// eslint-disable-next-line @typescript-eslint/no-floating-promises
+						handleChange(e);
+					}}
 					required
 					type="file"
 				/>

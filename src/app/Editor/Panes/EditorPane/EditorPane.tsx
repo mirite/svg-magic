@@ -23,7 +23,7 @@ const EditorPane: PaneComponent = (props) => {
 	};
 	return (
 		<Pane className={"flex flex-col"} title={"Raw"}>
-			<div className={"flex justify-between gap-2 items-center mb-2"}>
+			<div className={"mb-2 flex items-center justify-between gap-2"}>
 				<Button onClick={() => performChange(props, minify)} type="button">
 					Minify
 				</Button>

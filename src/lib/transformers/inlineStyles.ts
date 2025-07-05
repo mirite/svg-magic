@@ -122,7 +122,7 @@ class CSSInliner {
 		const applicableElements = this.getApplicableElements(flattenedSelector);
 		const removedDeclarations = new Set<Declaration>();
 		for (const element of applicableElements) {
-			const removed = this.processElement(element, rule);
+			const removed = this.processElement(element as SVGSubElement, rule);
 			removed.forEach((declaration) => {
 				removedDeclarations.add(declaration);
 			});

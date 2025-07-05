@@ -20,7 +20,7 @@ export const FileTab: ComponentType<{
 	return (
 		<div
 			className={twMerge(
-				"flex gap-2 items-center border-black border-2 border-b-0 px-2 py-1 rounded-t-xl",
+				"flex items-center gap-2 rounded-t-xl border-2 border-b-0 border-black px-2 py-1",
 				props.isCurrent && "bg-blue-200",
 				!props.isCurrent && "cursor-pointer hover:bg-gray-200",
 			)}
@@ -34,7 +34,7 @@ export const FileTab: ComponentType<{
 				{open.file.file.title}
 			</button>
 			<IconButton
-				className="text-[0.66rem] p-1"
+				className="p-1 text-[0.66rem]"
 				icon={faX}
 				onClick={() => open.close()}
 				title={"Close"}

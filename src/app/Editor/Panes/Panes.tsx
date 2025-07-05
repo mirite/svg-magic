@@ -2,11 +2,10 @@ import { type ReactElement } from "react";
 
 import type { FileProps } from "@/lib/types.js";
 
-import StructurePane from "@/app/Editor/Panes/StructurePane/StructurePane.js";
-import StylesPane from "@/app/Editor/Panes/StylesPane/StylesPane.js";
-
 import EditorPane from "./EditorPane/EditorPane.js";
 import PreviewPane from "./PreviewPane/PreviewPane.js";
+import StructurePane from "./StructurePane/StructurePane.js";
+import StylesPane from "./StylesPane/StylesPane.js";
 
 type IProps = FileProps;
 
@@ -21,7 +20,7 @@ function Panes(props: IProps): ReactElement {
 	return (
 		<div
 			className={
-				"grid grid-cols-2 inset-x-0 xl:grid-cols-4 h-[calc(100dvh_-_var(--content-top))] top-(--content-top) fixed overflow-hidden"
+				"fixed inset-x-0 top-(--content-top) grid h-[calc(100dvh_-_var(--content-top))] grid-cols-2 overflow-hidden xl:grid-cols-4"
 			}
 		>
 			{panes.map((Pane, index) => (

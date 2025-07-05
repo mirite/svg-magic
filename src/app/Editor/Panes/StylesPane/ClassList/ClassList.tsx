@@ -19,7 +19,7 @@ const ClassList: PaneSubComponent = (props) => {
 	return (
 		<Group>
 			<h3>Classes:</h3>
-			<ul className={"space-y-2 w-full"}>
+			<ul className={"w-full space-y-2"}>
 				{classes.map((c) => (
 					<li key={c}>
 						<Class

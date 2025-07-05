@@ -57,7 +57,7 @@ const PreviewPane: PaneComponent = (props) => {
 			<div className={"relative"}>
 				<div
 					className={
-						"bg-(--background) rounded-xl border-2 border-slate-500 border-dashed"
+						"rounded-xl border-2 border-dashed border-slate-500 bg-(--background)"
 					}
 					dangerouslySetInnerHTML={{ __html: svgHTML }}
 				/>
@@ -66,7 +66,7 @@ const PreviewPane: PaneComponent = (props) => {
 			<h3>&lt;img&gt;</h3>
 			<div
 				className={
-					"bg-(--background) rounded-xl border-2 border-slate-500 border-dashed"
+					"rounded-xl border-2 border-dashed border-slate-500 bg-(--background)"
 				}
 			>
 				<img alt="preview" src={"data:image/svg+xml;base64," + base64} />
