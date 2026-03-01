@@ -1,9 +1,9 @@
-import { general, react, tailwind } from "@mirite/eslint-config-mirite";
+import { general, getTailwind, react } from "@mirite/eslint-config-mirite";
 
 export default [
 	...general,
 	...react,
-	...tailwind,
+	...getTailwind("./src/index.css"),
 	{
 		rules: {
 			"import/no-unresolved": "off", // Doesn't work with the Vite aliases
