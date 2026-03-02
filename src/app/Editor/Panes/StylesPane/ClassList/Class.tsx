@@ -4,13 +4,12 @@ import {
 	faPen,
 	faTrash,
 } from "@fortawesome/free-solid-svg-icons";
-import { type ReactElement, useEffect, useState } from "react";
-
-import type { ChangeOperation } from "@/lib/types.js";
+import { useState, type ReactElement } from "react";
 
 import IconButton from "@/app/shared/IconButton.js";
 import { Input } from "@/app/shared/Input.js";
 import { removeClass, renameClass } from "@/lib/transformers/index.js";
+import type { ChangeOperation } from "@/lib/types.js";
 
 interface IProps {
 	existingClassName: string;
@@ -53,8 +52,6 @@ function Class(props: IProps): ReactElement {
 		);
 	}
 
-	useEffect(() => setRenaming(false), [existingClassName]);
-
 	return (
 		<div className={"flex items-center justify-between gap-2"}>
 			<span>
@@ -70,11 +67,7 @@ function Class(props: IProps): ReactElement {
 			</span>
 			<div className="flex items-center gap-2">
 				{renaming !== false ? (
-					<IconButton
-						icon={faCheck}
-						onClick={() => confirmRename()}
-						title={"Save"}
-					/>
+					<IconButton icon={faCheck} onClick={confirmRename} title={"Save"} />
 				) : (
 					<IconButton
 						icon={faPen}
@@ -85,14 +78,14 @@ function Class(props: IProps): ReactElement {
 				{renaming !== false ? (
 					<IconButton
 						icon={faCancel}
-						onClick={() => cancelRename()}
+						onClick={cancelRename}
 						title={"Cancel Renaming"}
 					/>
 				) : (
 					<IconButton
 						className={"bg-red-800"}
 						icon={faTrash}
-						onClick={() => deleteClass()}
+						onClick={deleteClass}
 						title={"Delete"}
 					/>
 				)}
