@@ -1,7 +1,6 @@
 import type { Rule } from "css";
-
 import CSSParser from "css";
-import React, { type ReactElement, useState } from "react";
+import React, { useState, type ReactElement } from "react";
 
 import Selector from "./Selector.js";
 

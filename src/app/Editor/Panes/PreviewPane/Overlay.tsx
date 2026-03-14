@@ -1,11 +1,10 @@
 import { useState } from "react";
 
-import type { PaneSubComponent } from "@/lib/types.js";
-
 import { getSVGElement } from "@/lib/getSVGElement.js";
 import { getSVGPoints } from "@/lib/getSVGPoints.js";
 import { drawOverlay, onMouseDown } from "@/lib/overlay.js";
 import { performChange } from "@/lib/performChange.js";
+import type { PaneSubComponent } from "@/lib/types.js";
 
 /**
  * Displays an overlay with the point locations over the preview pane.

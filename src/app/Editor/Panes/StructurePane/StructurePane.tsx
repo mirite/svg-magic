@@ -1,7 +1,5 @@
-import type { PaneComponent } from "@/lib/types.js";
-
 import { Pane } from "@/app/shared/Pane.js";
-
+import type { PaneComponent } from "@/lib/types.js";
 import PrefixClasses from "./PrefixClasses.js";
 import { Tree } from "./Tree/Tree.js";
 

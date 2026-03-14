@@ -1,5 +1,4 @@
 import type { SVGSubElement } from "@/lib/types.js";
-
 import { findShadowEquivalent } from "../dom.js";
 
 export interface IMovePointOptions {

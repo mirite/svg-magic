@@ -1,5 +1,4 @@
 import type { FileProps, IPath } from "@/lib/types.js";
-
 import { getSVGChildren } from "./getSVGChildren.js";
 import { getSVGElement } from "./getSVGElement.js";
 

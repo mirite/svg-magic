@@ -1,7 +1,6 @@
 import { describe, expect, it } from "vitest";
 
 import { getClasses } from "@/lib/getClasses.js";
-
 import { createSVG } from "../helpers.js";
 
 describe("getClasses", () => {

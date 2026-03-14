@@ -1,5 +1,4 @@
 import type { ButtonHTMLAttributes, ReactElement } from "react";
-
 import { twMerge } from "tailwind-merge";
 
 type Props = ButtonHTMLAttributes<HTMLButtonElement>;

@@ -2,7 +2,6 @@ import { describe, expect, it } from "vitest";
 
 import { getSVGChildren } from "@/lib/getSVGChildren.js";
 import { assignClass } from "@/lib/transformers/index.js";
-
 import { createSVG } from "../../helpers.js";
 
 describe("assignClass", () => {

@@ -1,5 +1,4 @@
 import type { Rule, StyleRules, Stylesheet } from "css";
-
 import CSSParser from "css";
 
 import type { CSSContents, CSSTypes } from "@/lib/types.js";

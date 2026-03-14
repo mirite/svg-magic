@@ -8,7 +8,6 @@ import type {
 } from "css";
 
 import type { SVGSubElement } from "@/lib/types.js";
-
 import {
 	setShadowCSS,
 	stringToStylesheet,

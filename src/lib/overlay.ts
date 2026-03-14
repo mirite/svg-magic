@@ -1,9 +1,7 @@
 import type React from "react";
 
 import type { ChangeOperation, IPoint, SVGSubElement } from "@/lib/types.js";
-
 import type { IMovePointOptions } from "./transformers/index.js";
-
 import { movePoint } from "./transformers/index.js";
 
 /** The pixel width/height of the marker that shows on points. */

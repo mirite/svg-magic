@@ -1,9 +1,7 @@
-import { type ReactElement, useState } from "react";
-
-import type { CSSTypes } from "@/lib/types.js";
+import { useState, type ReactElement } from "react";
 
 import { stylesheetToString } from "@/lib/css.js";
-
+import type { CSSTypes } from "@/lib/types.js";
 import Declaration from "./Declaration.js";
 
 interface IProps {

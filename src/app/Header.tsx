@@ -1,9 +1,8 @@
 /* eslint-disable react/no-array-index-key */
 import type { ComponentType } from "react";
 
-import type { UseEditorResult } from "@/lib/useEditor.js";
-
 import { FileTab } from "@/app/FileTab.js";
+import type { UseEditorResult } from "@/lib/useEditor.js";
 
 export const Header: ComponentType<{
 	currentFile: ReturnType<UseEditorResult["getCurrentFile"]>;

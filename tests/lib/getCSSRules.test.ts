@@ -1,7 +1,6 @@
 import { describe, expect, it } from "vitest";
 
 import { getCSSRules } from "@/lib/getCSSRules.js";
-
 import { createSVG } from "../helpers.js";
 
 describe("getCSSRules", () => {

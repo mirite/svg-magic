@@ -1,6 +1,5 @@
-import type { IPath, SVGSubElement } from "@/lib/types.js";
-
 import { generateID } from "@/lib/generateID.js";
+import type { IPath, SVGSubElement } from "@/lib/types.js";
 
 /**
  * Find the children of an SVG element

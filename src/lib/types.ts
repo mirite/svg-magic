@@ -1,6 +1,5 @@
-import type { ComponentType, Dispatch, SetStateAction } from "react";
-
 import * as CSSTypes from "css";
+import type { ComponentType, Dispatch, SetStateAction } from "react";
 
 export { CSSTypes };
 

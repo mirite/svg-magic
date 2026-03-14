@@ -1,6 +1,6 @@
 import type { HTMLAttributes, ReactElement } from "react";
-
 import { twMerge } from "tailwind-merge";
+
 /**
  * A pane in the window.
  *

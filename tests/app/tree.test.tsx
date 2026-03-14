@@ -2,7 +2,6 @@ import { act, cleanup, fireEvent, render } from "@testing-library/react";
 import { beforeEach, describe, expect, it } from "vitest";
 
 import { Tree } from "@/app/Editor/Panes/StructurePane/Tree/Tree.js";
-
 import { Tester } from "./TestEditor.js";
 
 describe("<Tree>", () => {
